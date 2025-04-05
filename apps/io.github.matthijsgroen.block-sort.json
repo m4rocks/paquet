@@ -9,6 +9,6 @@
 		"desktop",
 		"offline"
 	],
-	"version": 1,
+	"categories": ["games"],
 	"githubUrl": "https://github.com/matthijsgroen/block-sort"
 }

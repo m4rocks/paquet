@@ -8,7 +8,7 @@
 		"openSource",
 		"offline"
 	],
+	"categories": ["games"],
 	"githubUrl": "https://github.com/hexacolonist/hexacolonist.github.io",
-	"author": "ShuP1",
-	"version": 1
+	"author": "ShuP1"
 }

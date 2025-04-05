@@ -1,6 +1,0 @@
-{
-	"deno.enable": true,
-	"deno.lint": true,
-	"deno.unstable": false,
-	"tsserver.enable": false
-}

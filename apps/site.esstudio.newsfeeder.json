@@ -9,7 +9,6 @@
 	"categories": [
 		"news"
 	],
-	"author": "Sem Postma, sem.postma@gmail.com",
-	"accentColor": "#f45c3d",
-	"version": 1
+	"author": "Sem Postma",
+	"accentColor": "#f45c3d"
 }

@@ -1,5 +1,3 @@
 {
-	"deno.enable": true,
-	"deno.lint": true,
-	"editor.defaultFormatter": "denoland.vscode-deno"
+	"astro.content-intellisense": true
 }

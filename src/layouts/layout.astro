@@ -1,0 +1,27 @@
+---
+import "@fontsource/poppins";
+import "@/styles/global.css";
+import HeadTags from "@/components/head-tags.astro";
+---
+
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<HeadTags/>
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: dark)"
+			content="#121212"
+		/>
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: light)"
+			content="#dddddd"
+		/>
+		<title>Paquet</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

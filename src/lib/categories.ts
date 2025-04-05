@@ -1,50 +1,59 @@
-import type { Category } from "@/types/App.ts";
+import { BriefcaseIcon, CodeIcon, Gamepad2Icon, HammerIcon, HeartIcon, MusicIcon, NewspaperIcon, UsersIcon, VideoIcon, type Icon } from "lucide-react";
 
-export const CATEGORIES: Category[] = [
+export interface Category {
+	id: string,
+	icon: typeof Icon,
+	name: string,
+	aliases: string[]
+}
+
+
+export const CATEGORIES = [
 	{
 		id: "news",
-		icon: "news",
+		icon: NewspaperIcon,
 		name: "News",
+		aliases: []
 	},
 	{
 		id: "social",
-		icon: "users",
+		icon: UsersIcon,
 		name: "Social",
 		aliases: ["chat", "messenger", "messaging"],
 	},
 	{
 		id: "entertainment",
-		icon: "movie",
+		icon: VideoIcon,
 		name: "Entertainment",
 		aliases: ["music", "video", "movies", "tv", "streaming"],
 	},
 	{
 		id: "utilities",
-		icon: "tool",
+		icon: HammerIcon,
 		name: "Utilities",
 		aliases: ["tool", "tools", "utility"],
 	},
 	{
 		id: "productivity",
-		icon: "briefcase",
+		icon: BriefcaseIcon,
 		name: "Productivity",
 		aliases: ["work", "business", "office"],
 	},
 	{
 		id: "games",
-		icon: "gamepad",
+		icon: Gamepad2Icon,
 		name: "Games",
 		aliases: ["game", "gaming"],
 	},
 	{
 		id: "music",
-		icon: "music",
+		icon: MusicIcon,
 		name: "Music",
 		aliases: ["audio", "sound"],
 	},
 	{
 		id: "development",
-		icon: "code",
+		icon: CodeIcon,
 		name: "Development",
 		aliases: [
 			"code",
@@ -57,38 +66,8 @@ export const CATEGORIES: Category[] = [
 	},
 	{
 		id: "lifestyle",
-		icon: "heart",
+		icon: HeartIcon,
 		name: "Lifestyle",
 		aliases: ["photo", "travel", "trip", "health"],
 	},
-];
-
-export const getCategory = (
-	categoryId: Category["id"],
-): Category | undefined => {
-	const foundCategory = CATEGORIES.find((category) =>
-		category.id === categoryId || category?.aliases?.includes(categoryId)
-	);
-
-	if (foundCategory) return foundCategory;
-
-	let customCategory = categoryId[0].toUpperCase() + categoryId.slice(1);
-	customCategory = customCategory.replace("_", " ");
-	customCategory = customCategory.replace("-", " ");
-
-	return {
-		icon: "",
-		id: categoryId,
-		name: customCategory,
-	};
-};
-
-export const searchCategory = (search: string): Category[] => {
-	const searchTerms = search.toLowerCase().split(" ");
-
-	return CATEGORIES.filter((category) => {
-		return searchTerms.every((word) =>
-			category.name.toLowerCase().includes(word)
-		);
-	});
-};
+] as const satisfies Category[];

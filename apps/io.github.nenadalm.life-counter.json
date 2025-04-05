@@ -8,6 +8,6 @@
 		"mobile",
 		"offline"
 	],
-	"version": 1,
+	"categories": ["games"],
 	"githubUrl": "https://github.com/nenadalm/life-counter"
 }

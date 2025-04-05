@@ -8,7 +8,7 @@
 		"desktop",
 		"offline"
 	],
-	"version": 1,
+	"categories": ["games"],
 	"githubUrl": "https://github.com/nstringham/othello-web-app",
 	"author": "Nate Stringham"
 }
