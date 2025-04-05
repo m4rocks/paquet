@@ -1,9 +1,14 @@
 ---
 import { Button } from "@/components/ui/button";
 import Layout from "@/layouts/layout.astro";
+import { getCollection } from "astro:content";
+
+const apps = await getCollection("apps");
 ---
 
 <Layout>
+	{apps.map((a) => <p>{a.id} + {a.data.url}<br/></p>)}
+
 	<Button>
 		Install
 	</Button>
