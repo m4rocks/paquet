@@ -21,9 +21,12 @@
     "@tailwindcss/vite": "^4.1.3",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
+    "@types/web-app-manifest": "^1.0.9",
     "astro": "^5.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dom-parser": "^1.1.5",
+    "fast-glob": "^3.3.3",
     "lucide-react": "^0.487.0",
     "motion": "^12.6.3",
     "react": "^19.1.0",
@@ -33,5 +36,8 @@
     "tw-animate-css": "^1.2.5",
     "typescript": "^5.8.3",
     "vaul": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0"
   }
 }

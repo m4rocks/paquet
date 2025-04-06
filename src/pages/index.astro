@@ -2,12 +2,24 @@
 import { Button } from "@/components/ui/button";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 const apps = await getCollection("apps");
 ---
 
 <Layout>
-	{apps.map((a) => <p>{a.id} + {a.data.url}<br/></p>)}
+	<div class="grid grid-cols-3">
+		{apps.map((a) => <div>
+			<Image
+				src={a.data.icon}
+				width={96}
+				height={96}
+				alt={a.data.name}
+				class="w-64 h-64"
+			/>
+			<p>{a.data.name}</p>
+		</div>)}
+	</div>
 
 	<Button>
 		Install

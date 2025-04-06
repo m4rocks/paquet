@@ -1,16 +1,9 @@
-import { glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
-import { CATEGORIES } from "./lib/categories";
-import { appDataLoader, AppSpecSchema, AppSchema } from "./lib/app-loader";
-
-const appSpecs = defineCollection({
-	loader: glob({ pattern: "*.json", base: "./apps" }),
-	schema: AppSpecSchema
-});
+import { defineCollection } from "astro:content";
+import { appDataLoader, AppSchema } from "./lib/app-loader";
 
 const apps = defineCollection({
 	loader: appDataLoader,
 	schema: AppSchema
 });
 
-export const collections = { appSpecs, apps }
+export const collections = { apps }

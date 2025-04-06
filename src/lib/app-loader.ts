@@ -1,12 +1,107 @@
-import { z, type CollectionEntry } from "astro:content"
+import fs from "node:fs/promises";
+import fg from "fast-glob";
+import { z } from "astro:content"
 import { CATEGORIES } from "./categories";
+import { parseFromString } from "dom-parser";
+import type { WebAppManifest } from "web-app-manifest";
 
 const zodEnum = <T>(arr: T[]): [T, ...T[]] => arr as [T, ...T[]];
+
+const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
+	if (!manifest.icons) {
+		return null;
+	}
+	// NOTE: Temp comment to test if it works without checking icon sizes
+	// const ICONS_SIZES = [
+	// 	"96x96",
+	// 	"120x120",
+	// 	"128x128",
+	// 	"144x144",
+	// 	"192x192",
+	// 	"256x256",
+	// 	"512x512",
+	// ];
+
+	const manifestSplit = manifestUrl.split("/");
+	manifestSplit.pop();
+	const manifestParent = manifestSplit.join("/");
+
+	const maskableIcons = manifest.icons.filter((icon) => icon.purpose?.includes("maskable"));
+	const pngIcons = manifest.icons.filter((icon) => icon.src.replace(/\?.*/, "").endsWith(".png"));
+	const svgIcons = manifest.icons.filter((icon) => icon.src.replace(/\?.*/, "")?.endsWith(".svg"));
+
+	const tryIcon = async (iconArray: typeof manifest.icons, index: number): Promise<string | null> => {
+		if (!iconArray || !iconArray[index]) return null;
+		const iconUrl = new URL(iconArray[index].src, manifestParent).href;
+		const isValid = await fetch(iconUrl, {
+			method: "GET"
+		}).then((res) => !!res.ok).catch(() => false);
+		return isValid ? iconUrl : null;
+	};
+
+	const findValidIcon = async (): Promise<string | null> => {
+		for (let i = 0; i < Math.max(maskableIcons.length, pngIcons.length, svgIcons.length); i++) {
+			const maskableResult = await tryIcon(maskableIcons, maskableIcons.length - (1 + i));
+			if (maskableResult) return maskableResult;
+
+			const pngResult = await tryIcon(pngIcons, pngIcons.length - (1 + i));
+			if (pngResult) return pngResult;
+
+			const svgResult = await tryIcon(svgIcons, svgIcons.length - (1 + i));
+			if (svgResult) return svgResult;
+		}
+		return null;
+	};
+
+	const icon = await findValidIcon();
+	if (!icon) return null;
+
+	return icon;
+}
+
+const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Promise<string[]> => {
+	const manifestSplit = manifestUrl.split("/");
+	manifestSplit.pop();
+	const manifestParent = manifestSplit.join("/");
+	const screenshots = manifest.screenshots || [];
+	return await Promise.all(screenshots.map(async (screenshot) => {
+		let url = new URL(screenshot.src, manifestParent).href;
+
+		return url;
+	}));
+}
+
+const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof AppSchema>, "description" | "cover" | "manifestUrl"> | null> => {
+	const pageBody = await fetch(url, {
+		method: "GET",
+		headers: {
+			accept: "text/html"
+		}
+	}).catch(() => null);
+
+	if (!pageBody || !pageBody.ok) {
+		console.error("App with ", url, " url could not be fetched.");
+		return null;
+	}
+
+	const pageHead = (await pageBody.text()).match(/<head[^>]*>([\s\S.]*)<\/head>/i)?.[0] || "";
+	const parsedPageBody = parseFromString(pageHead);
+
+	let manifestLink = parsedPageBody.getElementsByAttribute("rel", "manifest")[0];
+	let descriptionMeta = parsedPageBody.getElementsByAttribute("name", "description")[0];
+	let coverMeta = parsedPageBody.getElementsByAttribute("property", "og:image")[0];
+
+	return {
+		description: descriptionMeta?.getAttribute("content"),
+		manifestUrl: new URL(manifestLink?.getAttribute("href"), url).href,
+		cover: coverMeta ? new URL(coverMeta.getAttribute("content"), url).href : undefined
+	}
+}
 
 export const AppSchema = z.object({
 	id: z.string().min(1).max(50).regex(/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/),
 	name: z.string().min(1).max(30),
-	description: z.string().min(10).max(200).optional(),
+	description: z.string().min(10).max(500).optional(),
 
 	url: z.string().url(),
 
@@ -20,19 +115,10 @@ export const AppSchema = z.object({
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
 
 	manifestUrl: z.string().url(),
-	icon: z.object({
-		src: z.string().url(),
-		alt: z.string()
-	}),
-	screenshots: z.array(z.object({
-		src: z.string().url(),
-		alt: z.string()
-	})).optional(),
+	icon: z.string().url(),
+	screenshots: z.array(z.string().url()).optional(),
 
-	cover: z.object({
-		src: z.string().url(),
-		alt: z.string()
-	}).optional(),
+	cover: z.string().url().optional(),
 
 	accentColor: z.string().optional(),
 })
@@ -50,10 +136,87 @@ export const AppSpecSchema = z.object({
 	accentColor: z.string().optional(),
 })
 
-export const appDataLoader = async (): Promise<Array<typeof AppSchema._type>> => {
-	return [];
+
+export const appDataLoader = async (): Promise<Array<z.infer<typeof AppSchema>>> => {
+	const entries = await fg("./apps/*.json", { dot: false, absolute: true });
+	const appSpecFiles = entries.map((p) => {
+		return fs.readFile(p);
+	}).filter((s) => s !== null);
+	const appSpecs = await Promise.all(appSpecFiles.map(async (file) => {
+		try {
+			const parsed = JSON.parse((await file).toString());
+			return AppSpecSchema.parse(parsed);
+		} catch(e) {
+			return null
+		}
+	})).then((r) => r.filter((s) => s !== null));
+	const apps = [];
+
+
+	for await (const spec of appSpecs) {
+		const data = await appDataFetcher(spec).catch((err) => {
+			console.error("App ", spec.id, " error: ", err);
+			return null;
+		});
+
+		if (data !== null) apps.push(data);
+	}
+
+	return apps;
 }
 
-export const appDataFetcher = async (spec: CollectionEntry<"appSpecs">) => {
+export const appDataFetcher = async (spec: z.infer<typeof AppSpecSchema>): Promise<z.infer<typeof AppSchema> | null> => {
+	let manifest: WebAppManifest;
+	const metaTags = await getMetaTags(spec.url);
+	if (!metaTags) {
+		console.error("App ", spec.id, " meta tags could not be fetched.");
+		return null;
+	}
 
+	let manifestUrl: string | undefined = spec.manifestUrl || metaTags.manifestUrl;
+
+	manifest = await fetch(manifestUrl, {
+		method: "GET",
+		headers: {
+			accept: "application/manifest+json"
+		}
+	}).then(res => res.json()).catch(() => null);
+
+	if (!manifest) {
+		console.error("App ", spec.id, " manifest could not be fetched.");
+		return null;
+	}
+
+	const icon = await getIcon(manifestUrl, manifest);
+
+	if (!icon) {
+		console.error("App ", spec.id, " could not fetch a favorable icon.");
+		return null;
+	}
+
+	const screenshots = await getScreenshots(manifestUrl, manifest);
+
+	if (!screenshots) {
+		console.warn("App ", spec.id, " could not fetch screenshots.");
+	}
+
+	const appData: z.infer<typeof AppSchema> = {
+		id: spec.id,
+		name: manifest.name || manifest.short_name || "",
+		author: spec.author,
+		categories: spec.categories,
+		features: spec.features,
+		icon: icon,
+		manifestUrl: manifestUrl,
+		url: spec.url,
+		accentColor: manifest.theme_color || "#212121",
+		screenshots: screenshots,
+		gitlabUrl: spec.gitlabUrl,
+		githubUrl: spec.githubUrl,
+		description: metaTags.description,
+		cover: metaTags.cover,
+		authorUrl: spec.authorUrl
+	}
+
+	return AppSchema.parse(appData);
 }
