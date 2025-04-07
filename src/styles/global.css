@@ -117,7 +117,7 @@
 @utility container {
 	margin-inline: auto;
 	padding-inline: 1rem;
-	max-width: 1200px;
+	max-width: 1024px;
 }
 
 @utility markdown {
@@ -126,7 +126,7 @@
 
 @layer base {
 	* {
-		@apply border-border outline-none;
+		@apply border-border outline-none underline-offset-4;
 	}
 	body {
 		@apply bg-background text-foreground font-sans;

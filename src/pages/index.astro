@@ -1,39 +1,62 @@
 ---
-import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import { ArrowBigDownDashIcon } from "lucide-react";
+import { AppIcon } from "@/components/app-icon";
 
+// Get 5 random items from the apps collection
 const apps = await getCollection("apps");
+const randomApps = apps
+	.sort(() => 0.8 - Math.random())
+	.slice(0, 8);
 ---
 
-<Layout>
-	<div class="grid grid-cols-3">
-		{apps.map((a) => <div>
-			<Image
-				src={a.data.icon}
-				width={96}
-				height={96}
-				alt={a.data.name}
-				class="w-64 h-64"
-			/>
-			<p>{a.data.name}</p>
-		</div>)}
+<Layout class="container">
+	<div class="h-svh flex flex-col justify-center relative">
+		<h1 class="text-5xl md:text-7xl font-bold">
+			Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
+		</h1>
+
+		<p class="text-center text-muted-foreground absolute animate-bounce bottom-0 left-1/2 -translate-x-1/2">
+			Scroll down to find out more
+			<ArrowBigDownDashIcon className="mx-auto"/>
+		</p>
 	</div>
 
-	<Button>
-		Install
-	</Button>
+	<Card>
+		<CardHeader>
+			<CardTitle className="text-5xl">
+				No downloads.<br />
+				No installs.<br />
+				Just <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">open it</span>.
+				<div class="flex justify-between gap-2 mt-4">
+					{randomApps.map((app) => (
+						<AppIcon
+							app={app}
+							width={64}
+							height={64}
+						/>
+					))}
+				</div>
+			</CardTitle>
+		</CardHeader>
+	</Card>
 
-	<Button variant="secondary">
-		Install
-	</Button>
+	<div class="mt-32">
+		<p class="text-center font-bold text-2xl">
+			What's in store?
+		</p>
 
-	<Button variant="destructive">
-		Install
-	</Button>
-
-	<Button variant="outline">
-		Install
-	</Button>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+			<Card>
+				<CardHeader>
+					<CardTitle>
+						
+					</CardTitle>
+				</CardHeader>
+			</Card>
+		</div>
+	</div>
 </Layout>

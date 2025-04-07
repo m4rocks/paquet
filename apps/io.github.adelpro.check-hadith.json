@@ -1,7 +1,7 @@
 {
-	"id": "io.github.adelpro.check-hadith",
-	"url": "https://adelpro.github.io/check-hadith",
-	"manifestUrl": "https://adelpro.github.io/check-hadith/manifest.json",
+	"id": "kg.us.adelpro.check-hadith",
+	"url": "https://adelpro.us.kg/check-hadith/",
+	"manifestUrl": "https://adelpro.us.kg/check-hadith/manifest.json",
 	"features": [
 		"mobile",
 		"desktop",

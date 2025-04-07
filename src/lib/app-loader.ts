@@ -11,58 +11,72 @@ const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<s
 	if (!manifest.icons) {
 		return null;
 	}
-	// NOTE: Temp comment to test if it works without checking icon sizes
-	// const ICONS_SIZES = [
-	// 	"96x96",
-	// 	"120x120",
-	// 	"128x128",
-	// 	"144x144",
-	// 	"192x192",
-	// 	"256x256",
-	// 	"512x512",
-	// ];
-
+	// Remove the file part from the manifest URL to get the parent URL
 	const manifestSplit = manifestUrl.split("/");
 	manifestSplit.pop();
-	const manifestParent = manifestSplit.join("/");
+	const manifestParent = manifestSplit.join("/") + "/";
 
-	const maskableIcons = manifest.icons.filter((icon) => icon.purpose?.includes("maskable"));
-	const pngIcons = manifest.icons.filter((icon) => icon.src.replace(/\?.*/, "").endsWith(".png"));
-	const svgIcons = manifest.icons.filter((icon) => icon.src.replace(/\?.*/, "")?.endsWith(".svg"));
-
-	const tryIcon = async (iconArray: typeof manifest.icons, index: number): Promise<string | null> => {
-		if (!iconArray || !iconArray[index]) return null;
-		const iconUrl = new URL(iconArray[index].src, manifestParent).href;
-		const isValid = await fetch(iconUrl, {
-			method: "GET"
-		}).then((res) => !!res.ok).catch(() => false);
-		return isValid ? iconUrl : null;
+	// Helper to compute the icon's highest resolution from its sizes property.
+	// If sizes is "512x512 192x192", it returns the highest area computed.
+	const getResolution = (icon: { sizes?: string }): number => {
+		if (!icon.sizes) return 0;
+		return icon.sizes.split(" ").reduce((max, sizeStr) => {
+			const [w, h] = sizeStr.split("x").map(Number);
+			const area = (w || 0) * (h || 0);
+			return Math.max(max, area);
+		}, 0);
 	};
 
-	const findValidIcon = async (): Promise<string | null> => {
-		for (let i = 0; i < Math.max(maskableIcons.length, pngIcons.length, svgIcons.length); i++) {
-			const maskableResult = await tryIcon(maskableIcons, maskableIcons.length - (1 + i));
-			if (maskableResult) return maskableResult;
+	// Helper function to check if an icon's URL responds with a valid response.
+	const tryIcon = async (icon: { src: string }): Promise<string | null> => {
+		const iconUrl = new URL(icon.src, manifestParent).href;
+		try {
+			const res = await fetch(iconUrl, { method: "GET" });
+			if (res.ok) {
+				return iconUrl;
+			}
+		} catch {}
+		return null;
+	};
 
-			const pngResult = await tryIcon(pngIcons, pngIcons.length - (1 + i));
-			if (pngResult) return pngResult;
+	// Filter icons into categories based on file type and "maskable" purpose.
+	const maskableIcons = manifest.icons.filter(
+		(icon) => icon.purpose?.includes("maskable")
+	);
+	const pngIcons = manifest.icons.filter((icon) =>
+		icon.src.replace(/\?.*/, "").endsWith(".png")
+	);
+	const jpgIcons = manifest.icons.filter((icon) => {
+		const src = icon.src.replace(/\?.*/, "").toLowerCase();
+		return src.endsWith(".jpg") || src.endsWith(".jpeg");
+	});
+	const svgIcons = manifest.icons.filter((icon) =>
+		icon.src.replace(/\?.*/, "").endsWith(".svg")
+	);
 
-			const svgResult = await tryIcon(svgIcons, svgIcons.length - (1 + i));
-			if (svgResult) return svgResult;
+	// Helper to sort icons by resolution and try them in order.
+	const trySortedIcons = async (icons: Array<{ src: string; sizes?: string }>): Promise<string | null> => {
+		const sorted = icons.sort((a, b) => getResolution(b) - getResolution(a));
+		for (const icon of sorted) {
+			const result = await tryIcon(icon);
+			if (result) return result;
 		}
 		return null;
 	};
 
-	const icon = await findValidIcon();
-	if (!icon) return null;
+	// Try icons in the following priority: maskable, png, jpg, then svg.
+	for (const group of [maskableIcons, pngIcons, jpgIcons, svgIcons]) {
+		const result = await trySortedIcons(group);
+		if (result) return result;
+	}
 
-	return icon;
-}
+	return null;
+};
 
 const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Promise<string[]> => {
 	const manifestSplit = manifestUrl.split("/");
 	manifestSplit.pop();
-	const manifestParent = manifestSplit.join("/");
+	const manifestParent = manifestSplit.join("/") + "/";
 	const screenshots = manifest.screenshots || [];
 	return await Promise.all(screenshots.map(async (screenshot) => {
 		let url = new URL(screenshot.src, manifestParent).href;

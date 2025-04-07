@@ -2,6 +2,11 @@
 import "@fontsource/poppins";
 import "@/styles/global.css";
 import HeadTags from "@/components/head-tags.astro";
+import Footer from "@/components/footer.astro";
+
+interface Props {
+	class?: string;
+}
 ---
 
 
@@ -22,6 +27,9 @@ import HeadTags from "@/components/head-tags.astro";
 		<title>Paquet</title>
 	</head>
 	<body>
-		<slot />
+		<main class:list={[Astro.props.class]}>
+			<slot />
+		</main>
+		<Footer/>
 	</body>
 </html>
