@@ -119,7 +119,7 @@ export const AppSchema = z.object({
 
 	url: z.string().url(),
 
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases || [])]).flat()))),
+	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))),
 	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
 
 	author: z.string().min(1).max(30),
@@ -144,7 +144,7 @@ export const AppSpecSchema = z.object({
 	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases || [])]).flat()))),
+	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))).optional(),
 	author: z.string().min(1).max(30),
 	authorUrl: z.string().url().optional(),
 	accentColor: z.string().optional(),
@@ -161,6 +161,7 @@ export const appDataLoader = async (): Promise<Array<z.infer<typeof AppSchema>>>
 			const parsed = JSON.parse((await file).toString());
 			return AppSpecSchema.parse(parsed);
 		} catch(e) {
+			console.error("Could not add", (await file))
 			return null
 		}
 	})).then((r) => r.filter((s) => s !== null));
@@ -214,11 +215,13 @@ export const appDataFetcher = async (spec: z.infer<typeof AppSpecSchema>): Promi
 		console.warn("App ", spec.id, " could not fetch screenshots.");
 	}
 
+	const sortedCategories = manifest.categories?.filter((c) => CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat().includes(c as unknown as any));
+
 	const appData: z.infer<typeof AppSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
 		author: spec.author,
-		categories: spec.categories,
+		categories: sortedCategories as typeof spec.categories || spec.categories || [],
 		features: spec.features,
 		icon: icon,
 		manifestUrl: manifestUrl,

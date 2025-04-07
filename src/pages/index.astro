@@ -1,10 +1,12 @@
 ---
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import { ArrowBigDownDashIcon } from "lucide-react";
+import { ArrowBigDownDashIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
 import { AppIcon } from "@/components/app-icon";
+import { FeaturesList } from "@/components/features";
+import BrandIcon from "@/components/ui/brand-icon";
 
 // Get 5 random items from the apps collection
 const apps = await getCollection("apps");
@@ -53,10 +55,91 @@ const randomApps = apps
 			<Card>
 				<CardHeader>
 					<CardTitle>
-						
+						<CloudIcon className="inline w-4 h-4"/>
+						No downloads
 					</CardTitle>
+					<CardDescription>
+						No need to download anything. Paquet is a web app that runs in your browser. All apps you find inside work the same way Paquet does.
+					</CardDescription>
 				</CardHeader>
 			</Card>
+			<Card>
+				<CardHeader>
+					<CardTitle>
+						<CheckIcon className="inline w-4 h-4"/>
+						Verified
+					</CardTitle>
+					<CardDescription>
+						Every app on Paquet is verified manually. We make sure that the app is safe and works as intended. We also make sure that the app is accessible to everyone.
+					</CardDescription>
+				</CardHeader>
+			</Card>
+			<Card>
+				<CardHeader>
+					<CardTitle>
+						<HeartIcon className="inline w-4 h-4"/>
+						Loved by the community
+					</CardTitle>
+					<CardDescription>
+						Only apps that are loved by the community are featured on Paquet. We make sure that you get the best apps.
+					</CardDescription>
+				</CardHeader>
+			</Card>
+		</div>
+	</div>
+
+	<div class="mt-32">
+		<h2 class="text-5xl font-bold mb-4">
+			See if it's <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">for you</span> before you even open it.
+		</h2>
+		<FeaturesList
+			features={["openSource", "desktop", "mobile"]}
+		/>
+	</div>
+
+	<div class="mt-32">
+		<h2 class="text-5xl font-bold">
+			Close to the community
+		</h2>
+		<div
+			class="flex flex-row flex-wrap justify-center items-center gap-4"
+		>
+			<a 
+				class="flex flex-col text-center justify-center items-center"
+				href="https://github.com/m4rocks/paquet"
+				target="_blank"
+			>
+				<BrandIcon
+					icon="github"
+					width={48}
+					height={48}
+				/>
+				<p class="mt-2">GitHub</p>
+				<p class="text-muted-foreground">m4rocks/paquet</p>
+			</a>
+			<a 
+				class="flex flex-col text-center justify-center items-center"
+				href="https://github.com/m4rocks/paquet/blob/main/CONTRIBUTING.md"
+				target="_blank"
+			>
+				<BookMarkedIcon
+					width={48}
+					height={48}
+				/>
+				<p class="mt-2">Contribution Guide</p>
+				<p class="text-muted-foreground">Learn how to contribute to Paquet</p>
+			</a>
+			<a 
+				class="flex flex-col text-center justify-center items-center"
+				href="/docs"
+			>
+				<BookOpenIcon
+					width={48}
+					height={48}
+				/>
+				<p class="mt-2">Documentation</p>
+				<p class="text-muted-foreground">Learn how to use Paquet</p>
+			</a>
 		</div>
 	</div>
 </Layout>

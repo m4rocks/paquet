@@ -37,7 +37,7 @@ export const CATEGORIES = [
 		id: "productivity",
 		icon: BriefcaseIcon,
 		name: "Productivity",
-		aliases: ["work", "business", "office"],
+		aliases: ["work", "business", "office", "education"],
 	},
 	{
 		id: "games",
@@ -61,13 +61,13 @@ export const CATEGORIES = [
 			"program",
 			"programming",
 			"developer",
-			"developers",
+			"developers"
 		],
 	},
 	{
 		id: "lifestyle",
 		icon: HeartIcon,
 		name: "Lifestyle",
-		aliases: ["photo", "travel", "trip", "health"],
+		aliases: ["photo", "travel", "trip", "health", "books"],
 	},
 ] as const satisfies Category[];
