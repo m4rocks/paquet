@@ -10,11 +10,12 @@ export interface AppIconProps {
 }
 
 export async function AppIcon({ app, width, height, className }: AppIconProps) {
-	const compiledImg = await getImage({ src: app.data.icon, width, height, format: "webp" });
+	const compiledImg = await getImage({ src: app.data.icon, width: width + 32, height: height + 32, format: "webp" });
 
 	return (
 		<div
 			className={cn("rounded-full bg-white overflow-hidden", className)}
+			style={{ width, height }}
 		>
 			<img
 				src={compiledImg.src}

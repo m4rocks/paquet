@@ -1,0 +1,40 @@
+---
+import { AppIcon } from "@/components/app-icon";
+import { ListItem } from "@/components/ui/list-item";
+import Layout from "@/layouts/layout.astro";
+import { getCollection } from "astro:content";
+
+const apps = await getCollection("apps");
+const randomApps = [...apps]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 10);
+---
+
+<Layout
+	title="Home"
+	class="container"
+	back
+>
+	<h1 class="text-5xl md:text-7xl font-bold">
+		Home
+	</h1>
+
+	<div class="flex flex-col gap-2">
+		{randomApps.map((a, idx) => (
+			<ListItem
+				title={a.data.name}
+				subtitle={a.data.author}
+				separator={idx !== randomApps.length - 1}
+				href={a.data.url}
+				external
+			>
+				<AppIcon
+					slot="left"
+					app={a}
+					width={48}
+					height={48}
+				/>
+			</ListItem>
+		))}
+	</div>
+</Layout>

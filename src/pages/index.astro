@@ -2,7 +2,6 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
 import { ArrowBigDownDashIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
 import { AppIcon } from "@/components/app-icon";
 import { FeaturesList } from "@/components/features";
@@ -11,15 +10,22 @@ import BrandIcon from "@/components/ui/brand-icon";
 // Get 5 random items from the apps collection
 const apps = await getCollection("apps");
 const randomApps = apps
-	.sort(() => 0.8 - Math.random())
+	.sort(() => Math.random() - 0.5)
 	.slice(0, 8);
 ---
 
-<Layout class="container">
+<Layout
+	class="container"
+	disableTopPadding
+>
 	<div class="h-svh flex flex-col justify-center relative">
-		<h1 class="text-5xl md:text-7xl font-bold">
-			Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
-		</h1>
+		<a
+			href="/home"
+		>
+			<h1 class="text-7xl font-bold">
+				Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
+			</h1>
+		</a>
 
 		<p class="text-center text-muted-foreground absolute animate-bounce bottom-0 left-1/2 -translate-x-1/2">
 			Scroll down to find out more
@@ -47,7 +53,7 @@ const randomApps = apps
 	</Card>
 
 	<div class="mt-32">
-		<p class="text-center font-bold text-2xl">
+		<p class="text-center font-bold text-2xl mb-4">
 			What's in store?
 		</p>
 
@@ -98,14 +104,14 @@ const randomApps = apps
 	</div>
 
 	<div class="mt-32">
-		<h2 class="text-5xl font-bold">
+		<h2 class="text-5xl font-bold text-center mb-4">
 			Close to the community
 		</h2>
 		<div
-			class="flex flex-row flex-wrap justify-center items-center gap-4"
+			class="flex flex-row flex-wrap justify-center items-start gap-4"
 		>
-			<a 
-				class="flex flex-col text-center justify-center items-center"
+			<a
+				class="flex flex-col text-center justify-center items-center max-w-56"
 				href="https://github.com/m4rocks/paquet"
 				target="_blank"
 			>
@@ -117,8 +123,8 @@ const randomApps = apps
 				<p class="mt-2">GitHub</p>
 				<p class="text-muted-foreground">m4rocks/paquet</p>
 			</a>
-			<a 
-				class="flex flex-col text-center justify-center items-center"
+			<a
+				class="flex flex-col text-center justify-center items-center max-w-56"
 				href="https://github.com/m4rocks/paquet/blob/main/CONTRIBUTING.md"
 				target="_blank"
 			>
@@ -129,8 +135,8 @@ const randomApps = apps
 				<p class="mt-2">Contribution Guide</p>
 				<p class="text-muted-foreground">Learn how to contribute to Paquet</p>
 			</a>
-			<a 
-				class="flex flex-col text-center justify-center items-center"
+			<a
+				class="flex flex-col text-center justify-center items-center max-w-56"
 				href="/docs"
 			>
 				<BookOpenIcon
@@ -140,6 +146,8 @@ const randomApps = apps
 				<p class="mt-2">Documentation</p>
 				<p class="text-muted-foreground">Learn how to use Paquet</p>
 			</a>
+
+			<!-- INSERT HEADER APP LISTING OF PAQUET HERE -->
 		</div>
 	</div>
 </Layout>

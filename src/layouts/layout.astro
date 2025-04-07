@@ -1,11 +1,16 @@
 ---
-import "@fontsource/poppins";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/700.css";
 import "@/styles/global.css";
 import HeadTags from "@/components/head-tags.astro";
 import Footer from "@/components/footer.astro";
+import { Navbar } from "@/components/navbar";
 
 interface Props {
 	class?: string;
+	title?: string;
+	back?: boolean;
+	disableTopPadding?: boolean;
 }
 
 const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
@@ -26,9 +31,17 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			media="(prefers-color-scheme: light)"
 			content="#dddddd"
 		/>
-		<title>Paquet</title>
+		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
 	</head>
 	<body>
+		{!Astro.props.disableTopPadding ?
+			<div class="h-16"/>
+		: null}
+		<Navbar
+			title={Astro.props.title}
+			back={Astro.props.back}
+			client:load
+		/>
 		<main class:list={[Astro.props.class]}>
 			<slot />
 		</main>
