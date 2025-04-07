@@ -1,5 +1,8 @@
 name = "paquet"
 pages_build_output_dir = "./dist"
 
+[build]
+command = "bun run build"
+
 [vars]
 BUN_VERSION = "1.2.8"
