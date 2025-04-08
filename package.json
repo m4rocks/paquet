@@ -4,7 +4,7 @@
   "version": "7.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "PROD=1 astro build",
+    "build": "BUILD=1 astro build",
     "preview": "astro preview",
     "astro": "astro",
     "generate:schema": "bun scripts/generateAppSpecSchema.ts"
@@ -30,6 +30,7 @@
     "fast-glob": "^3.3.3",
     "lucide-react": "^0.487.0",
     "motion": "^12.6.3",
+    "pagefind": "^1.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwind-merge": "^3.1.0",

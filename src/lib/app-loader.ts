@@ -6,6 +6,7 @@ import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
 import type { Loader } from "astro/loaders";
+import { buildSearchIndex } from "./pagefind";
 
 
 const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
@@ -155,6 +156,8 @@ export const appLoader: Loader = {
 				digest: specDigest
 			})
 		}
+
+		buildSearchIndex(store.entries())
 	}
 }
 
