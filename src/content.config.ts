@@ -1,9 +1,8 @@
 import { defineCollection } from "astro:content";
-import { appDataLoader, appSchema } from "./lib/app-loader";
+import { appLoader } from "./lib/app-loader";
 
 const apps = defineCollection({
-	loader: appDataLoader,
-	schema: appSchema
+	loader: appLoader
 });
 
 export const collections = { apps }

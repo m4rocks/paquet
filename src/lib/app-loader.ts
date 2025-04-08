@@ -5,6 +5,7 @@ import { CATEGORIES } from "./categories";
 import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
+import type { Loader } from "astro/loaders";
 
 
 const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
@@ -112,35 +113,51 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 	}
 }
 
+export const appLoader: Loader = {
+	name: "PaquetAppLoader",
+	schema: appSchema,
+	load: async ({ store, meta, parseData, generateDigest }) => {
+		const entries = await fg("./apps/*.json", { dot: false, absolute: true });
+		const appSpecFiles = entries.map((p) => {
+			return fs.readFile(p);
+		}).filter((s) => s !== null);
+		const appSpecs = await Promise.all(appSpecFiles.map(async (file) => {
+			try {
+				const parsed = JSON.parse((await file).toString());
+				return appSpecSchema.parse(parsed);
+			} catch(e) {
+				console.error("Could not add", (await file))
+				return null
+			}
+		})).then((r) => r.filter((s) => s !== null));
+	
+	
+		for await (const spec of appSpecs) {
+			if (store.get(spec.id)?.digest === generateDigest(spec)) continue;
 
-export const appDataLoader = async (): Promise<Array<z.infer<typeof appSchema>>> => {
-	const entries = await fg("./apps/*.json", { dot: false, absolute: true });
-	const appSpecFiles = entries.map((p) => {
-		return fs.readFile(p);
-	}).filter((s) => s !== null);
-	const appSpecs = await Promise.all(appSpecFiles.map(async (file) => {
-		try {
-			const parsed = JSON.parse((await file).toString());
-			return appSpecSchema.parse(parsed);
-		} catch(e) {
-			console.error("Could not add", (await file))
-			return null
+			const rawData = await appDataFetcher(spec).catch((err) => {
+				console.error("App ", spec.id, " error: ", err);
+				return null;
+			});
+			
+			if (rawData === null) continue;
+
+			const data = await parseData({
+				id: spec.id,
+				data: rawData
+			})
+
+			const specDigest = generateDigest(spec);
+
+			store.set({
+				id: spec.id,
+				data,
+				digest: specDigest
+			})
 		}
-	})).then((r) => r.filter((s) => s !== null));
-	const apps = [];
-
-
-	for await (const spec of appSpecs) {
-		const data = await appDataFetcher(spec).catch((err) => {
-			console.error("App ", spec.id, " error: ", err);
-			return null;
-		});
-
-		if (data !== null) apps.push(data);
 	}
-
-	return apps;
 }
+
 
 export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promise<z.infer<typeof appSchema> | null> => {
 	let manifest: WebAppManifest;

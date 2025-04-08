@@ -40,4 +40,5 @@ export const appSpecSchema = z.object({
 	author: z.string().min(1).max(30),
 	authorUrl: z.string().url().optional(),
 	accentColor: z.string().optional(),
+	updatedDate: z.string().date()
 })
