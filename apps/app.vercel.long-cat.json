@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.vercel.long-cat",
 	"url": "https://long-cat.vercel.app",
 	"manifestUrl": "https://long-cat.vercel.app/manifest.json",

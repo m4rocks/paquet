@@ -1,9 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import fs from "node:fs/promises";
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
+import zodToJsonSchema from 'zod-to-json-schema';
+import { appSpecSchema } from './src/lib/app-schema';
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,5 +40,13 @@ export default defineConfig({
 	experimental: {
 		contentIntellisense: true
 	}
-
 });
+
+if (import.meta.env.PROD) {
+	console.log("Building Schema");
+	const appJsonSchema = zodToJsonSchema(appSpecSchema, {
+		name: "appSpec",
+	});
+
+	await fs.writeFile("app-spec-schema.json", JSON.stringify(appJsonSchema));
+}

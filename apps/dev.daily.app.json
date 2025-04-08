@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "dev.daily.app",
 	"url": "https://app.daily.dev",
 	"manifestUrl": "https://app.daily.dev/manifest.json",

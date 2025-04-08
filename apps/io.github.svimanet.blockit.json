@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.svimanet.blockit",
 	"url": "https://svimanet.github.io/blockit/",
 	"author": "Eirik",

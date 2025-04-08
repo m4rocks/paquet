@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.matthijsgroen.block-sort",
 	"url": "https://matthijsgroen.github.io/block-sort/",
 	"author": "Matthijs Groen",

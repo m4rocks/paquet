@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.nenadalm.virus-wars",
 	"url": "https://nenadalm.github.io/virus-wars/",
 	"manifestUrl": "https://nenadalm.github.io/virus-wars/manifest.json",

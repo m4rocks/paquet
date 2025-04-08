@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.boxy-svg.app",
 	"url": "https://boxy-svg.com/app",
 	"manifestUrl": "https://boxy-svg.com/boxy-svg.webmanifest",

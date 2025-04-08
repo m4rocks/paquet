@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.recipesage",
 	"url": "https://recipesage.com",
 	"author": "Julian Poyourow",

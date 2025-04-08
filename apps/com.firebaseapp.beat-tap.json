@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.firebaseapp.beat-tap",
 	"url": "https://beat-tap.firebaseapp.com",
 	"manifestUrl": "https://beat-tap.firebaseapp.com/manifest.json",

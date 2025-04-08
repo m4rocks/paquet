@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.hexacolonist",
 	"url": "https://hexacolonist.github.io",
 	"manifestUrl": "https://hexacolonist.github.io/manifest.webmanifest",

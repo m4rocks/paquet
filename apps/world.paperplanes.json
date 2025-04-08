@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "world.paperplanes",
 	"url": "https://paperplanes.world",
 	"manifestUrl": "https://paperplanes.world/manifest.json",

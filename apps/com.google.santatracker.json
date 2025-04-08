@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.google.santatracker",
 	"url": "https://santatracker.google.com",
 	"manifestUrl": "https://santatracker.google.com/manifest.json",

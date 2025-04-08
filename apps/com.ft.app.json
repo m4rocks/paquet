@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.ft.app",
 	"url": "https://app.ft.com",
 	"manifestUrl": "https://app.ft.com/metatags.json?v=3",

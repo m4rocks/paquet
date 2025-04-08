@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.tiktok",
 	"url": "https://tiktok.com",
 	"manifestUrl": "https://tiktok.com/manifest.json",

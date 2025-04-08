@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.stackblitz",
 	"url": "https://stackblitz.com",
 	"manifestUrl": "https://stackblitz.com/manifest.json",

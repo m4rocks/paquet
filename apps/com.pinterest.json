@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.pinterest",
 	"url": "https://pinterest.com",
 	"manifestUrl": "https://pinterest.com/manifest.json",

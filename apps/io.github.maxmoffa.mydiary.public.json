@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.maxmoffa.mydiary.public",
 	"url": "https://maxmoffa.github.io/mydiary/public",
 	"manifestUrl": "https://maxmoffa.github.io/mydiary/public/manifest.json",

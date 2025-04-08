@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.bsehovac.the-cube",
 	"url": "https://bsehovac.github.io/the-cube",
 	"manifestUrl": "https://bsehovac.github.io/the-cube/assets/icons/site.webmanifest",

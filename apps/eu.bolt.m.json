@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "eu.bolt.m",
 	"url": "https://m.bolt.eu",
 	"manifestUrl": "https://m.bolt.eu/manifest.json",

@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.alibaba.m",
 	"url": "https://m.alibaba.com/",
 	"manifestUrl": "https://m.alibaba.com/manifest-pwa.json",

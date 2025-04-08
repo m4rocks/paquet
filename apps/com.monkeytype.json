@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.monkeytype",
 	"url": "https://monkeytype.com",
 	"manifestUrl": "https://monkeytype.com/manifest.json",

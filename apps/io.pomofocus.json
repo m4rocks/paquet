@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.pomofocus",
 	"url": "https://pomofocus.io",
 	"manifestUrl": "https://pomofocus.io/manifest.json",

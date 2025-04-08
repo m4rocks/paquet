@@ -7,6 +7,8 @@ import Footer from "@/components/footer.astro";
 interface Props {
 	class?: string;
 }
+
+const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
 ---
 
 
@@ -30,6 +32,8 @@ interface Props {
 		<main class:list={[Astro.props.class]}>
 			<slot />
 		</main>
-		<Footer/>
+		<Footer
+			{commitHash}
+		/>
 	</body>
 </html>

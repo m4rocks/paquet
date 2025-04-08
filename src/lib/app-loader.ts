@@ -4,8 +4,8 @@ import { z } from "astro:content"
 import { CATEGORIES } from "./categories";
 import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
+import { appSchema, appSpecSchema } from "./app-schema";
 
-const zodEnum = <T>(arr: T[]): [T, ...T[]] => arr as [T, ...T[]];
 
 const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
 	if (!manifest.icons) {
@@ -85,7 +85,7 @@ const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Pr
 	}));
 }
 
-const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof AppSchema>, "description" | "cover" | "manifestUrl"> | null> => {
+const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>, "description" | "cover" | "manifestUrl"> | null> => {
 	const pageBody = await fetch(url, {
 		method: "GET",
 		headers: {
@@ -112,46 +112,8 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof AppSchema>,
 	}
 }
 
-export const AppSchema = z.object({
-	id: z.string().min(1).max(50).regex(/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/),
-	name: z.string().min(1).max(30),
-	description: z.string().min(10).max(500).optional(),
 
-	url: z.string().url(),
-
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))),
-	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
-
-	author: z.string().min(1).max(30),
-	authorUrl: z.string().url().optional(),
-
-	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
-	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
-
-	manifestUrl: z.string().url(),
-	icon: z.string().url(),
-	screenshots: z.array(z.string().url()).optional(),
-
-	cover: z.string().url().optional(),
-
-	accentColor: z.string().optional(),
-})
-
-export const AppSpecSchema = z.object({
-	id: z.string().min(1).max(50).regex(/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/),
-	url: z.string().url(),
-	manifestUrl: z.string().url().optional(),
-	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
-	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
-	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))).optional(),
-	author: z.string().min(1).max(30),
-	authorUrl: z.string().url().optional(),
-	accentColor: z.string().optional(),
-})
-
-
-export const appDataLoader = async (): Promise<Array<z.infer<typeof AppSchema>>> => {
+export const appDataLoader = async (): Promise<Array<z.infer<typeof appSchema>>> => {
 	const entries = await fg("./apps/*.json", { dot: false, absolute: true });
 	const appSpecFiles = entries.map((p) => {
 		return fs.readFile(p);
@@ -159,7 +121,7 @@ export const appDataLoader = async (): Promise<Array<z.infer<typeof AppSchema>>>
 	const appSpecs = await Promise.all(appSpecFiles.map(async (file) => {
 		try {
 			const parsed = JSON.parse((await file).toString());
-			return AppSpecSchema.parse(parsed);
+			return appSpecSchema.parse(parsed);
 		} catch(e) {
 			console.error("Could not add", (await file))
 			return null
@@ -180,7 +142,7 @@ export const appDataLoader = async (): Promise<Array<z.infer<typeof AppSchema>>>
 	return apps;
 }
 
-export const appDataFetcher = async (spec: z.infer<typeof AppSpecSchema>): Promise<z.infer<typeof AppSchema> | null> => {
+export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promise<z.infer<typeof appSchema> | null> => {
 	let manifest: WebAppManifest;
 	const metaTags = await getMetaTags(spec.url);
 	if (!metaTags) {
@@ -217,7 +179,7 @@ export const appDataFetcher = async (spec: z.infer<typeof AppSpecSchema>): Promi
 
 	const sortedCategories = manifest.categories?.filter((c) => CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat().includes(c as unknown as any));
 
-	const appData: z.infer<typeof AppSchema> = {
+	const appData: z.infer<typeof appSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
 		author: spec.author,
@@ -235,5 +197,5 @@ export const appDataFetcher = async (spec: z.infer<typeof AppSpecSchema>): Promi
 		authorUrl: spec.authorUrl
 	}
 
-	return AppSchema.parse(appData);
+	return appSchema.parse(appData);
 }

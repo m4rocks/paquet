@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.vercel.cuzzle-react",
 	"url": "https://cuzzle-react.vercel.app",
 	"manifestUrl": "https://cuzzle-react.vercel.app/manifest.json",

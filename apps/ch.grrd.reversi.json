@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "ch.grrd.reversi",
 	"url": "https://reversi.grrd.ch/",
 	"manifestUrl": "https://reversi.grrd.ch/manifest/appmanifest.json",

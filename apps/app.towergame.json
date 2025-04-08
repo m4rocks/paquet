@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.towergame",
 	"url": "https://towergame.app",
 	"manifestUrl": "https://towergame.app/manifest.json",

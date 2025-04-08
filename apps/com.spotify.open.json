@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.spotify.open",
 	"url": "https://open.spotify.com",
 	"manifestUrl": "https://open.spotifycdn.com/cdn/generated/manifest-mobile-web-player.a1ddf51c.json",

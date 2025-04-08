@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.journalisticapp.pwa",
 	"url": "https://pwa.journalisticapp.com",
 	"manifestUrl": "https://pwa.journalisticapp.com/manifest.json",

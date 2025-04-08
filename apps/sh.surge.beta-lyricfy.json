@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "sh.surge.beta-lyricfy",
 	"url": "https://beta-lyricfy.surge.sh",
 	"manifestUrl": "https://beta-lyricfy.surge.sh/manifest.json",

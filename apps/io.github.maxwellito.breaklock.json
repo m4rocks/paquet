@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.maxwellito.breaklock",
 	"url": "https://maxwellito.github.io/breaklock",
 	"manifestUrl": "https://maxwellito.github.io/breaklock/en/manifest.json",

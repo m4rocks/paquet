@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.youtube",
 	"url": "https://www.youtube.com",
 	"manifestUrl": "https://www.youtube.com/manifest.webmanifest",

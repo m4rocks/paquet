@@ -4,7 +4,7 @@
   "version": "7.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "PROD=1 astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -35,7 +35,8 @@
     "tailwindcss": "^4.1.3",
     "tw-animate-css": "^1.2.5",
     "typescript": "^5.8.3",
-    "vaul": "^1.1.2"
+    "vaul": "^1.1.2",
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
     "@types/node": "^22.14.0"

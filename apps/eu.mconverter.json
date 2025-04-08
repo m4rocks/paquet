@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "eu.mconverter",
 	"url": "https://mconverter.eu",
 	"manifestUrl": "https://mconverter.eu/manifest.json",

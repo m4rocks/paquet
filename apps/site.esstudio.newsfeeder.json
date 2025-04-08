@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "site.esstudio.newsfeeder",
 	"url": "https://newsfeeder.esstudio.site",
 	"manifestUrl": "https://newsfeeder.esstudio.site/manifest.json",

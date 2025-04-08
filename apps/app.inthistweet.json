@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.inthistweet",
 	"url": "https://inthistweet.app",
 	"manifestUrl": "https://inthistweet.app/manifest.json",

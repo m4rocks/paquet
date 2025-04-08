@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.keyli3e.linef",
 	"url": "https://linef.keyli3e.com/",
 	"features": [

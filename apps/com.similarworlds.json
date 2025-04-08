@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.similarworlds",
 	"url": "https://similarworlds.com",
 	"manifestUrl": "https://similarworlds.com/manifest.json",

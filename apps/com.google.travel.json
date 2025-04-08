@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.google.travel",
 	"url": "https://www.google.com/travel",
 	"manifestUrl": "https://www.google.com/_/TravelFrontendUi/manifest.json",

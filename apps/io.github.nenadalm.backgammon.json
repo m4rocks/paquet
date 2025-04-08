@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.github.nenadalm.backgammon",
 	"url": "https://nenadalm.github.io/backgammon/",
 	"author": "Miloslav Nenadál",

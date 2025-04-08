@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "us.githubstat",
 	"url": "https://githubstat.us",
 	"manifestUrl": "https://githubstat.us/manifest.json",

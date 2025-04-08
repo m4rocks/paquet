@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.vercel.calculator-game-reactjs",
 	"url": "https://calculator-game-reactjs.vercel.app",
 	"manifestUrl": "https://calculator-game-reactjs.vercel.app/manifest.json",

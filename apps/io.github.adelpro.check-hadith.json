@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "kg.us.adelpro.check-hadith",
 	"url": "https://adelpro.us.kg/check-hadith/",
 	"manifestUrl": "https://adelpro.us.kg/check-hadith/manifest.json",

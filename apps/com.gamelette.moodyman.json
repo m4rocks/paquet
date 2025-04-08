@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.gamelette.moodyman",
 	"url": "https://moodyman.gamelette.com/",
 	"manifestUrl": "https://moodyman.gamelette.com/manifest.json",

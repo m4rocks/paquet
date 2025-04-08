@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "chrome.apps.canvas",
 	"url": "https://canvas.apps.chrome",
 	"manifestUrl": "https://canvas.apps.chrome/manifest.json",

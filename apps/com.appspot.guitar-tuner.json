@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "com.appspot.guitar-tuner",
 	"url": "https://guitar-tuner.appspot.com/",
 	"manifestUrl": "https://guitar-tuner.appspot.com/manifest.json",

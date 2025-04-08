@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.web.wallpeppers",
 	"url": "https://wallpeppers.web.app",
 	"manifestUrl": "https://wallpeppers.web.app/manifest.json",

@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "social.pinafore",
 	"url": "https://pinafore.social",
 	"manifestUrl": "https://pinafore.social/manifest.json",

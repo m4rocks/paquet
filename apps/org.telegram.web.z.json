@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "org.telegram.web.z",
 	"url": "https://web.telegram.org/z",
 	"manifestUrl": "https://web.telegram.org/z/site.webmanifest",

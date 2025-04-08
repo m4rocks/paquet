@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "win.freesolitaire",
 	"url": "https://freesolitaire.win",
 	"manifestUrl": "https://freesolitaire.win/manifest.json",

@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.screenrecorderweb",
 	"url": "https://screenrecorderweb.app",
 	"manifestUrl": "https://screenrecorderweb.app/manifest.json",

@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.wordsofwisdom",
 	"url": "https://wordsofwisdom.app",
 	"manifestUrl": "https://wordsofwisdom.app/manifest.json",

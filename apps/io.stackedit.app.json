@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "io.stackedit.app",
 	"url": "https://stackedit.io/app",
 	"manifestUrl": "https://stackedit.io/manifest.c9128ce574e7548a3b0d3bcd8bfa212c.json",

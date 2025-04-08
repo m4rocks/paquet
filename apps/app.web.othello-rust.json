@@ -1,4 +1,5 @@
 {
+	"$schema": "../app-spec-schema.json",
 	"id": "app.web.othello-rust",
 	"url": "https://othello-rust.web.app/",
 	"manifestUrl": "https://othello-rust.web.app/manifest.webmanifest",

@@ -25,7 +25,7 @@ export const CATEGORIES = [
 		id: "entertainment",
 		icon: VideoIcon,
 		name: "Entertainment",
-		aliases: ["music", "video", "movies", "tv", "streaming"],
+		aliases: ["video", "movies", "tv", "streaming"],
 	},
 	{
 		id: "utilities",
