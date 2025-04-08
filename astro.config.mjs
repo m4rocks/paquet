@@ -34,8 +34,4 @@ export default defineConfig({
 		},
 		imageService: "compile",
 	}),
-
-	experimental: {
-		contentIntellisense: true
-	}
 });
