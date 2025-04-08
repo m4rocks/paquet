@@ -1,13 +1,8 @@
 ---
-import { AppIcon } from "@/components/app-icon";
-import { ListItem } from "@/components/ui/list-item";
+import Random5Apps from "@/components/app-sections/random-5-apps.astro";
+import RandomCategoryApps from "@/components/app-sections/random-category-apps.astro";
+import RandomCoverApps from "@/components/app-sections/random-cover-apps.astro";
 import Layout from "@/layouts/layout.astro";
-import { getCollection } from "astro:content";
-
-const apps = await getCollection("apps");
-const randomApps = [...apps]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 10);
 ---
 
 <Layout
@@ -15,26 +10,27 @@ const randomApps = [...apps]
 	class="container"
 	back
 >
-	<h1 class="text-5xl md:text-7xl font-bold">
+	<h1 class="text-5xl md:text-7xl font-bold mb-4">
 		Home
 	</h1>
 
-	<div class="flex flex-col gap-2">
-		{randomApps.map((a, idx) => (
-			<ListItem
-				title={a.data.name}
-				subtitle={a.data.author}
-				separator={idx !== randomApps.length - 1}
-				href={a.data.url}
-				external
-			>
-				<AppIcon
-					slot="left"
-					app={a}
-					width={48}
-					height={48}
-				/>
-			</ListItem>
-		))}
+	<div>
+		<div
+			class="flex flex-row gap-2 overflow-x-scroll"
+		>
+			<RandomCoverApps server:defer/>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+		<div class="flex flex-col gap-2">
+			<h2 class="text-2xl font-bold">Random pick</h2>
+			<Random5Apps server:defer/>
+		</div>
+
+		<div class="flex flex-col gap-2">
+			<h2 class="text-2xl font-bold">Random category</h2>
+			<RandomCategoryApps server:defer/>
+		</div>
 	</div>
 </Layout>

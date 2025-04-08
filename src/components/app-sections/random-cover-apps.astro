@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import { AppCard } from "../app-card";
+
+const apps = await getCollection("apps", (entry) => !!entry.data.cover);
+const randomApps = apps
+	.sort(() => Math.random() - 0.5)
+	.slice(0, 5);
+---
+
+
+{randomApps.map((a, idx) => (
+	<AppCard
+		app={a}
+	/>
+))}

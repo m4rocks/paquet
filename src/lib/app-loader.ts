@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import fg from "fast-glob";
 import { z } from "astro:content"
-import { CATEGORIES } from "./categories";
+import { categories } from "./categories";
 import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
@@ -131,8 +131,8 @@ export const appLoader: Loader = {
 				return null
 			}
 		})).then((r) => r.filter((s) => s !== null));
-	
-	
+
+
 		for await (const spec of appSpecs) {
 			if (store.get(spec.id)?.digest === generateDigest(spec)) continue;
 
@@ -140,7 +140,7 @@ export const appLoader: Loader = {
 				console.error("App ", spec.id, " error: ", err);
 				return null;
 			});
-			
+
 			if (rawData === null) continue;
 
 			const data = await parseData({
@@ -180,30 +180,54 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 	}).then(res => res.json()).catch(() => null);
 
 	if (!manifest) {
-		console.error("App ", spec.id, " manifest could not be fetched.");
+		console.error("App", spec.id, "manifest could not be fetched.");
 		return null;
 	}
 
 	const icon = await getIcon(manifestUrl, manifest);
 
 	if (!icon) {
-		console.error("App ", spec.id, " could not fetch a favorable icon.");
+		console.error("App", spec.id, "could not fetch a favorable icon.");
 		return null;
 	}
 
 	const screenshots = await getScreenshots(manifestUrl, manifest);
 
 	if (!screenshots) {
-		console.warn("App ", spec.id, " could not fetch screenshots.");
+		console.warn("App", spec.id, "could not fetch screenshots.");
 	}
 
-	const sortedCategories = manifest.categories?.filter((c) => CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat().includes(c as unknown as any));
+	const appCategories: string[] = manifest.categories as string[] || spec.categories as string[] || [];
+
+	if (appCategories.length === 0) {
+		console.error("App", spec.id, "does not have categories")
+		return null;
+	}
+
+	const sortedCategories: Exclude<typeof spec.categories, undefined> = [];
+
+	appCategories.forEach((category) => {
+		const foundCategory = categories.find((c) => {
+			return c.id === category || (c.aliases as string[]).includes(category);
+		});
+
+		if (foundCategory) {
+			if (!sortedCategories.includes(foundCategory.id)) {
+				sortedCategories.push(foundCategory.id);
+			}
+		}
+	});
+
+	if (!sortedCategories) {
+		console.error("App", spec.id, "does not have appropiate categories");
+		return null;
+	}
 
 	const appData: z.infer<typeof appSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
 		author: spec.author,
-		categories: sortedCategories as typeof spec.categories || spec.categories || [],
+		categories: sortedCategories,
 		features: spec.features,
 		icon: icon,
 		manifestUrl: manifestUrl,

@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import { ListItem } from "../ui/list-item";
+import { AppIcon } from "../app-icon";
+import { categoryIds } from "@/lib/categories";
+
+const randomCategory = categoryIds.sort(() => Math.random() - 0.5)[0];
+const apps = await getCollection("apps", (entry) => entry.data.categories.includes(randomCategory));
+const randomApps = apps
+	.sort(() => Math.random() - 0.5)
+	.slice(0, 5);
+---
+
+
+{randomApps.map((a, idx) => (
+	<ListItem
+		title={a.data.name}
+		subtitle={a.data.author}
+		separator={idx !== randomApps.length - 1}
+		href={a.data.url}
+		external
+	>
+		<AppIcon
+			slot="left"
+			app={a}
+			width={48}
+			height={48}
+		/>
+	</ListItem>
+))}

@@ -8,7 +8,7 @@ export interface Category {
 }
 
 
-export const CATEGORIES = [
+export const categories = [
 	{
 		id: "news",
 		icon: NewspaperIcon,
@@ -71,3 +71,5 @@ export const CATEGORIES = [
 		aliases: ["photo", "travel", "trip", "health", "books"],
 	},
 ] as const satisfies Category[];
+
+export const categoryIds = categories.map((c) => c.id);

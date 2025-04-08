@@ -1,5 +1,5 @@
 import { z } from "astro/zod"
-import { CATEGORIES } from "./categories";
+import { categories } from "./categories";
 
 const zodEnum = <T>(arr: T[]): [T, ...T[]] => arr as [T, ...T[]];
 
@@ -10,7 +10,7 @@ export const appSchema = z.object({
 
 	url: z.string().url(),
 
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))),
+	categories: z.array(z.enum(zodEnum(categories.map(category => [category.id, ...(category.aliases)]).flat()))),
 	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
 
 	author: z.string().min(1).max(30),
@@ -36,7 +36,7 @@ export const appSpecSchema = z.object({
 	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
-	categories: z.array(z.enum(zodEnum(CATEGORIES.map(category => [category.id, ...(category.aliases)]).flat()))).optional(),
+	categories: z.array(z.enum(zodEnum(categories.map(category => [category.id, ...(category.aliases)]).flat()))).optional(),
 	author: z.string().min(1).max(30),
 	authorUrl: z.string().url().optional(),
 	accentColor: z.string().optional(),
