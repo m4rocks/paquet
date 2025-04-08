@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "PROD=1 astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate:schema": "bun scripts/generateAppSpecSchema.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
