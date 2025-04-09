@@ -28,7 +28,8 @@ export function AppCardCarousel({ apps, coverImages }: AppCardCarouselProps) {
 	return (
 		<Carousel
 			opts={{
-				skipSnaps: true
+				skipSnaps: true,
+				align: "center"
 			}}
 			setApi={setApi}
 			className="w-full"
@@ -36,7 +37,7 @@ export function AppCardCarousel({ apps, coverImages }: AppCardCarouselProps) {
 			<CarouselContent>
 				{apps.map((app, idx) => (
 					<CarouselItem
-						className="md:basis-1/3 h-48"
+						className="md:basis-1/2 lg:basis-1/3 h-48"
 						key={app.id}
 					>
 						<a href={app.data.url}>

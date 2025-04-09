@@ -118,6 +118,11 @@
 	max-width: 1024px;
 }
 
+::selection {
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+}
+
 @utility markdown {
 	@apply prose prose-neutral dark:prose-invert max-w-none;
 }

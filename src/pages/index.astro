@@ -1,11 +1,12 @@
 ---
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
 import { ArrowBigDownDashIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
 import { AppIcon } from "@/components/app-icon";
 import { FeaturesList } from "@/components/features";
 import BrandIcon from "@/components/ui/brand-icon";
+import { Button } from "@/components/ui/button";
 
 // Get 5 random items from the apps collection
 const apps = await getCollection("apps");
@@ -50,6 +51,13 @@ const randomApps = apps
 				</div>
 			</CardTitle>
 		</CardHeader>
+		<CardContent>
+			<a href="/home">
+				<Button className="w-full">
+					Open Paquet
+				</Button>
+			</a>
+		</CardContent>
 	</Card>
 
 	<div class="mt-32">
