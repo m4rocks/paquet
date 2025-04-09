@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, decodeEscapedUrl } from "@/lib/utils";
 import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
@@ -10,7 +10,7 @@ export interface AppIconProps {
 }
 
 export async function AppIcon({ app, width, height, className }: AppIconProps) {
-	const compiledImg = await getImage({ src: app.data.icon, width: width + 32, height: height + 32, format: "webp" });
+	const compiledImg = await getImage({ src: decodeEscapedUrl(app.data.icon), width: width + 32, height: height + 32, format: "webp" });
 
 	return (
 		<div

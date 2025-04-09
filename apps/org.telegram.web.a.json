@@ -1,8 +1,8 @@
 {
 	"$schema": "../app-spec-schema.json",
-	"id": "org.telegram.web.z",
-	"url": "https://web.telegram.org/z",
-	"manifestUrl": "https://web.telegram.org/z/site.webmanifest",
+	"id": "org.telegram.web.a",
+	"url": "https://web.telegram.org/a",
+	"manifestUrl": "https://web.telegram.org/a/site.webmanifest",
 	"features": [
 		"mobile",
 		"desktop",
@@ -16,5 +16,5 @@
 	],
 	"author": "Telegram",
 	"accentColor": "#2ca4dc",
-	"updatedDate": "2025-04-08"
+	"updatedDate": "2025-04-09"
 }

@@ -1,7 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { getImage } from "astro:assets";
-import { useEffect, useState } from "react";
 import { LazyLoadImage } from "./lazy-load-image";
 
 export interface AppCardProps {
@@ -13,15 +12,19 @@ export interface AppCardProps {
 export function AppCardClient({ app, lowResImage, highResImage }: AppCardProps) {
 	return (
 		<Card
-			className="relative overflow-hidden h-full"
+			className="relative overflow-hidden h-full p-0"
 		>
 			<LazyLoadImage
 				highResImageSrc={highResImage}
 				lowResImageSrc={lowResImage}
-				className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+				className="w-full h-full object-cover pointer-events-none mask-b-from-10%"
 				loading="lazy"
 				alt={app.data.name}
 			/>
+
+			<p className="absolute left-2 bottom-2 text-xl font-bold text-shadow-lg line-clamp-1">
+				{app.data.name}
+			</p>
 		</Card>
 	)
 }

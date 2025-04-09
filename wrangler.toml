@@ -1,8 +1,4 @@
 name = "paquet"
 pages_build_output_dir = "./dist"
-
-[build]
-command = "bun run build"
-
-[vars]
-BUN_VERSION = "1.2.8"
+compatibility_date = "2025-04-09"
+compatibility_flags = ["nodejs_compat"]

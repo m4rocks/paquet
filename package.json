@@ -4,8 +4,9 @@
   "version": "7.0.0",
   "scripts": {
     "dev": "astro dev",
+    "dev:nocache": "NOCACHE=1 astro dev",
     "build": "BUILD=1 astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev ./dist",
     "astro": "astro",
     "generate:schema": "bun scripts/generateAppSpecSchema.ts"
   },
@@ -35,6 +36,7 @@
     "pagefind": "^1.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "sharp": "^0.34.1",
     "tailwind-merge": "^3.1.0",
     "tailwindcss": "^4.1.3",
     "tw-animate-css": "^1.2.5",

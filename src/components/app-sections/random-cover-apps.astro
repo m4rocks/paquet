@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { AppCardClient } from "../app-card";
 import { AppCardCarousel } from "./app-card-carousel";
 import { getImage } from "astro:assets";
+import { decodeEscapedUrl } from "@/lib/utils";
 
 const apps = await getCollection("apps", (entry) => !!entry.data.cover);
 const randomApps = apps
@@ -10,8 +11,8 @@ const randomApps = apps
 	.slice(0, 10);
 
 const coverImages: [lowResImage: string, highResImage: string][] = await Promise.all(apps.map(async (a) => [
-	await getImage({ src: a.data.cover!, width: 50, height: 100 }).then((s) => s.src),
-	await getImage({ src: a.data.cover!, width: 400, height: 600 }).then((s) => s.src),
+	await getImage({ src: decodeEscapedUrl(a.data.cover!), width: 50, height: 100 }).then((s) => s.src),
+	await getImage({ src: decodeEscapedUrl(a.data.cover!), width: 400, height: 600 }).then((s) => s.src),
 ]));
 ---
 

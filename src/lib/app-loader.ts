@@ -9,6 +9,9 @@ import type { Loader } from "astro/loaders";
 import { buildSearchIndex } from "./pagefind";
 
 
+const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
+
+
 const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
 	if (!manifest.icons) {
 		return null;
@@ -109,15 +112,15 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 
 	return {
 		description: descriptionMeta?.getAttribute("content"),
-		manifestUrl: new URL(manifestLink?.getAttribute("href"), url).href,
-		cover: coverMeta ? new URL(coverMeta.getAttribute("content"), url).href : undefined
+		manifestUrl: new URL(manifestLink?.getAttribute("href"), addTrailingSlash(url)).href,
+		cover: coverMeta !== undefined ? new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url)).href : undefined
 	}
 }
 
 export const appLoader: Loader = {
 	name: "PaquetAppLoader",
 	schema: appSchema,
-	load: async ({ store, meta, parseData, generateDigest }) => {
+	load: async ({ store, parseData, generateDigest }) => {
 		const entries = await fg("./apps/*.json", { dot: false, absolute: true });
 		const appSpecFiles = entries.map((p) => {
 			return fs.readFile(p);
@@ -134,7 +137,7 @@ export const appLoader: Loader = {
 
 
 		for await (const spec of appSpecs) {
-			if (store.get(spec.id)?.digest === generateDigest(spec)) continue;
+			if (!process.env.NOCACHE && (store.get(spec.id)?.digest === generateDigest(spec))) continue;
 
 			const rawData = await appDataFetcher(spec).catch((err) => {
 				console.error("App ", spec.id, " error: ", err);
