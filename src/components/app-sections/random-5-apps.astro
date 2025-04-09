@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { ListItem } from "../ui/list-item";
 import { AppIcon } from "../app-icon";
+import { AppListItemSkeleton } from "../skeletons/app-list-item-skeleton";
 
 const apps = await getCollection("apps");
 const randomApps = apps
