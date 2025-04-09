@@ -3,8 +3,8 @@ import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
 
 export const prerender = true;
-const WIDTH = 128;
-const HEIGHT = 128;
+export const WIDTH = 128;
+export const HEIGHT = 128;
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const apps = await getCollection("apps");

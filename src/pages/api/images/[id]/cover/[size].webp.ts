@@ -3,7 +3,7 @@ import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
 
 export const prerender = true;
-const sizes = {
+export const sizes = {
 	small: {
 		width: 85,
 		height: 50

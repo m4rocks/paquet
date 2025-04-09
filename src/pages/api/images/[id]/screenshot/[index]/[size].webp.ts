@@ -3,7 +3,7 @@ import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
 
 export const prerender = true;
-const sizes = {
+export const sizes = {
 	small: {
 		width: 85,
 		height: 50
@@ -48,7 +48,10 @@ export const GET: APIRoute = async (ctx) => {
 	});
 
 	const processedImage = await sharp(await originalImage.arrayBuffer())
-		.resize(sizes[size].width, sizes[size].height)
+		.resize(sizes[size].width, sizes[size].height, {
+			fit: "outside",
+			position: "center"
+		})
 		.webp()
 		.toBuffer()
 		.catch(() => {
