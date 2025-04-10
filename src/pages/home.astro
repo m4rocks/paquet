@@ -3,6 +3,7 @@ import Random5Apps from "@/components/app-sections/random-5-apps.astro";
 import RandomCategoryApps from "@/components/app-sections/random-category-apps.astro";
 import RandomCoverApps from "@/components/app-sections/random-cover-apps.astro";
 import { Header } from "@/components/header";
+import { SearchSheet } from "@/components/search-sheet";
 import { AppCardCarouselSkeleton } from "@/components/skeletons/app-card-carousel-skeleton";
 import { AppListItemSkeleton } from "@/components/skeletons/app-list-item-skeleton";
 import Layout from "@/layouts/layout.astro";
@@ -12,11 +13,14 @@ import Layout from "@/layouts/layout.astro";
 	title="Home"
 	class="container"
 >
-	<Header
-		className="mb-2"
-	>
+	<Header>
 		Home
 	</Header>
+
+	<SearchSheet
+		buttonClassName="my-4"
+		client:load
+	/>
 
 	<RandomCoverApps server:defer>
 		<div slot="fallback">

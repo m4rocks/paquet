@@ -12,6 +12,7 @@ interface Props {
 	title?: string;
 	back?: boolean;
 	disableTopPadding?: boolean;
+	themeColor?: string;
 }
 
 const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
@@ -24,6 +25,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 		<HeadTags/>
 		<ThemeColor
 			client:load
+			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
 	</head>

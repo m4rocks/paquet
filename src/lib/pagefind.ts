@@ -1,6 +1,29 @@
 import * as pagefind from "pagefind";
 import type { CollectionEntry, DataEntry } from "astro:content"
 
+export interface PagefindSearchResultData {
+	url: string,
+	meta: {
+		id: string,
+		title: string,
+	}
+}
+
+export interface PagefindSearch {
+	results: {
+		id: string,
+		data: () => Promise<PagefindSearchResultData>
+	}[]
+}
+
+export interface PagefindClient {
+	init: () => void,
+	/// Needs further implementation
+	options: () => Promise<void>
+	search: (str: string) => Promise<PagefindSearch>
+	debouncedSearch: (str: string, {}, timeout: number) => Promise<PagefindSearch>
+}
+
 export const buildSearchIndex = async (entries: [id: string, DataEntry][]) => {
 	// This function should only work at build time after syncing content collections
 	if (!import.meta.env.BUILD) return;

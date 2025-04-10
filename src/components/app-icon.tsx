@@ -8,7 +8,7 @@ export interface AppIconProps {
 	height?: number;
 }
 
-export async function AppIcon({ appId, className, width = 48, height = 48 }: AppIconProps) {
+export function AppIcon({ appId, className, width = 48, height = 48 }: AppIconProps) {
 	const { src } = getAppResource(appId, "icon");
 
 	return (

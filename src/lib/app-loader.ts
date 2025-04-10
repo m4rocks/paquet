@@ -134,6 +134,11 @@ export const appLoader: Loader = {
 			}
 		})).then((r) => r.filter((s) => s !== null));
 
+		for (const entry of store.entries()) {
+			if (!appSpecs.map((s) => s.id).includes(entry[0])) {
+				store.delete(entry[0]);
+			}
+		}
 
 		for await (const spec of appSpecs) {
 			if (!process.env.NOCACHE && (store.get(spec.id)?.digest === generateDigest(spec))) continue;
