@@ -13,7 +13,7 @@ export async function AppIcon({ appId, className, width = 48, height = 48 }: App
 
 	return (
 		<div
-			className={cn("rounded-lg bg-white overflow-hidden", className)}
+			className={cn("rounded-full overflow-hidden", className)}
 			style={{ width, height }}
 		>
 			<img

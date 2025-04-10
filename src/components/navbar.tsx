@@ -10,7 +10,7 @@ export interface NavbarProps {
 }
 
 export function Navbar({ title, back }: NavbarProps) {
-	const scrollDownTrigger = useScroll({ threshold: back ? 32 : 64 });
+	const scrollDownTrigger = useScroll({ threshold: 64 });
 
 	const handleBack = () => {
 		window.history.back();
@@ -19,7 +19,7 @@ export function Navbar({ title, back }: NavbarProps) {
 	return (
 		<nav
 			className={cn(
-				"transition-colors fixed top-0 left-0 right-0 h-16 p-4 pt-[calc(1rem_+_env(safe-area-inset-top))] flex flex-row items-center gap-2",
+				"transition-colors fixed top-0 left-0 right-0 h-16 p-4 pt-[calc(1rem_+_env(safe-area-inset-top))] flex flex-row items-center gap-2 z-50",
 				scrollDownTrigger ? "bg-background shadow-sm border-b" : "bg-transparent"
 			)}
 		>
