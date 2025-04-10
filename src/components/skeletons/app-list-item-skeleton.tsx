@@ -9,7 +9,7 @@ export function AppListItemSkeleton({ separator }: AppListItemSkeletonProps) {
 	return (
 		<>
 			<div
-				className="flex flex-row gap-2 p-2 rounded-lg items-center transition-colors"
+				className="flex flex-row gap-4 p-2 rounded-lg items-center transition-colors"
 			>
 				<Skeleton
 					className="w-12 h-12 rounded-lg"
