@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { AppIcon } from "../app-icon";
+import { ListItem } from "../ui/list-item";
 import { categoryIds } from "@/lib/categories";
 
 const randomCategory = categoryIds.sort(() => Math.random() - 0.5)[0];
@@ -11,14 +12,18 @@ const randomApps = apps
 ---
 
 
-<ul class="list">
-	{randomApps.map((a, idx) => (
-		<li class="list-row">
-			<div><AppIcon appId={a.id}/></div>
-			<div>
-				<div>{a.data.name}</div>
-				<div class="text-sm opaciy-50">{a.data.author}</div>
-			</div>
-		</li>
-	))}
-</ul>
+{randomApps.map((a, idx) => (
+	<ListItem
+		title={a.data.name}
+		subtitle={a.data.author}
+		separator={idx !== randomApps.length - 1}
+		href={a.data.url}
+		external
+	>
+		<AppIcon
+			slot="left"
+			appId={a.id}
+		/>
+	</ListItem>
+))}
+

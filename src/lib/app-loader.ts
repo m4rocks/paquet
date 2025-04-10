@@ -81,7 +81,7 @@ const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Pr
 	const manifestSplit = manifestUrl.split("/");
 	manifestSplit.pop();
 	const manifestParent = manifestSplit.join("/") + "/";
-	const screenshots = manifest.screenshots || [];
+	const screenshots = manifest.screenshots?.splice(0, 10) || [];
 	return await Promise.all(screenshots.map(async (screenshot) => {
 		let url = new URL(screenshot.src, manifestParent).href;
 
