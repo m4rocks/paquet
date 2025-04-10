@@ -13,7 +13,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	for (const a of apps) {
 		for (let i = 0; i < a.data.screenshots!.length; i++) {
 			for (const s of Object.keys(sizes)) {
-				console.log(`${i}`);
 				paths.push({ params: { id: a.id, index: `${i}`, size: s as keyof typeof sizes } })
 			}
 		}

@@ -19,14 +19,17 @@ export const buildSearchIndex = async (entries: [id: string, DataEntry][]) => {
 			url: `/app/${entry[0]}`,
 			content: app.data.name,
 			meta: {
+				id: app.id,
 				title: app.data.name,
-				description: app.data.description || ""
 			},
 			language: "en"
 		})
 	}
 
-	await index.writeFiles({
+	// This is placed here so Pagefind has enough time to write the files before Astro clears the
+	// dist folder
+	await new Promise(resolve => setTimeout(resolve, 1000));
+	index.writeFiles({
 		outputPath: "dist/pagefind"
 	})
 }
