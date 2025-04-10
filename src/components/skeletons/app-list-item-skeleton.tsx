@@ -12,11 +12,11 @@ export function AppListItemSkeleton({ separator }: AppListItemSkeletonProps) {
 				className="flex flex-row gap-2 p-2 rounded-lg items-center transition-colors"
 			>
 				<Skeleton
-					className="w-12 h-12 rounded-full"
+					className="w-12 h-12 rounded-lg"
 				/>
 				<div>
-					<Skeleton className="w-32 h-6 mb-2"/>
-					<Skeleton className="w-16 h-5"/>
+					<Skeleton className="w-32 h-4 mb-2"/>
+					<Skeleton className="w-16 h-3"/>
 				</div>
 			</div>
 			{separator ? <Separator/> : null}

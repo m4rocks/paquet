@@ -1,10 +1,9 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
+import { decodeResourceUrl, iconSizes as sizes } from "@/lib/images";
 
 export const prerender = true;
-export const WIDTH = 128;
-export const HEIGHT = 128;
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const apps = await getCollection("apps");
@@ -21,12 +20,12 @@ export const GET: APIRoute = async (ctx) => {
 	const app = await getEntry("apps", id);
 	if (!app) return new Response(null);
 
-	const originalImage = await fetch(new URL(app.data.icon), {
+	const originalImage = await fetch(new URL(decodeResourceUrl(app.data.icon)), {
 		method: "GET"
 	});
 
 	const processedImage = await sharp(await originalImage.arrayBuffer())
-		.resize(WIDTH, HEIGHT)
+		.resize(sizes["medium"].width, sizes["medium"].height)
 		.webp()
 		.toBuffer();
 

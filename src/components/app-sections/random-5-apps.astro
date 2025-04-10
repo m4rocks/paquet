@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import { ListItem } from "../ui/list-item";
 import { AppIcon } from "../app-icon";
-import { AppListItemSkeleton } from "../skeletons/app-list-item-skeleton";
 
 const apps = await getCollection("apps");
 const randomApps = apps
@@ -22,8 +21,6 @@ const randomApps = apps
 		<AppIcon
 			slot="left"
 			app={a}
-			width={48}
-			height={48}
 		/>
 	</ListItem>
 ))}

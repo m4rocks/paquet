@@ -1,24 +1,24 @@
-import { cn, decodeEscapedUrl } from "@/lib/utils";
-import { getImage } from "astro:assets";
+import { getAppResource } from "@/lib/images";
+import { cn } from "@/lib/utils";
 import type { CollectionEntry } from "astro:content";
 
 export interface AppIconProps {
 	app: CollectionEntry<"apps">;
-	width: number;
-	height: number;
 	className?: string;
+	width?: number;
+	height?: number;
 }
 
-export async function AppIcon({ app, width, height, className }: AppIconProps) {
-	const compiledImg = await getImage({ src: decodeEscapedUrl(app.data.icon), width: width + 32, height: height + 32, format: "webp" });
+export async function AppIcon({ app, className, width = 48, height = 48 }: AppIconProps) {
+	const { src } = getAppResource(app.id, "icon");
 
 	return (
 		<div
-			className={cn("rounded-full bg-white overflow-hidden", className)}
+			className={cn("rounded-lg bg-white overflow-hidden", className)}
 			style={{ width, height }}
 		>
 			<img
-				src={compiledImg.src}
+				src={src || ""}
 				alt={app.data.name}
 				width={width}
 				height={height}

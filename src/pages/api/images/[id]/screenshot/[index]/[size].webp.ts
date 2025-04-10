@@ -1,18 +1,9 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
+import { decodeResourceUrl, screenshotSizes as sizes } from "@/lib/images";
 
 export const prerender = true;
-export const sizes = {
-	small: {
-		width: 85,
-		height: 50
-	},
-	large: {
-		width: 1024,
-		height: 600
-	}
-} as const;
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const apps = await getCollection("apps", (e) => !!e.data.screenshots && e.data.screenshots.length > 0);
@@ -43,7 +34,7 @@ export const GET: APIRoute = async (ctx) => {
 	if (!app) return new Response(null);
 	if (parseInt(index) > app.data.screenshots!.length - 1) return new Response(null);
 
-	const originalImage = await fetch(new URL(app.data.screenshots![parseInt(index)]), {
+	const originalImage = await fetch(new URL(decodeResourceUrl(app.data.screenshots![parseInt(index)])), {
 		method: "GET"
 	});
 

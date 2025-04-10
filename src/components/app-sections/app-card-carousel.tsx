@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "../ui/carousel";
-import { AppCardClient, AppCardServer } from "../app-card";
+import { AppCard } from "../app-card";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 
 export interface AppCardCarouselProps {
 	apps: CollectionEntry<"apps">[];
-	coverImages: [lowResImage: string, highResImage: string][];
 }
 
-export function AppCardCarousel({ apps, coverImages }: AppCardCarouselProps) {
+export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 	const [api, setApi] = useState<CarouselApi>();
 	const [canScrollPrev, setCanScrollPrev] = useState(false);
 	const [canScrollNext, setCanScrollNext] = useState(true);
@@ -41,10 +40,8 @@ export function AppCardCarousel({ apps, coverImages }: AppCardCarouselProps) {
 						key={app.id}
 					>
 						<a href={app.data.url}>
-							<AppCardClient
+							<AppCard
 								app={app}
-								lowResImage={coverImages[idx][0]}
-								highResImage={coverImages[idx][1]}
 							/>
 						</a>
 					</CarouselItem>

@@ -11,7 +11,6 @@ import { buildSearchIndex } from "./pagefind";
 
 const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
 
-
 const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<string | null> => {
 	if (!manifest.icons) {
 		return null;
