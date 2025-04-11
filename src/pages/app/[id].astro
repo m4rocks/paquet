@@ -1,8 +1,12 @@
 ---
 import { AppPageCard } from '@/components/app-page-card';
 import { AppScreenshotsCarousel } from '@/components/app-sections/app-screenshots-carousel';
+import Random5Apps from '@/components/app-sections/random-5-apps.astro';
 import { FeaturesList } from '@/components/features';
+import { AppListItemSkeleton } from '@/components/skeletons/app-list-item-skeleton';
 import { badgeVariants } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import Layout from '@/layouts/layout.astro';
 import { categories } from '@/lib/categories';
 import type { GetStaticPaths } from 'astro';
@@ -70,10 +74,31 @@ const { app } = Astro.props;
 		: null}
 	</div>
 
-	<div class="container">
+	<div class="container space-y-8">
 		<FeaturesList
 			features={app.data.features}
 			accentColor={app.data.accentColor}
 		/>
+
+		<Separator/>
+
+		<Card>
+			<CardHeader>
+				<CardTitle>
+					Other apps
+				</CardTitle>
+			</CardHeader>
+			<CardContent className="flex flex-col gap-2">
+				<Random5Apps server:defer>
+					<div slot="fallback" class="flex flex-col gap-2">
+						{Array(5).fill(null).map((_, idx) => (
+							<AppListItemSkeleton
+								separator={idx !== 4}
+							/>
+						))}
+					</div>
+				</Random5Apps>
+			</CardContent>
+		</Card>
 	</div>
-</Layout>
+</div>
