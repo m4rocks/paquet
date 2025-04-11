@@ -1,7 +1,7 @@
 import { useScroll } from "@/hooks/useScroll";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { ArrowLeftIcon } from "lucide-react";
+import { ChevronLeftIcon } from "lucide-react";
 
 export interface NavbarProps {
 	title?: string;
@@ -19,17 +19,18 @@ export function Navbar({ title, back }: NavbarProps) {
 	return (
 		<nav
 			className={cn(
-				"transition-colors fixed top-0 left-0 right-0 h-16 p-4 pt-[calc(1rem_+_env(safe-area-inset-top))] flex flex-row items-center gap-2 z-50",
+				"transition-colors duration-200 ease-out fixed top-0 left-0 right-0 h-16 p-4 pt-[calc(1rem_+_env(safe-area-inset-top))] flex flex-row items-center gap-2 z-50",
 				scrollDownTrigger ? "bg-background shadow-sm border-b" : "bg-transparent"
 			)}
 		>
 			{back ?
+			
 				<Button
 					size="icon"
 					variant="ghost"
 					onClick={handleBack}
 				>
-					<ArrowLeftIcon/>
+					<ChevronLeftIcon className="w-8! h-8!"/>
 				</Button>
 			: null}
 			<p

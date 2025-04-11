@@ -131,7 +131,10 @@
 	* {
 		@apply border-border outline-none underline-offset-4;
 	}
+	html {
+		@apply bg-background;
+	}
 	body {
-		@apply bg-background text-foreground font-sans overflow-x-hidden;
+		@apply min-h-svh bg-background text-foreground font-sans overflow-x-hidden;
 	}
 }

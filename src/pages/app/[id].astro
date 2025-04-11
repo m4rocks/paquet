@@ -1,0 +1,79 @@
+---
+import { AppPageCard } from '@/components/app-page-card';
+import { AppScreenshotsCarousel } from '@/components/app-sections/app-screenshots-carousel';
+import { FeaturesList } from '@/components/features';
+import { badgeVariants } from '@/components/ui/badge';
+import Layout from '@/layouts/layout.astro';
+import { categories } from '@/lib/categories';
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const apps = await getCollection("apps");
+
+	return apps.map((app) => ({
+		params: { id: app.id },
+		props: { app }
+	}))
+}
+
+interface Props {
+	app: CollectionEntry<"apps">
+}
+
+const { app } = Astro.props;
+---
+
+<Layout
+	title={app.data.name}
+	back
+	disableTopPadding
+	themeColor={app.data.accentColor + "50"}
+>
+	<div 
+		style={{
+			background: `linear-gradient(to bottom, ${app.data.accentColor + "50"}, var(--color-background))`
+		}}
+		class="pt-16"
+	>
+		<div class="container space-y-2 mb-4">
+			<AppPageCard
+				app={app}
+				client:load
+			/>
+			<h2 class="text-2xl font-bold mt-8">
+				About
+			</h2>
+			<p>
+				{app.data.description}
+			</p>
+			{app.data.categories.map((category) => (
+				<a
+					class={badgeVariants({ variant: "outline" })}
+				>
+					{categories.find((c) => c.id === category)?.name}
+				</a>
+			))}
+		</div>
+	</div>
+	
+	<div class="container my-8">
+		{app.data.screenshots?.length ?
+			<AppScreenshotsCarousel
+				appId={app.id}
+				screenshotsLength={app.data.screenshots.length}
+				accentColor={app.data.accentColor}
+				client:load
+			/>
+		: null}
+	</div>
+	
+	<div class="container">
+		<FeaturesList
+			features={app.data.features}
+			accentColor={app.data.accentColor}
+		/>
+	</div>
+</Layout>

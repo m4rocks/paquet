@@ -18,7 +18,13 @@ interface Props {
 const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
 ---
 
-
+<!-- <script is:inline>
+	document.addEventListener("astro:before-swap", (e) => {
+		if (e.navigationType === "traverse") {
+			e.newDocument.documentElement.style.minHeight = `${history.state.scrollY + innerHeight}px`;
+		}
+	})
+</script> -->
 <!doctype html>
 <html lang="en">
 	<head>
@@ -29,7 +35,9 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
 	</head>
-	<body>
+	<body
+		class="flex flex-col"
+	>
 		{!Astro.props.disableTopPadding ?
 			<div class="h-16"/>
 		: null}
@@ -38,7 +46,9 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			back={Astro.props.back}
 			client:load
 		/>
-		<main class:list={[Astro.props.class]}>
+		<main 
+			class:list={["flex-1", Astro.props.class]}
+		>
 			<slot />
 		</main>
 		<Footer

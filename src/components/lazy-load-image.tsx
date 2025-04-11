@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, type MotionStyle } from "motion/react";
 import { useEffect, useState } from "react";
 
 interface LazyLoadImageProps {
@@ -8,6 +8,7 @@ interface LazyLoadImageProps {
 	blur?: boolean;
 	loading?: "lazy" | "eager";
 	className?: string;
+	style?: MotionStyle;
 }
 
 export function LazyLoadImage(props: LazyLoadImageProps) {
@@ -38,6 +39,7 @@ export function LazyLoadImage(props: LazyLoadImageProps) {
 			initial={{
 				filter: "blur(4px)"
 			}}
+			style={props.style}
 			variants={{
 				blurred: {
 					filter: "blur(4px)"

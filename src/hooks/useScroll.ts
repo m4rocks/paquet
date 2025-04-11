@@ -5,17 +5,18 @@ type Props = {
 };
 
 export const useScroll = ({ threshold = 0 }: Props) => {
-	const [triggered, setTriggered] = useState(globalThis.scrollY > threshold);
+	const [triggered, setTriggered] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setTriggered(globalThis.scrollY > threshold);
+			setTriggered(window.scrollY > threshold);
 		};
-
-		globalThis.addEventListener("scroll", handleScroll);
-
+		
+		handleScroll();
+		window.addEventListener("scroll", handleScroll);
+		
 		return () => {
-			globalThis.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
 

@@ -75,14 +75,14 @@ export function getAppResource(id: string, type: ResourceType, size?: string, in
 			width: 0,
 			height: 0
 		};
-		if (!index) return {
+		if (typeof index !== "number") return {
 			src: null,
 			width: 0,
 			height: 0
 		};
 
 		return {
-			src: `/api/images/${id}/cover/${index}/${size}.webp`,
+			src: `/api/images/${id}/screenshot/${index}/${size}.webp`,
 			width: screenshotSizes[size as keyof typeof screenshotSizes].width,
 			height: screenshotSizes[size as keyof typeof screenshotSizes].height
 		}

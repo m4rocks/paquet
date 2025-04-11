@@ -9,6 +9,8 @@ const apps = await getCollection("apps", (entry) => entry.data.categories.includ
 const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 5);
+
+Astro.response.headers.set("Cache-Control", "public, max-age=120, s-maxage=120");
 ---
 
 
@@ -17,8 +19,7 @@ const randomApps = apps
 		title={a.data.name}
 		subtitle={a.data.author}
 		separator={idx !== randomApps.length - 1}
-		href={a.data.url}
-		external
+		href={`/app/${a.id}`}
 	>
 		<AppIcon
 			slot="left"

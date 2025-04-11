@@ -4,16 +4,22 @@ import { AppCard } from "../app-card";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import { getAppResource } from "@/lib/images";
+import { LazyLoadImage } from "../lazy-load-image";
 
 
-export interface AppCardCarouselProps {
-	apps: CollectionEntry<"apps">[];
+export interface AppScreenshotsCarousel {
+	appId: string;
+	accentColor: string;
+	screenshotsLength: number;
 }
 
-export function AppCardCarousel({ apps }: AppCardCarouselProps) {
+export function AppScreenshotsCarousel({ appId, screenshotsLength, accentColor }: AppScreenshotsCarousel) {
 	const [api, setApi] = useState<CarouselApi>();
 	const [canScrollPrev, setCanScrollPrev] = useState(false);
 	const [canScrollNext, setCanScrollNext] = useState(true);
+
+	console.log(getAppResource(appId, "screenshot", "small", 0).src!);
 
 	useEffect(() => {
 		if (!api) return;
@@ -28,22 +34,30 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 		<Carousel
 			opts={{
 				skipSnaps: true,
-				align: "center"
+				align: "start",
 			}}
 			setApi={setApi}
 			className="w-full"
 		>
 			<CarouselContent>
-				{apps.map((app, idx) => (
+				{Array(screenshotsLength).fill(null).map((_, idx) => (
 					<CarouselItem
-						className="md:basis-1/2 lg:basis-1/3 h-48"
-						key={app.id}
+						className="basis-full lg:basis-1/2 h-100"
+						key={idx}
 					>
-						<a href={`/app/${app.id}`}>
-							<AppCard
-								app={app}
+						<div
+							className="w-full h-full rounded-lg overflow-hidden flex justify-center items-center p-4"
+							style={{
+								backgroundColor: accentColor
+							}}
+						>
+							<LazyLoadImage
+								lowResImageSrc={getAppResource(appId, "screenshot", "small", idx).src!}
+								highResImageSrc={getAppResource(appId, "screenshot", "large", idx).src!}
+								alt={"screenshot-" + idx}
+								className="max-w-full max-h-full shadow-lg w-full h-full object-contain"
 							/>
-						</a>
+						</div>
 					</CarouselItem>
 				))}
 			</CarouselContent>

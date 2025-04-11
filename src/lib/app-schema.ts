@@ -25,7 +25,7 @@ export const appSchema = z.object({
 
 	cover: z.string().url().optional(),
 
-	accentColor: z.string().optional(),
+	accentColor: z.string(),
 })
 
 export const appSpecSchema = z.object({
