@@ -10,7 +10,7 @@ export interface NavbarProps {
 }
 
 export function Navbar({ title, back }: NavbarProps) {
-	const scrollDownTrigger = useScroll({ threshold: 64 });
+	const scrollDownTrigger = useScroll({ threshold: 16 });
 
 	const handleBack = () => {
 		window.history.back();
@@ -34,7 +34,7 @@ export function Navbar({ title, back }: NavbarProps) {
 				</Button>
 			: null}
 			<p
-				className={cn("text-2xl font-bold transition-opacity", scrollDownTrigger ? "opacity-100" : "opacity-0")}
+				className={cn("text-xl font-bold line-clamp-1 transition-opacity", scrollDownTrigger ? "opacity-100" : "opacity-0")}
 			>
 				{title}
 			</p>

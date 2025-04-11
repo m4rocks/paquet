@@ -6,7 +6,7 @@ export interface ThemeColorProps {
 }
 
 export function ThemeColor({ color }: ThemeColorProps) {
-	const scrollTrigger = useScroll({ threshold: 64 });
+	const scrollTrigger = useScroll({ threshold: 16 });
 	const darkBg = "#09090B";
 	const lightBg = "#ffffff";
 
