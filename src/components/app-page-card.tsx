@@ -26,9 +26,11 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				<div className="flex flex-row items-center gap-4">
 					<AppIcon
 						appId={app.id}
+						width={72}
+						height={72}
 					/>
 					<div>
-						<h1 className="text-lg font-bold">
+						<h1 className="text-xl font-bold">
 							{app.data.name}
 						</h1>
 						<a
@@ -40,7 +42,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 					</div>
 				</div>
 				<div className="w-full md:w-auto md:ml-auto">
-					<a 
+					<a
 						href={app.data.url}
 						target="_blank"
 						rel="noreferrer noopener"

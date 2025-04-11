@@ -30,11 +30,11 @@ const { app } = Astro.props;
 	title={app.data.name}
 	back
 	disableTopPadding
-	themeColor={app.data.accentColor + "50"}
+	themeColor={app.data.accentColor + "99"}
 >
-	<div 
+	<div
 		style={{
-			background: `linear-gradient(to bottom, ${app.data.accentColor + "50"}, var(--color-background))`
+			background: `linear-gradient(to bottom, ${app.data.accentColor + "99"}, var(--color-background))`
 		}}
 		class="pt-16"
 	>
@@ -58,7 +58,7 @@ const { app } = Astro.props;
 			))}
 		</div>
 	</div>
-	
+
 	<div class="container my-8">
 		{app.data.screenshots?.length ?
 			<AppScreenshotsCarousel
@@ -69,7 +69,7 @@ const { app } = Astro.props;
 			/>
 		: null}
 	</div>
-	
+
 	<div class="container">
 		<FeaturesList
 			features={app.data.features}

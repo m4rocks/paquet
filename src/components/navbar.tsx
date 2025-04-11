@@ -24,7 +24,7 @@ export function Navbar({ title, back }: NavbarProps) {
 			)}
 		>
 			{back ?
-			
+
 				<Button
 					size="icon"
 					variant="ghost"

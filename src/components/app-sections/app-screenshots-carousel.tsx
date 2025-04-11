@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { getAppResource } from "@/lib/images";
 import { LazyLoadImage } from "../lazy-load-image";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 
 export interface AppScreenshotsCarousel {
@@ -36,6 +37,7 @@ export function AppScreenshotsCarousel({ appId, screenshotsLength, accentColor }
 				skipSnaps: true,
 				align: "start",
 			}}
+			plugins={[WheelGesturesPlugin()]}
 			setApi={setApi}
 			className="w-full"
 		>
@@ -48,39 +50,39 @@ export function AppScreenshotsCarousel({ appId, screenshotsLength, accentColor }
 						<div
 							className="w-full h-full rounded-lg overflow-hidden flex justify-center items-center p-4"
 							style={{
-								backgroundColor: accentColor
+								backgroundColor: accentColor + "99"
 							}}
 						>
 							<LazyLoadImage
 								lowResImageSrc={getAppResource(appId, "screenshot", "small", idx).src!}
 								highResImageSrc={getAppResource(appId, "screenshot", "large", idx).src!}
 								alt={"screenshot-" + idx}
-								className="max-w-full max-h-full shadow-lg w-full h-full object-contain"
+								className="max-w-full max-h-full w-full h-full object-contain"
 							/>
 						</div>
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious 
+			<CarouselPrevious
 				className="hidden xl:inline-flex"
 			/>
-  			<CarouselNext 
+  			<CarouselNext
 				className="hidden xl:inline-flex"
 			/>
 
 			<div className="flex flex-row justify-center items-center gap-2 xl:hidden">
-				<Button 
-					size="icon" 
-					variant="outline" 
+				<Button
+					size="icon"
+					variant="outline"
 					className="rounded-full mt-2 ml-auto"
 					disabled={!canScrollPrev}
 					onClick={() => api?.scrollPrev()}
 				>
 					<ArrowLeftIcon/>
 				</Button>
-				<Button 
-					size="icon" 
-					variant="outline" 
+				<Button
+					size="icon"
+					variant="outline"
 					className="rounded-full mt-2 mr-auto"
 					disabled={!canScrollNext}
 					onClick={() => api?.scrollNext()}

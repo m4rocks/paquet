@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { AppCard } from "../app-card";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { useEffect, useState } from "react";
 
 
@@ -30,6 +31,7 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 				skipSnaps: true,
 				align: "center"
 			}}
+			plugins={[WheelGesturesPlugin()]}
 			setApi={setApi}
 			className="w-full"
 		>
@@ -47,26 +49,26 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious 
+			<CarouselPrevious
 				className="hidden xl:inline-flex"
 			/>
-  			<CarouselNext 
+  			<CarouselNext
 				className="hidden xl:inline-flex"
 			/>
 
 			<div className="flex flex-row justify-center items-center gap-2 xl:hidden">
-				<Button 
-					size="icon" 
-					variant="outline" 
+				<Button
+					size="icon"
+					variant="outline"
 					className="rounded-full mt-2 ml-auto"
 					disabled={!canScrollPrev}
 					onClick={() => api?.scrollPrev()}
 				>
 					<ArrowLeftIcon/>
 				</Button>
-				<Button 
-					size="icon" 
-					variant="outline" 
+				<Button
+					size="icon"
+					variant="outline"
 					className="rounded-full mt-2 mr-auto"
 					disabled={!canScrollNext}
 					onClick={() => api?.scrollNext()}

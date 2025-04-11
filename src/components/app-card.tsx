@@ -13,7 +13,7 @@ export function AppCard({ app }: AppCardProps) {
 
 	return (
 		<Card
-			className="relative overflow-hidden h-full p-0"
+			className="relative overflow-hidden h-full p-0 bg-neutral-800"
 		>
 			<LazyLoadImage
 				highResImageSrc={highResImage || ""}
@@ -23,7 +23,7 @@ export function AppCard({ app }: AppCardProps) {
 				alt={app.data.name}
 			/>
 
-			<p className="absolute left-2 bottom-2 text-xl font-bold text-shadow-lg line-clamp-1">
+			<p className="absolute left-2 bottom-2 text-xl text-white font-bold text-shadow-lg line-clamp-1">
 				{app.data.name}
 			</p>
 		</Card>
