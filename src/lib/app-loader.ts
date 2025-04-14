@@ -77,6 +77,17 @@ const getIcon = async (manifestUrl: string, manifest: WebAppManifest): Promise<s
 	return null;
 };
 
+const getAccentColor = (str: string) => {
+	const hexRegex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+	if (hexRegex.test(str)) {
+		if (str.length === 4) {
+			return '#' + str[1] + str[1] + str[2] + str[2] + str[3] + str[3];
+		}
+		return str;
+	}
+	return null;
+};
+
 const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Promise<string[]> => {
 	const manifestSplit = manifestUrl.split("/");
 	manifestSplit.pop();
@@ -248,7 +259,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		icon: icon,
 		manifestUrl: manifestUrl,
 		url: spec.url,
-		accentColor: manifest.theme_color || "#212121",
+		accentColor: getAccentColor(manifest.theme_color || "") || "#212121",
 		screenshots: screenshots,
 		gitlabUrl: spec.gitlabUrl,
 		githubUrl: spec.githubUrl,
