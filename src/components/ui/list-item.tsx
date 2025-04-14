@@ -24,7 +24,7 @@ export function ListItem({ left: LeftComponent, title, subtitle, href, external,
 			<RootElement
 				className={cn(
 					"flex flex-row gap-4 p-2 rounded-lg items-center transition-colors",
-					href || onClick ? "hover:bg-accent dark:hover:bg-accent/50 text-accent-foreground" : ""
+					href || onClick ? "hover:bg-accent focus:bg-accent dark:hover:bg-accent/50 text-accent-foreground" : ""
 				)}
 				href={href}
 				target={external ? "_blank" : undefined}
