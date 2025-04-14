@@ -17,12 +17,18 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 	const [canScrollNext, setCanScrollNext] = useState(true);
 
 	useEffect(() => {
-		if (!api) return;
-
-		api.on("scroll", () => {
-			setCanScrollNext(api.canScrollNext());
-			setCanScrollPrev(api.canScrollPrev());
-		})
+		if (api) {
+			const cb = () => {
+				setCanScrollNext(api.canScrollNext());
+				setCanScrollPrev(api.canScrollPrev());
+			}
+	
+			api.on("scroll", cb);
+	
+			return () =>  {
+				api.off("scroll", cb)
+			}
+		};
 	})
 
 	return (
@@ -36,7 +42,7 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 			className="w-full"
 		>
 			<CarouselContent>
-				{apps.map((app, idx) => (
+				{apps.map((app) => (
 					<CarouselItem
 						className="md:basis-1/2 lg:basis-1/3 h-48"
 						key={app.id}

@@ -6,7 +6,9 @@ import { Header } from "@/components/header";
 import { SearchSheet } from "@/components/search-sheet";
 import { AppCardCarouselSkeleton } from "@/components/skeletons/app-card-carousel-skeleton";
 import { AppListItemSkeleton } from "@/components/skeletons/app-list-item-skeleton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Layout from "@/layouts/layout.astro";
+import { InfoIcon } from "lucide-react";
 ---
 
 <Layout
@@ -21,6 +23,19 @@ import Layout from "@/layouts/layout.astro";
 		buttonClassName="my-4"
 		client:load
 	/>
+
+	<Alert className="mb-4">
+		<InfoIcon/>
+		<AlertTitle>
+			Work in progress
+		</AlertTitle>
+		<AlertDescription>
+			Paquet is undergoing a redesign and refactor of the codebase
+			for a faster and more efficient experience. Some
+			features might be missing, but they will be added back over
+			time.  
+		</AlertDescription>
+	</Alert>
 
 	<RandomCoverApps server:defer>
 		<div slot="fallback">

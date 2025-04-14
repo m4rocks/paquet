@@ -21,7 +21,7 @@ export function SearchSheet({ buttonClassName }: SearchSheetProps) {
 		if (import.meta.env.DEV) return;
 
 		(async () => {
-			const pfjs = await import(window.location.origin + "/pagefind/pagefind.js");
+			const pfjs = await import(/* @vite-ignore */ window.location.origin + "/pagefind/pagefind.js");
 
 			setPagefind(pfjs);
 			pagefind?.init();
