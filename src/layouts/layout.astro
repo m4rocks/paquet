@@ -34,6 +34,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
+		<slot name="head"/>
 	</head>
 	<body
 		class="flex flex-col"

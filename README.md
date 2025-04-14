@@ -55,14 +55,13 @@ bun preview
 
 ## 📄 Developer Documentation
 
-Developer documentation is available both on [GitHub](/docs/getting-started.md) and
-[Paquet](https://paquet.app/docs/getting-started)
+Developer documentation is available on [Paquet](https://paquet.m4.rocks/docs/getting-started).
 
 Developer documentation teaches you how you can add your own app to Paquet or build an app using Paquet's APIs
 
 ## ➕ Add an app
 
-To add an app, fork this repository and [add your app specification](/docs/app-spec.md)
+To add an app, fork this repository and [add your app specification](https://paquet.m4.rocks/docs/app-spec)
 to the `apps` folder.
 
 Here is [an example](/apps/us.githubstat.json).

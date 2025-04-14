@@ -115,7 +115,8 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 	let descriptionMeta = parsedPageBody.getElementsByAttribute("name", "description")[0];
 	let coverMeta = parsedPageBody.getElementsByAttribute("property", "og:image")[0];
 
-	const coverRes = await fetch(new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url))).then((r) => r.ok).catch((r) => false);
+
+	const coverRes = coverMeta ? await fetch(new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url))).then((r) => r.ok).catch((r) => false) : false;
 
 	return {
 		description: descriptionMeta?.getAttribute("content"),

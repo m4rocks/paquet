@@ -1,8 +1,16 @@
-import { defineCollection } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { appLoader } from "./lib/app-loader";
+import { glob } from "astro/loaders";
 
 const apps = defineCollection({
 	loader: appLoader
 });
 
-export const collections = { apps }
+const docs = defineCollection({
+	loader: glob({ base: "./docs", pattern: "*.md" }),
+	schema: z.object({
+		title: z.string()
+	})
+})
+
+export const collections = { apps, docs }

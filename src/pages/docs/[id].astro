@@ -1,0 +1,33 @@
+---
+import Layout from "@/layouts/layout.astro";
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const docs = await getCollection("docs");
+
+	return docs.map((doc) => ({
+		params: { id: doc.id },
+		props: { doc }
+	}))
+}
+
+interface Props {
+	doc: CollectionEntry<"docs">
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+---
+
+<Layout
+	title={doc.data.title}
+	class="container"
+	back
+>
+	<div class="markdown">
+		<Content/>
+	</div>
+</Layout>

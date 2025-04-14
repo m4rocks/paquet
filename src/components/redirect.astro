@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/layout.astro";
+
+interface Props {
+	url: string;
+}
+---
+
+<Layout title="Redirecting..." class="container">
+	<meta http-equiv="Refresh" content={`0; url='${Astro.props.url}'`} slot="head"/>
+	<h1>
+		Redirecting to 
+		<a class="text-primary underline" href={Astro.props.url}>{Astro.props.url}...</a>
+	</h1>
+</Layout>
