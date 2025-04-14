@@ -20,8 +20,6 @@ export function AppScreenshotsCarousel({ appId, screenshotsLength, accentColor }
 	const [canScrollPrev, setCanScrollPrev] = useState(false);
 	const [canScrollNext, setCanScrollNext] = useState(true);
 
-	console.log(getAppResource(appId, "screenshot", "small", 0).src!);
-
 	useEffect(() => {
 		if (!api) return;
 
