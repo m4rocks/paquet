@@ -26,7 +26,6 @@
     "@types/react-dom": "^19.1.1",
     "@types/web-app-manifest": "^1.0.9",
     "astro": "^5.6.1",
-    "astro-loading-indicator": "^0.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

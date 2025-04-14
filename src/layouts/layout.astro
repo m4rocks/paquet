@@ -6,8 +6,6 @@ import HeadTags from "@/components/head-tags.astro";
 import Footer from "@/components/footer.astro";
 import { Navbar } from "@/components/navbar";
 import { ThemeColor } from "@/components/theme-color";
-import { ClientRouter } from "astro:transitions"
-import LoadingIndicator from "astro-loading-indicator/component";
 
 interface Props {
 	class?: string;
@@ -36,10 +34,6 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
-		<ClientRouter />
-		<LoadingIndicator 
-			color="#8267be"
-		/>
 		
 		<slot name="head"/>
 	</head>
