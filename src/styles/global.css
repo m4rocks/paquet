@@ -124,7 +124,7 @@
 }
 
 @utility markdown {
-	@apply prose prose-neutral dark:prose-invert max-w-none;
+	@apply prose dark:prose-invert max-w-none;
 }
 
 @layer base {

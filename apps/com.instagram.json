@@ -2,7 +2,7 @@
 	"$schema": "../app-spec-schema.json",
 	"id": "com.instagram",
 	"url": "https://www.instagram.com",
-	"manifestUrl": "https://www.instagram.com/data/manifest.json",
+	"manifestUrl": "https://www.instagram.com/data/manifest.json/",
 	"features": [
 		"mobile",
 		"desktop",
