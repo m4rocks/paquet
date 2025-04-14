@@ -28,15 +28,17 @@ const { Content } = await render(doc);
 	back
 >
 	<div class="container flex flex-col md:flex-row gap-8">
-		<div class="flex flex-col">
-			{entries.map((e) => (
-				<a
-					href={"/docs/" + e.id}
-					class:list={["text-nowrap", doc.id === e.id ? "text-muted-foreground" : "underline"]}
-				>
-					{e.data.title}
-				</a>
-			))}
+		<div class="min-w-48 border-b p-4 md:border-r md:border-b-0">
+			<div class="md:fixed flex flex-col">
+				{entries.map((e) => (
+					<a
+						href={"/docs/" + e.id}
+						class:list={["text-nowrap", doc.id === e.id ? "text-muted-foreground" : "underline"]}
+					>
+						{e.data.title}
+					</a>
+				))}
+			</div>
 		</div>
 
 		<div class="markdown">
