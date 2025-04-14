@@ -14,7 +14,12 @@ export function AppIcon({ appId, className, width = 48, height = 48 }: AppIconPr
 	return (
 		<div
 			className={cn("rounded-full overflow-hidden bg-card", className)}
-			style={{ width, height }}
+			style={{ 
+				width, 
+				height,
+				minWidth: width,
+				minHeight: height
+			}}
 		>
 			<img
 				src={src || ""}
