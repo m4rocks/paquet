@@ -6,12 +6,15 @@ export function AppCardCarouselSkeleton() {
 	return (
 		<div className="flex flex-col">
 			<div className="flex flex-row gap-4">
-				{Array(3).fill(null).map((_, idx) => (
-					<Skeleton
-						key={idx}
-						className="md:basis-1/3 w-full h-48 rounded-lg"
-					/>
-				))}
+				<Skeleton
+					className="md:basis-1/2 lg:basis-1/3 w-full h-48 rounded-lg"
+				/>
+				<Skeleton
+					className="hidden md:block md:basis-1/2 lg:basis-1/3 w-full h-48 rounded-lg"
+				/>
+				<Skeleton
+					className="hidden lg:block basis-1/3 w-full h-48 rounded-lg"
+				/>
 			</div>
 			<div className="flex flex-row justify-center items-center gap-2 xl:hidden">
 				<Button 
