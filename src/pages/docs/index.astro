@@ -2,4 +2,4 @@
 import Redirect from "@/components/redirect.astro";
 ---
 
-<Redirect url={Astro.url.origin + "/docs/app-spec"}/>
+<Redirect url={import.meta.env.DEV ? Astro.url.origin + "/docs/getting-started" : Astro.site?.origin! + "/docs/getting-started"}/>

@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.4.0",
+    "@astrojs/mdx": "^4.2.3",
     "@astrojs/react": "^4.2.3",
     "@fontsource/poppins": "^5.2.5",
     "@radix-ui/react-accordion": "^1.2.3",

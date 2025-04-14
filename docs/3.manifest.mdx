@@ -1,12 +1,23 @@
 ---
 title: Manifest
+slug: manifest
 ---
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { InfoIcon } from "lucide-react";
 
 # Manifest
 
 You can specify your app details on Paquet, using your `manifest.json` or `site.webmanifest` file.
 
-> This file is usually crawled by Paquet.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		This file is usually crawled by Paquet.
+	</AlertDescription>
+</Alert>
 
 Here is a `manifest.json` example:
 
@@ -16,7 +27,7 @@ Here is a `manifest.json` example:
 	"author": "Savin Angel-Mario",
 	"short_name": "Paquet",
 	"description": "Check out Paquet to find the best web apps on the open web.",
-	"id": "app.paquet",
+	"id": "rocks.m4.paquet",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
@@ -69,7 +80,15 @@ This is the name that is going to be used when showing your app.
 This is the short name that is going to be used when showing your app.
 This is used for [sandbox installations](/docs/sandbox-installations).
 
-> Sandbox Installations are still under construction
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		Sandbox Installations are still under development.
+	</AlertDescription>
+</Alert>
 
 ### `author` (required)
 
@@ -77,15 +96,33 @@ This is the name of the author. It is prefered to use the same
 names across multiple apps published to Paquet to share
 verification status
 
-> This property is not used often, so when not present,
-> Paquet will look for an `author` meta tag in the web page.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		This property is not used often, so when not present,
+		Paquet will look for an `author` meta tag in the web page.
+	</AlertDescription>
+</Alert>
+
 
 ### `description` (optional)
 
 This is the description that will be shown on your app listing.
 
-> Most apps do not have a `description` property, so Paquet
-> will look for one in the web page if not present.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		Most apps do not have a `description` property, so Paquet
+		will look for one in the web page if not present.
+	</AlertDescription>
+</Alert>
+
 
 ### `categories` (required)
 

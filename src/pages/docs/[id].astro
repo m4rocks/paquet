@@ -1,9 +1,11 @@
 ---
 import Layout from "@/layouts/layout.astro";
+import { Separator } from "@/components/ui/separator";
 import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
+import { HomeIcon } from "lucide-react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const docs = await getCollection("docs");
@@ -29,11 +31,19 @@ const { Content } = await render(doc);
 >
 	<div class="container flex flex-col md:flex-row gap-8">
 		<div class="min-w-48 border-b p-4 md:border-r md:border-b-0">
-			<div class="md:fixed flex flex-col">
+			<div class="md:fixed flex flex-col gap-1">
+				<a 
+					href="/home" 
+					class="transition-colors text-nowrap px-2 py-0.5 rounded hover:bg-accent flex flex-row items-center gap-1"
+				>
+					<HomeIcon className="w-4 h-4 inline"/>
+					Home
+				</a>
+				<Separator />
 				{entries.map((e) => (
 					<a
 						href={"/docs/" + e.id}
-						class:list={["text-nowrap", doc.id === e.id ? "text-muted-foreground" : "underline"]}
+						class:list={["transition-colors text-nowrap px-2 py-0.5 rounded", doc.id === e.id ? "text-primary-foreground bg-primary" : "hover:bg-accent"]}
 					>
 						{e.data.title}
 					</a>

@@ -1,6 +1,10 @@
 ---
 title: Getting started
+slug: getting-started
 ---
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { InfoIcon } from "lucide-react";
+
 
 # Getting started
 
@@ -8,8 +12,16 @@ title: Getting started
 a new app is done by adding a spec to `apps` folder in the
 [GitHub repo](https://github.com/m4rocks/paquet).
 
-> Verification on apps has been removed, because all apps are checked
-> during the listing process.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		Verification on apps has been removed, because all apps are checked
+		during the listing process.
+	</AlertDescription>
+</Alert>
 
 ### Requirements:
 * Web app manifest
@@ -17,7 +29,15 @@ a new app is done by adding a spec to `apps` folder in the
 * Name
 * App icons
 
-> Since 3.2.0, requirements are a little bit stricter.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		Since 3.2.0, requirements are a little bit stricter.
+	</AlertDescription>
+</Alert>
 
 ## Preparing your `manifest.json`
 
@@ -52,7 +72,15 @@ mobile optimisation, offline capability and more.
 
 You can also specify an URL to your app's source code.
 
-> In future releases, you will have the ability to display releases from GitHub or GitLab.
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		In future releases, you will have the ability to display releases from GitHub or GitLab.
+	</AlertDescription>
+</Alert>
 
 ## Issues
 

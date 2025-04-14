@@ -7,7 +7,7 @@ const apps = defineCollection({
 });
 
 const docs = defineCollection({
-	loader: glob({ base: "./docs", pattern: "*.md" }),
+	loader: glob({ base: "./docs", pattern: "*.mdx" }),
 	schema: z.object({
 		title: z.string()
 	})
