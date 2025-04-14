@@ -7,6 +7,7 @@ import { AppIcon } from "@/components/app-icon";
 import { FeaturesList } from "@/components/features";
 import BrandIcon from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
+import { AppPageCard } from "@/components/app-page-card";
 
 // Get 5 random items from the apps collection
 const apps = await getCollection("apps");
@@ -154,8 +155,25 @@ const randomApps = apps
 				<p class="mt-2">Documentation</p>
 				<p class="text-muted-foreground">Learn how to use Paquet</p>
 			</a>
-
-			<!-- INSERT HEADER APP LISTING OF PAQUET HERE -->
 		</div>
+
+		<AppPageCard
+			app={{
+				id: "rocks.m4.paquet",
+				collection: "apps",
+				data: {
+					accentColor: "#8267be",
+					author: "m4rocks",
+					authorUrl: "https://m4.rocks",
+					categories: ["productivity"],
+					features: ["desktop", "mobile", "openSource"],
+					icon: "https://paquet.m4.rocks/android-chrome-192x192.png",
+					manifestUrl: "https://paquet.m4.rocks/manifest.json",
+					id: "rocks.m4.paquet",
+					name: "Paquet",
+					url: "https://paquet.m4.rocks"
+				}
+			}}
+		/>
 	</div>
 </Layout>
