@@ -82,11 +82,17 @@ const getScreenshots = async (manifestUrl: string, manifest: WebAppManifest): Pr
 	manifestSplit.pop();
 	const manifestParent = manifestSplit.join("/") + "/";
 	const screenshots = manifest.screenshots?.splice(0, 10) || [];
-	return await Promise.all(screenshots.map(async (screenshot) => {
+	return (await Promise.all(screenshots.map(async (screenshot) => {
 		let url = new URL(screenshot.src, manifestParent).href;
 
-		return url;
-	}));
+		const res = await fetch(url).then((res) => res.ok).catch(() => false);
+
+		if (res) {
+			return url;
+		} else {
+			return null;
+		}
+	}))).filter((r) => r !== null);
 }
 
 const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>, "description" | "cover" | "manifestUrl"> | null> => {
@@ -109,10 +115,12 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 	let descriptionMeta = parsedPageBody.getElementsByAttribute("name", "description")[0];
 	let coverMeta = parsedPageBody.getElementsByAttribute("property", "og:image")[0];
 
+	const coverRes = await fetch(new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url))).then((r) => r.ok).catch((r) => false);
+
 	return {
 		description: descriptionMeta?.getAttribute("content"),
 		manifestUrl: new URL(manifestLink?.getAttribute("href"), addTrailingSlash(url)).href,
-		cover: coverMeta !== undefined ? new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url)).href : undefined
+		cover: (coverMeta !== undefined && coverRes) ? new URL(coverMeta.getAttribute("content").replace("./", ""), addTrailingSlash(url)).href : undefined
 	}
 }
 
