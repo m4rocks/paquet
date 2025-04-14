@@ -7,7 +7,7 @@
 	/>
 </p>
 
-<a href="https://paquet.app"><h1 align="center">Paquet</h1></a>
+<a href="https://paquet.m4.rocks"><h1 align="center">Paquet</h1></a>
 
 Welcome to your new web app shop!
 
@@ -29,27 +29,28 @@ Welcome to your new web app shop!
 
 Paquet is built with a modern toolset in mind:
 
-- [Deno](https://deno.land)
-- [Fresh](https://fresh.deno.dev)
+- [Astro](https://astro.build)
+- [Tailwind](https://tailwindcss.com)
+- [Shadcn/UI](https://ui.shadcn.com)
 
-## 🔨 Tasks
-
-To cache all required dependencies:
-
-```
-deno task cache
-```
+## 🔨 Scripts
 
 To run the app in development mode:
 
 ```
-deno task dev
+bun dev
 ```
 
-To type check, lint, and format the source code:
+To run the build steps
 
 ```
-deno task check
+bun run build
+```
+
+To run a preview build
+
+```
+bun preview
 ```
 
 ## 📄 Developer Documentation
