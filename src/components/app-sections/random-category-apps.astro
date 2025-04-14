@@ -9,8 +9,6 @@ const apps = await getCollection("apps", (entry) => entry.data.categories.includ
 const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 5);
-
-Astro.response.headers.set("Cache-Control", "public, max-age=120, s-maxage=120");
 ---
 
 
