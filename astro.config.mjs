@@ -24,6 +24,10 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [remarkGemoji]
     },
+    prefetch: {
+        defaultStrategy: "viewport",
+        prefetchAll: true
+    },
 
     vite: {
         plugins: [tailwindcss()],
