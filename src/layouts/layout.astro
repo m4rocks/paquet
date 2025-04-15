@@ -5,8 +5,9 @@ import "@/styles/global.css";
 import HeadTags from "@/components/head-tags.astro";
 import Footer from "@/components/footer.astro";
 import { Navbar } from "@/components/navbar";
-import { ThemeColor } from "@/components/theme-color";
+import ThemeColor from "@/components/theme-color.astro";
 import { Toaster } from "@/components/ui/sonner";
+import { ClientRouter, slide } from "astro:transitions";
 
 interface Props {
 	class?: string;
@@ -25,12 +26,12 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 	<head>
 		<HeadTags/>
 		<ThemeColor
-			client:load
 			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
 		<script src="@/lib/client-scripts/auto-register.ts"></script>
-		
+		<ClientRouter/>
+
 		<slot name="head"/>
 	</head>
 	<body

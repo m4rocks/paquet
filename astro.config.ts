@@ -1,13 +1,13 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import react from '@astrojs/react';
+import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import astropwa from "@vite-pwa/astro";
-import cloudflare from '@astrojs/cloudflare';
-import tailwindcss from '@tailwindcss/vite';
+import cloudflare from "@astrojs/cloudflare";
+import tailwindcss from "@tailwindcss/vite";
 import remarkGemoji from "remark-gemoji";
-
+import { Pi } from "lucide-react";
 
 
 // https://astro.build/config
@@ -28,9 +28,13 @@ export default defineConfig({
 					"home.html",
 					"manifest.json",
 					"offline.html",
-					"app/*.html"
+					"app/*.html",
 				],
+				disableDevLogs: true
 			},
+			devOptions: {
+				enabled: false
+			}
 		}),
 		react(),
 		mdx()
@@ -39,12 +43,13 @@ export default defineConfig({
 	server: {
 		port: 3000
 	},
-	build: {
-		format: "file"
-	},
 	image: {
 		remotePatterns: [{ protocol: "https" }]
 	},
+	build: {
+		format: "file"
+	},
+	trailingSlash: "never",
 	markdown: {
 		remarkPlugins: [remarkGemoji]
 	},
