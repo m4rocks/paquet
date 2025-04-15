@@ -9,7 +9,7 @@ export interface NavbarProps {
 	back?: boolean;
 }
 
-export function Navbar({ title, back }: NavbarProps) {
+export function Navbar({ title, back, color }: NavbarProps) {
 	const scrollDownTrigger = useScroll({ threshold: 16 });
 
 	const handleBack = () => {
@@ -30,7 +30,7 @@ export function Navbar({ title, back }: NavbarProps) {
 					variant="ghost"
 					onClick={handleBack}
 				>
-					<ChevronLeftIcon 
+					<ChevronLeftIcon
 						className="w-8! h-8!"
 						style={{
 							color: color ? getContrastColor(color) : undefined
