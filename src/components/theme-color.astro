@@ -1,0 +1,52 @@
+---
+import { combineColors } from "@/lib/utils";
+
+export interface Props {
+	color?: string;
+}
+
+const darkBg = "#09090B";
+const lightBg = "#ffffff";
+const { color } = Astro.props;
+
+const darkMixedColor = color ? combineColors(color, darkBg) : undefined;
+const lightMixedColor = color ? combineColors(color, darkBg) : undefined;
+---
+
+<meta
+	name="theme-color"
+	media="(prefers-color-scheme: dark)"
+	content={color ? darkMixedColor : darkBg}
+/>
+<meta
+	name="theme-color"
+	media="(prefers-color-scheme: light)"
+	content={color ? lightMixedColor : lightBg}
+/>
+
+<script is:inline data-astro-rerun define:vars={{ darkBg, lightBg, color, darkMixedColor, lightMixedColor }}>
+	const threshold = 16;
+
+	const handleScroll = () => {
+		console.log("Hello world", color);
+		const darkTag = document.querySelector("meta[media='(prefers-color-scheme: dark)']");
+		const lightTag = document.querySelector("meta[media='(prefers-color-scheme: light)']");
+
+		if (window.scrollY > threshold) {
+			darkTag?.setAttribute("content", darkBg);
+			lightTag?.setAttribute("content", lightBg);
+		} else if (color) {
+			darkTag?.setAttribute("content", darkMixedColor);
+			lightTag?.setAttribute("content", lightMixedColor);
+		};
+	};
+
+	document.addEventListener("astro:page-load", () => {
+		handleScroll();
+		window.onscroll = handleScroll;
+	});
+
+	document.addEventListener("astro:before-preparation", () => {
+		window.onscroll = null;
+	});
+</script>
