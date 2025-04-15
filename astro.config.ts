@@ -24,7 +24,7 @@ export default defineConfig({
 				navigationPreload: false,
 				globPatterns: [
 					"_astro/*.{js,woff,woff2}",
-					"**/*.{png,json,css}",
+					"**/*.{png,css}",
 					"home.html",
 					"offline.html",
 					"app/*.html"
