@@ -6,6 +6,8 @@ import { decodeResourceUrl, iconSizes as sizes } from "@/lib/images";
 export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+	if (import.meta.env.NORESOURCES) return [];
+	
 	const apps = await getCollection("apps");
 
 	return apps.map((a) => ({

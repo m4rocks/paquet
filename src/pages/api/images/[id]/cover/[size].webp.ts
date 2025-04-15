@@ -6,6 +6,8 @@ import { decodeResourceUrl, coverSizes as sizes } from "@/lib/images";
 export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+	if (import.meta.env.NORESOURCES) return [];
+	
 	const apps = await getCollection("apps", (e) => !!e.data.cover);
 
 	let paths: { params: { id: string, size: keyof typeof sizes }}[] = []

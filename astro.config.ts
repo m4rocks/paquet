@@ -12,47 +12,34 @@ import remarkGemoji from "remark-gemoji";
 // https://astro.build/config
 export default defineConfig({
 	output: "static",
-	integrations: [astropwa({
-		manifest: false,
-		base: "/",
-		scope: "/",
-		registerType: "prompt",
-		strategies: "generateSW",
-		injectRegister: false,
-		workbox: {
-			navigationPreload: true,
-			navigateFallback: "/",
-			globPatterns: [
-				"_astro/*.{js,woff,woff2}",
-				"*.png",
-				"splash_screens/*.png",
-			],
-			runtimeCaching: [
-				{
-					urlPattern: "/app/*",
-					method: "GET",
-					handler: "StaleWhileRevalidate",
-					options: {
-						cacheName: "app-pages-cache",
-						expiration: {
-							maxEntries: 10,
-							maxAgeSeconds: 60 * 60 * 24 // For 1 day
-						},
-						cacheableResponse: {
-							statuses: [0, 200]
-						}
-					}
-				}
-			]
-		},
-		devOptions: {
-			enabled: true,
-			navigateFallbackAllowlist: [/^\/$/]
-		}
-	}), react(), mdx()],
+	integrations: [
+		astropwa({
+			manifest: false,
+			base: "/",
+			scope: "/",
+			registerType: "prompt",
+			strategies: "generateSW",
+			injectRegister: false,
+			workbox: {
+				globPatterns: [
+					"_astro/*.{js,woff,woff2}",
+					"**/*.{png,json,css}",
+					"home.html",
+					"offline.html",
+					"app/*.html",
+					"api/images/*/icon.webp"
+				],
+			},
+		}),
+		react(),
+		mdx()
+	],
 	site: "https://paquet.m4.rocks",
 	server: {
 		port: 3000
+	},
+	build: {
+		format: "file"
 	},
 	image: {
 		remotePatterns: [{ protocol: "https" }]
@@ -64,7 +51,6 @@ export default defineConfig({
 		defaultStrategy: "viewport",
 		prefetchAll: true
 	},
-
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
@@ -75,7 +61,6 @@ export default defineConfig({
 			} : {},
 		},
 	},
-
 	adapter: cloudflare({
 		platformProxy: {
 			enabled: true

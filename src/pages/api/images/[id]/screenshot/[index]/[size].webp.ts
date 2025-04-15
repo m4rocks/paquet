@@ -6,6 +6,8 @@ import { decodeResourceUrl, screenshotSizes as sizes } from "@/lib/images";
 export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+	if (import.meta.env.NORESOURCES) return [];
+
 	const apps = await getCollection("apps", (e) => !!e.data.screenshots && e.data.screenshots.length > 0);
 
 	let paths: { params: { id: string, index: string, size: keyof typeof sizes }}[] = []

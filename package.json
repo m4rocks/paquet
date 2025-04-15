@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "dev:nocache": "NOCACHE=1 astro dev",
     "build": "BUILD=1 astro build",
+    "build:noresources": "BUILD=1 NORESOURCES=1 astro build",
     "preview": "wrangler pages dev ./dist",
     "astro": "astro",
     "generate:schema": "bun scripts/generateAppSpecSchema.ts"
