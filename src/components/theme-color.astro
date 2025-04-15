@@ -28,7 +28,6 @@ const lightMixedColor = color ? combineColors(color, darkBg) : undefined;
 	const threshold = 16;
 
 	const handleScroll = () => {
-		console.log("Hello world", color);
 		const darkTag = document.querySelector("meta[media='(prefers-color-scheme: dark)']");
 		const lightTag = document.querySelector("meta[media='(prefers-color-scheme: light)']");
 
