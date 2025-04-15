@@ -1,5 +1,5 @@
 import { useScroll } from "@/hooks/useScroll";
-import { cn } from "@/lib/utils";
+import { cn, getContrastColor } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { ChevronLeftIcon } from "lucide-react";
 
@@ -30,7 +30,12 @@ export function Navbar({ title, back }: NavbarProps) {
 					variant="ghost"
 					onClick={handleBack}
 				>
-					<ChevronLeftIcon className="w-8! h-8!"/>
+					<ChevronLeftIcon 
+						className="w-8! h-8!"
+						style={{
+							color: color ? getContrastColor(color) : undefined
+						}}
+					/>
 				</Button>
 			: null}
 			<p
