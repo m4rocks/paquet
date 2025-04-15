@@ -32,27 +32,25 @@ const onNetworkChange = (online: boolean) => {
 }
 
 
-typeof window !== undefined ? window.addEventListener("load", async () => {
-	onNetworkChange(await checkNetwork());
-	window.addEventListener("online", async () => onNetworkChange(await checkNetwork()));
-	window.addEventListener("offline", async () => onNetworkChange(await checkNetwork()));
+checkNetwork().then(r => onNetworkChange(r));
+window.addEventListener("online", () => checkNetwork().then(r => onNetworkChange(r)));
+window.addEventListener("offline", () => checkNetwork().then(r => onNetworkChange(r)));
 
-	let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
+let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
 
-	refreshSW = registerSW({
-		immediate: true,
-		onOfflineReady() {
-			toast.info("Paquet has been installed, it will work even faster");
-		},
-		onNeedRefresh: () => {
-			toast.info("A new update is available for Paquet", {
-				action: {
-					label: "Update",
-					onClick: () => refreshSW?.(true)
-				},
-				dismissible: false,
-				closeButton: false
-			})
-		}
-	})
-}) : null;
+refreshSW = registerSW({
+	immediate: true,
+	onOfflineReady() {
+		toast.info("Paquet has been installed, it will work even faster");
+	},
+	onNeedRefresh: () => {
+		toast.info("A new update is available for Paquet", {
+			action: {
+				label: "Update",
+				onClick: () => refreshSW?.(true)
+			},
+			dismissible: false,
+			closeButton: false
+		})
+	}
+})
