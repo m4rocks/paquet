@@ -21,6 +21,7 @@ export default defineConfig({
 			registerType: "prompt",
 			strategies: "generateSW",
 			workbox: {
+				navigationPreload: false,
 				globPatterns: [
 					"_astro/*.{js,woff,woff2}",
 					"**/*.{png,json,css}",
