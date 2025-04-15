@@ -2,3 +2,6 @@ name = "paquet"
 pages_build_output_dir = "./dist"
 compatibility_date = "2025-04-09"
 compatibility_flags = ["nodejs_compat"]
+
+[vars]
+BUN_VERSION = 1.2.9
