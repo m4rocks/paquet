@@ -9,6 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 import remarkGemoji from "remark-gemoji";
 
 
+
 // https://astro.build/config
 export default defineConfig({
 	output: "static",
