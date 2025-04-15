@@ -19,7 +19,6 @@ interface Props {
 const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
 ---
 
-<script src="@/lib/client-scripts/pwa.ts"></script>
 
 <!doctype html>
 <html lang="en">
@@ -30,7 +29,8 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
-
+		<script src="@/lib/client-scripts/pwa.ts"></script>
+		
 		<slot name="head"/>
 	</head>
 	<body

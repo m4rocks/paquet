@@ -20,15 +20,13 @@ export default defineConfig({
 			scope: "/",
 			registerType: "prompt",
 			strategies: "generateSW",
-			injectRegister: false,
 			workbox: {
 				globPatterns: [
 					"_astro/*.{js,woff,woff2}",
 					"**/*.{png,json,css}",
 					"home.html",
 					"offline.html",
-					"app/*.html",
-					"api/images/*/icon.webp"
+					"app/*.html"
 				],
 			},
 		}),
