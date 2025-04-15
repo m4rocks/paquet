@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { registerSW } from "virtual:pwa-register";
+import { registerServiceWorker } from "../pwa";
 
 const checkNetwork = async () => {
 	if (!navigator.onLine) {
@@ -31,26 +31,10 @@ const onNetworkChange = (online: boolean) => {
 	}
 }
 
-
 checkNetwork().then(r => onNetworkChange(r));
 window.addEventListener("online", () => checkNetwork().then(r => onNetworkChange(r)));
 window.addEventListener("offline", () => checkNetwork().then(r => onNetworkChange(r)));
 
-let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
-
-refreshSW = registerSW({
-	immediate: true,
-	onOfflineReady() {
-		toast.info("Paquet has been installed, it will work even faster");
-	},
-	onNeedRefresh: () => {
-		toast.info("A new update is available for Paquet", {
-			action: {
-				label: "Update",
-				onClick: () => refreshSW?.(true)
-			},
-			dismissible: false,
-			closeButton: false
-		})
-	}
-})
+if ("serviceWorker" in navigator) {
+	registerServiceWorker();
+}

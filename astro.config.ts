@@ -26,6 +26,7 @@ export default defineConfig({
 					"_astro/*.{js,woff,woff2}",
 					"**/*.{png,css}",
 					"home.html",
+					"manifest.json",
 					"offline.html",
 					"app/*.html"
 				],

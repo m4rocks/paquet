@@ -29,7 +29,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			color={Astro.props.themeColor}
 		/>
 		<title>{Astro.props.title ? `${Astro.props.title} - Paquet` : "Paquet"}</title>
-		<script src="@/lib/client-scripts/pwa.ts"></script>
+		<script src="@/lib/client-scripts/auto-register.ts"></script>
 		
 		<slot name="head"/>
 	</head>
@@ -53,8 +53,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 			{commitHash}
 		/>
 		<Toaster
-
-			client:load
+			client:only
 		/>
 	</body>
 </html>
