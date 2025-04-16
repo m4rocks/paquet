@@ -259,7 +259,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		icon: icon,
 		manifestUrl: manifestUrl,
 		url: spec.url,
-		accentColor: getAccentColor(manifest.theme_color || "") || "#212121",
+		accentColor: getAccentColor(spec.accentColor || "") || getAccentColor(manifest.theme_color || "") || "#212121",
 		screenshots: screenshots,
 		gitlabUrl: spec.gitlabUrl,
 		githubUrl: spec.githubUrl,
