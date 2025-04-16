@@ -55,6 +55,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 		/>
 		<Toaster
 			client:only
+			transition:persist
 		/>
 	</body>
 </html>

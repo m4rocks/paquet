@@ -1,5 +1,5 @@
 import { useScroll } from "@/hooks/useScroll";
-import { cn, getContrastColor } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { ChevronLeftIcon } from "lucide-react";
 
