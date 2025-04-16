@@ -63,8 +63,6 @@ Here is a `manifest.json` example:
 The values Paquet uses in your app listing are:
 
 -   `name`
--   `short_name`
--   `author`
 -   `description`
 -   `categories`
 -   `icons`
@@ -74,39 +72,6 @@ The values Paquet uses in your app listing are:
 ### `name` (required)
 
 This is the name that is going to be used when showing your app.
-
-### `short_name` (optional)
-
-This is the short name that is going to be used when showing your app.
-This is used for [sandbox installations](/docs/sandbox-installations).
-
-<Alert className="not-prose">
-	<InfoIcon/>
-	<AlertTitle>
-		Info
-	</AlertTitle>
-	<AlertDescription>
-		Sandbox Installations are still under development.
-	</AlertDescription>
-</Alert>
-
-### `author` (required)
-
-This is the name of the author. It is prefered to use the same
-names across multiple apps published to Paquet to share
-verification status
-
-<Alert className="not-prose">
-	<InfoIcon/>
-	<AlertTitle>
-		Info
-	</AlertTitle>
-	<AlertDescription>
-		This property is not used often, so when not present,
-		Paquet will look for an `author` meta tag in the web page.
-	</AlertDescription>
-</Alert>
-
 
 ### `description` (optional)
 
@@ -124,7 +89,7 @@ This is the description that will be shown on your app listing.
 </Alert>
 
 
-### `categories` (required)
+### `categories` (optional)
 
 This is usually an array of categories.
 Paquet fetches this manifest property and reflects it to your app.

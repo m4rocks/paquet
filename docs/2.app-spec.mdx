@@ -2,6 +2,8 @@
 title: App Specification
 slug: app-spec
 ---
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { InfoIcon } from "lucide-react";
 
 # App specification
 
@@ -35,6 +37,17 @@ If your app is hosted at a subdomain, append the pathname at the end.
 Example 1: `https://paquet.m4.rocks -> rocks.m4.paquet` \
 Example 2: `https://m4rocks.github.io/paquet -> io.github.m4rocks.paquet`
 
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Info
+	</AlertTitle>
+	<AlertDescription>
+		This property is in progress of changing from the current model to a simpler
+		and shorter ID model. Future ID's will look like "bolt" and "tiktok".
+	</AlertDescription>
+</Alert>
+
 ### `url` (required)
 
 This is the URL to your app. This can point to your app's landing page or the app itself.
@@ -53,6 +66,16 @@ It is typically recommended to include this in your app specification.
 This will include the categories that your app is included in.
 It is preferable to use the `categories` key in your app's manifest.
 
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Note
+	</AlertTitle>
+	<AlertDescription>
+		This property will take priority over the manifest's categories key.
+	</AlertDescription>
+</Alert>
+
 ### `features` (required)
 
 This represents the features that your app offers.
@@ -70,7 +93,6 @@ If you want to have a different author text from the one in your app's manifest,
 you can add an `author` key. You can also add `authorUrl` to link to your
 website or GitHub profile. (`authorUrl` has been previously known as `authorLink`)
 
-
 ## Additional keys
 
 ### `githubUrl` & `gitlabUrl` (optional)
@@ -80,6 +102,16 @@ This URL points to the public repository of your app.
 ### `accentColor` (optional)
 
 This is if you want a separate theme color from the one in your app's manifest.
+
+<Alert className="not-prose">
+	<InfoIcon/>
+	<AlertTitle>
+		Note
+	</AlertTitle>
+	<AlertDescription>
+		This property will take priority over the manifest's theme_color key.
+	</AlertDescription>
+</Alert>
 
 ### `certificateUrl` (deprecated)
 
