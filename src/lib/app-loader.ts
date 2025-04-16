@@ -202,7 +202,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 	manifest = await fetch(manifestUrl, {
 		method: "GET",
 		headers: {
-			accept: "application/manifest+json"
+			accept: "application/json"
 		}
 	}).then(res => res.json()).catch(() => null);
 

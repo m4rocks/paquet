@@ -43,6 +43,7 @@ const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT
 		<Navbar
 			title={Astro.props.title}
 			back={Astro.props.back}
+			color={Astro.props.themeColor}
 			client:load
 		/>
 		<main

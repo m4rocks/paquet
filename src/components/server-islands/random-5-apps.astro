@@ -7,6 +7,8 @@ const apps = await getCollection("apps");
 const randomApps = apps
 .sort(() => Math.random() - 0.5)
 .slice(0, 5);
+
+Astro.response.headers.append("Cache-Control", "max-age=60, private")
 ---
 
 

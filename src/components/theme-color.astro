@@ -25,7 +25,7 @@ const lightMixedColor = color ? combineColors(color, darkBg) : undefined;
 />
 
 <script is:inline data-astro-rerun define:vars={{ darkBg, lightBg, color, darkMixedColor, lightMixedColor }}>
-	const threshold = 16;
+	const threshold = 64;
 
 	const handleScroll = () => {
 		const darkTag = document.querySelector("meta[media='(prefers-color-scheme: dark)']");

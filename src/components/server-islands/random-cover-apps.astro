@@ -1,11 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import { AppCardCarousel } from "./app-card-carousel";
+import { AppCardCarousel } from "../app-sections/app-card-carousel";
 
 const apps = await getCollection("apps", (entry) => !!entry.data.cover);
 const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 10);
+
+Astro.response.headers.append("Cache-Control", "max-age=60, private")
 ---
 
 <div class="w-full">
