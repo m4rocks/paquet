@@ -5,11 +5,10 @@ import { ChevronLeftIcon } from "lucide-react";
 
 export interface NavbarProps {
 	title?: string;
-	color?: string;
 	back?: boolean;
 }
 
-export function Navbar({ title, back, color }: NavbarProps) {
+export function Navbar({ title, back }: NavbarProps) {
 	const scrollDownTrigger = useScroll({ threshold: 64 });
 
 	const handleBack = () => {
@@ -32,9 +31,6 @@ export function Navbar({ title, back, color }: NavbarProps) {
 				>
 					<ChevronLeftIcon
 						className="w-8! h-8!"
-						style={{
-							color: (!scrollDownTrigger && color) ? getContrastColor(color) : undefined
-						}}
 					/>
 				</Button>
 			: null}
