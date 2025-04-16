@@ -10,7 +10,7 @@ const lightBg = "#ffffff";
 const { color } = Astro.props;
 
 const darkMixedColor = color ? combineColors(color, darkBg) : undefined;
-const lightMixedColor = color ? combineColors(color, darkBg) : undefined;
+const lightMixedColor = color ? combineColors(color, lightBg) : undefined;
 ---
 
 <meta
@@ -31,10 +31,10 @@ const lightMixedColor = color ? combineColors(color, darkBg) : undefined;
 		const darkTag = document.querySelector("meta[media='(prefers-color-scheme: dark)']");
 		const lightTag = document.querySelector("meta[media='(prefers-color-scheme: light)']");
 
-		if (window.scrollY > threshold) {
+		if (window.scrollY > threshold || !color) {
 			darkTag?.setAttribute("content", darkBg);
 			lightTag?.setAttribute("content", lightBg);
-		} else if (color) {
+		} else {
 			darkTag?.setAttribute("content", darkMixedColor);
 			lightTag?.setAttribute("content", lightMixedColor);
 		};
