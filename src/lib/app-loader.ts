@@ -193,7 +193,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 	let manifest: WebAppManifest;
 	const metaTags = await getMetaTags(spec.url);
 	if (!metaTags) {
-		console.error("App ", spec.id, " meta tags could not be fetched.");
+		console.error("App", spec.id, "meta tags could not be fetched.");
 		return null;
 	}
 

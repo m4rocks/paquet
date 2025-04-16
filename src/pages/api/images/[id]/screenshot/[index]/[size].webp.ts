@@ -21,7 +21,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}
 
 	return paths;
-}  
+}
 
 export const GET: APIRoute = async (ctx) => {
 	const id = ctx.params.id;
@@ -37,7 +37,13 @@ export const GET: APIRoute = async (ctx) => {
 
 	const originalImage = await fetch(new URL(decodeResourceUrl(app.data.screenshots![parseInt(index)])), {
 		method: "GET"
-	});
+	}).catch(() => null);
+
+	if (!originalImage) {
+		return new Response(null, {
+			status: 404,
+		});
+	}
 
 	const processedImage = await sharp(await originalImage.arrayBuffer())
 		.resize(sizes[size].width, sizes[size].height, {

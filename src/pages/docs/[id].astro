@@ -16,11 +16,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}))
 }
 
+const toc = [
+	{ id: "getting-started", title: "Getting Started" },
+	{ id: "how-paquet-works", title: "How Paquet works" },
+	{ id: "app-spec", title: "App spec" },
+	{ id: "manifest", title: "Manifest" }
+] as const;
+
 interface Props {
 	doc: CollectionEntry<"docs">
 }
 
-const entries = await getCollection("docs");
 const { doc } = Astro.props;
 const { Content } = await render(doc);
 ---
@@ -32,20 +38,20 @@ const { Content } = await render(doc);
 	<div class="container flex flex-col md:flex-row gap-8">
 		<div class="min-w-48 border-b p-4 md:border-r md:border-b-0">
 			<div class="md:fixed flex flex-col gap-1">
-				<a 
-					href="/home" 
+				<a
+					href="/home"
 					class="transition-colors text-nowrap px-2 py-0.5 rounded hover:bg-accent flex flex-row items-center gap-1"
 				>
 					<HomeIcon className="w-4 h-4 inline"/>
 					Home
 				</a>
 				<Separator />
-				{entries.map((e) => (
+				{toc.map((e) => (
 					<a
 						href={"/docs/" + e.id}
 						class:list={["transition-colors text-nowrap px-2 py-0.5 rounded", doc.id === e.id ? "text-primary-foreground bg-primary" : "hover:bg-accent"]}
 					>
-						{e.data.title}
+						{e.title}
 					</a>
 				))}
 			</div>
