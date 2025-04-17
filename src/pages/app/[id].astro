@@ -13,6 +13,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { Links } from '@/components/app-sections/links';
 import RandomFromCategory from '@/components/server-islands/random-from-category.astro';
+import GithubRelease from '@/components/server-islands/github-release.astro';
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -80,6 +81,13 @@ const { app } = Astro.props;
 			features={app.data.features}
 			accentColor={app.data.accentColor}
 		/>
+
+		{app.data.githubUrl && app.data.syncGitHubReleases ?
+			<GithubRelease
+				githubUrl={app.data.githubUrl}
+				server:defer
+			/>
+		: null}
 
 		<Links
 			app={app}

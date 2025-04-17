@@ -7,7 +7,7 @@ const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 10);
 
-Astro.response.headers.append("Cache-Control", "max-age=60, private")
+Astro.response.headers.set("Cache-Control", "max-age=60, private")
 ---
 
 <div class="w-full">

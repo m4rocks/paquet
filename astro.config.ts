@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
@@ -45,6 +45,11 @@ export default defineConfig({
 	},
 	image: {
 		remotePatterns: [{ protocol: "https" }]
+	},
+	env: {
+		schema: {
+			GITHUB_API_KEY: envField.string({ access: "secret", context: "server", optional: true })
+		}
 	},
 	build: {
 		format: "file"

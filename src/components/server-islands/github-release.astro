@@ -1,0 +1,79 @@
+---
+import { GITHUB_API_KEY } from 'astro:env/server';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { ExternalLinkIcon } from 'lucide-react';
+import { Button } from '../ui/button';
+
+interface Props {
+	githubUrl: string;
+}
+
+interface GitHubResponse {
+	html_url: string;
+	name: string;
+	published_at: string;
+	reactions: {
+		url: string;
+		total_count: number;
+		"+1": number;
+		"-1": number;
+		laugh: number;
+		hooray: number;
+		confused: number;
+		heart: number;
+		rocket: number;
+		eyes: number;
+	}
+}
+
+const { githubUrl } = Astro.props;
+
+if (!githubUrl) {
+	Astro.response.status = 400;
+	Astro.response.statusText = "No GitHub URL provided";
+	return;
+};
+
+const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
+	headers: {
+		"Authorization": `Bearer ${GITHUB_API_KEY}`
+	}
+})
+	.then((res) => res.json() as unknown as GitHubResponse)
+	.catch(() => null);
+
+if (!res) {
+	Astro.response.status = 400;
+	Astro.response.statusText = "No response from GitHub";
+	return;
+};
+
+// Cached for 3 days
+Astro.response.headers.set("Cache-Control", `max-age=${60*60*24*3}, public`);
+---
+
+<Card>
+	<CardHeader>
+		<CardTitle>
+			Latest release
+		</CardTitle>
+		<CardDescription>
+			{res.name} &middot; Published on {new Date(res.published_at).toLocaleDateString("en-GB")}
+			<br/>
+			Last checked at {new Date().toLocaleTimeString("en-GB")}
+		</CardDescription>
+	</CardHeader>
+	<CardContent>
+		<a 
+			href={res.html_url} 
+			target="_blank"
+		>
+			<Button
+				variant="outline"
+			>
+				<ExternalLinkIcon/>
+				Check out the release on GitHub
+			</Button>
+		</a>
+	</CardContent>
+</Card>

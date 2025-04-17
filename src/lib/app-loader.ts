@@ -7,6 +7,7 @@ import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
 import type { Loader } from "astro/loaders";
 import { buildSearchIndex } from "./pagefind";
+import { GITHUB_API_KEY } from "astro:env/server";
 
 
 const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
@@ -136,6 +137,18 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 	}
 }
 
+const checkGitHubReleases = async (githubUrl: string) => {
+	const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
+		headers: {
+			"Authorization": `Bearer ${GITHUB_API_KEY}`
+		}
+	})
+		.then((res) => res.ok)
+		.catch(() => false);
+
+	return res;
+}
+
 export const appLoader: Loader = {
 	name: "PaquetAppLoader",
 	schema: appSchema,
@@ -250,6 +263,11 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		return null;
 	}
 
+	let enableGithubReleases = false;	
+	if (spec.syncGitHubReleases !== false && spec.githubUrl) {
+		enableGithubReleases = await checkGitHubReleases(spec.githubUrl);
+	}
+
 	const appData: z.infer<typeof appSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
@@ -270,9 +288,11 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 
 		gitlabUrl: spec.gitlabUrl,
 		githubUrl: spec.githubUrl,
+		syncGitHubReleases: enableGithubReleases,
+
+
 		privacyPolicyUrl: spec.privacyPolicyUrl,
 		termsAndConditionsUrl: spec.termsAndConditionsUrl,
-		
 	}
 
 	return appSchema.parse(appData);

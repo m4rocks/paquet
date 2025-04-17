@@ -18,6 +18,8 @@ export const appSchema = z.object({
 
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
+	syncGitHubReleases: z.boolean(),
+
 	privacyPolicyUrl: z.string().url().optional(),
 	termsAndConditionsUrl: z.string().url().optional(),
 
@@ -39,6 +41,8 @@ export const appSpecSchema = z.object({
 	
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
+	syncGitHubReleases: z.boolean().optional(),
+
 	privacyPolicyUrl: z.string().url().optional(),
 	termsAndConditionsUrl: z.string().url().optional(),
 	

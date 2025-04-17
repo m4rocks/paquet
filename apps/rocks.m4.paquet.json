@@ -3,10 +3,11 @@
 	"id": "rocks.m4.paquet",
 	"author": "m4rocks",
 	"githubUrl": "https://github.com/m4rocks/paquet",
+	"categories": ["productivity"],
 	"features": ["desktop", "mobile", "open-source"],
 	"termsAndConditionsUrl": "https://paquet.m4.rocks/terms-and-conditions",
 	"privacyPolicyUrl": "https://paquet.m4.rocks/privacy",
 	"authorUrl": "https://m4.rocks",
 	"url": "https://paquet.m4.rocks",
-	"updatedDate": "2025-04-14"
+	"updatedDate": "2025-04-17"
 }
