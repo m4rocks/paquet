@@ -224,7 +224,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		console.warn("App", spec.id, "could not fetch screenshots.");
 	}
 
-	const appCategories: string[] = [...new Set([...(spec.categories as string[]), ...(manifest.categories as string[])])];
+	const appCategories: string[] = [...new Set([...(spec.categories as string[] || []), ...(manifest.categories as string[] || [])])];
 
 	if (appCategories.length === 0) {
 		console.error("App", spec.id, "does not have categories")
