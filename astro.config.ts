@@ -48,7 +48,7 @@ export default defineConfig({
 	},
 	env: {
 		schema: {
-			GITHUB_API_KEY: envField.string({ access: "secret", context: "server", optional: true })
+			GITHUB_API_KEY: envField.string({ access: "secret", context: "server", optional: false })
 		}
 	},
 	build: {
