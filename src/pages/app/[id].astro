@@ -1,7 +1,6 @@
 ---
 import { AppPageCard } from '@/components/app-sections/app-page-card';
 import { AppScreenshotsCarousel } from '@/components/app-sections/app-screenshots-carousel';
-import Random5Apps from '@/components/server-islands/random-5-apps.astro';
 import { FeaturesList } from '@/components/app-sections/features';
 import { AppListItemSkeleton } from '@/components/skeletons/app-list-item-skeleton';
 import { badgeVariants } from '@/components/ui/badge';
@@ -13,6 +12,7 @@ import type { GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { Links } from '@/components/app-sections/links';
+import RandomFromCategory from '@/components/server-islands/random-from-category.astro';
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -94,7 +94,7 @@ const { app } = Astro.props;
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				<Random5Apps server:defer>
+				<RandomFromCategory server:defer categories={app.data.categories}>
 					<div slot="fallback" class="flex flex-col gap-2">
 						{Array(5).fill(null).map((_, idx) => (
 							<AppListItemSkeleton

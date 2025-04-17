@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import { ListItem } from "../ui/list-item";
+import { AppIcon } from "../app-icon";
+
+interface Props {
+	categories: string[];
+}
+
+const { categories } = Astro.props;
+
+const apps = await getCollection("apps", (e) =>
+	e.data.categories.some((cat) => categories.includes(cat))
+);
+const randomApps = apps
+	.sort(() => Math.random() - 0.5)
+	.slice(0, 5);
+
+Astro.response.headers.append("Cache-Control", "max-age=60, private")
+---
+
+
+{randomApps.map((a, idx) => (
+	<ListItem
+		title={a.data.name}
+		subtitle={a.data.author}
+		separator={idx !== randomApps.length - 1}
+		href={`/app/${a.id}`}
+	>
+		<AppIcon
+			slot="left"
+			appId={a.id}
+		/>
+	</ListItem>
+))}

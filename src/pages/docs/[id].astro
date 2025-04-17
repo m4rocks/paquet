@@ -6,6 +6,7 @@ import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 import { HomeIcon } from "lucide-react";
+import { DocsToc } from "@/components/docs-toc";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const docs = await getCollection("docs");
@@ -20,7 +21,7 @@ const toc = [
 	{ id: "getting-started", title: "Getting Started" },
 	{ id: "app-spec", title: "App spec" },
 	{ id: "manifest", title: "Manifest" }
-] as const;
+];
 
 interface Props {
 	doc: CollectionEntry<"docs">
@@ -35,26 +36,12 @@ const { Content } = await render(doc);
 	back
 >
 	<div class="container flex flex-col md:flex-row gap-8">
-		<div class="min-w-48 border-b p-4 md:border-r md:border-b-0">
-			<div class="md:fixed flex flex-col gap-1">
-				<a
-					href="/home"
-					class="transition-colors text-nowrap px-2 py-0.5 rounded hover:bg-accent flex flex-row items-center gap-1"
-				>
-					<HomeIcon className="w-4 h-4 inline"/>
-					Home
-				</a>
-				<Separator />
-				{toc.map((e) => (
-					<a
-						href={"/docs/" + e.id}
-						class:list={["transition-colors text-nowrap px-2 py-0.5 rounded", doc.id === e.id ? "text-primary-foreground bg-primary" : "hover:bg-accent"]}
-					>
-						{e.title}
-					</a>
-				))}
-			</div>
-		</div>
+		<DocsToc
+			toc={toc}
+			docId={doc.id}
+			client:load
+			transition:persist
+		/>
 
 		<div class="markdown">
 			<Content/>

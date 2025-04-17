@@ -8,7 +8,8 @@
 		"desktop",
 		"open-source",
 		"offline",
-		"auth"
+		"auth",
+		"data-collection"
 	],
 	"githubUrl": "https://github.com/Ajaxy/telegram-tt",
 	"termsAndConditionsUrl": "https://telegram.org/tos",

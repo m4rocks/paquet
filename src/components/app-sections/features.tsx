@@ -42,6 +42,12 @@ const FEATURES = [
 ] as const;
 
 export function FeaturesList({ features, accentColor }: FeaturesListProps) {
+	const sortedFeatures = FEATURES.slice().sort((a, b) => {
+		const aIncluded = features.includes(a.id)
+		const bIncluded = features.includes(b.id)
+		return aIncluded === bIncluded ? 0 : aIncluded ? -1 : 1
+	})
+	
 	return (
 		<Card>
 			<CardHeader>
@@ -54,16 +60,16 @@ export function FeaturesList({ features, accentColor }: FeaturesListProps) {
 			</CardHeader>
 			<CardContent>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					{FEATURES.map((f) => (
+					{sortedFeatures.map((f) => (
 						<div className="flex flex-row items-center gap-2" key={f.id}>
 							<div
-								className={cn(features.includes(f.id) ?  (!accentColor? "bg-primary text-primary-foreground" : "border") : "bg-muted text-muted-foreground", "p-4 rounded-full")}
+								className={cn(features.includes(f.id) ? (!accentColor ? "bg-primary text-primary-foreground" : "border") : "bg-muted text-muted-foreground", "p-2 rounded-full")}
 								style={{
 									backgroundColor: features.includes(f.id) && accentColor ? accentColor : undefined,
 									color: features.includes(f.id) && accentColor ? getContrastColor(accentColor) : undefined
 								}}
 							>
-								<f.icon/>
+								<f.icon />
 							</div>
 							<p
 								className={cn(features.includes(f.id) ? "text-foreground" : "text-muted-foreground", "text-wrap")}
