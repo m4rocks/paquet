@@ -11,8 +11,10 @@
 	"categories": [
 		"music"
 	],
+	"termsAndConditionsUrl": "https://spotify.com/us/legal/end-user-agreement/",
+	"privacyPolicyUrl": "https://spotify.com/us/legal/privacy-policy/",
 	"author": "Spotify",
 	"authorUrl": "https://spotify.com",
 	"accentColor": "#1cd363",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

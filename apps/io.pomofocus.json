@@ -11,7 +11,9 @@
 		"productivity",
 		"utilities"
 	],
+	"privacyPolicyUrl": "https://pomofocus.io/privacy",
+	"termsAndConditionsUrl": "https://pomofocus.io/terms",
 	"author": "Yuya Uzu",
 	"accentColor": "#cc5c5c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

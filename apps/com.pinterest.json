@@ -10,7 +10,9 @@
 	"categories": [
 		"lifestyle"
 	],
+	"privacyPolicyUrl": "https://policy.pinterest.com/en-gb/privacy-policy",
+	"termsAndConditionsUrl": "https://policy.pinterest.com/en-gb/terms-of-service",
 	"author": "Pinterest",
 	"accentColor": "#bc2324",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

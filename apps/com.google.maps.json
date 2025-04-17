@@ -5,12 +5,15 @@
 	"manifestUrl": "https://google.com/maps/preview/pwa/manifest",
 	"features": [
 		"mobile",
-		"desktop"
+		"desktop",
+		"data-collection"
 	],
+	"termsAndConditionsUrl": "https://policies.google.com/terms",
+	"privacyPolicyUrl": "https://policies.google.com/privacy",
 	"categories": [
 		"lifestyle"
 	],
 	"author": "Google",
 	"accentColor": "#fbbb05",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

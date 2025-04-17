@@ -1,10 +1,10 @@
 import type { CollectionEntry } from "astro:content";
-import { Card, CardContent } from "./ui/card";
-import { AppIcon } from "./app-icon";
-import { Button } from "./ui/button";
+import { Card, CardContent } from "../ui/card";
+import { AppIcon } from "../app-icon";
+import { Button } from "../ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 import { cn, getContrastColor } from "@/lib/utils";
-import { LazyLoadImage } from "./lazy-load-image";
+import { LazyLoadImage } from "../lazy-load-image";
 import { getAppResource } from "@/lib/images";
 
 export interface AppPageCardProps {

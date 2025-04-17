@@ -11,7 +11,9 @@
 		"social",
 		"entertainment"
 	],
+	"privacyPolicyUrl": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+	"termsAndConditionsUrl": "https://www.tiktok.com/legal/page/us/terms-of-service/en",
 	"author": "ByteDance",
 	"accentColor": "#24f3eb",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

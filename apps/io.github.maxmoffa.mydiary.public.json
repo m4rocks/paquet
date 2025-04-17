@@ -4,7 +4,7 @@
 	"url": "https://maxmoffa.github.io/mydiary/public",
 	"manifestUrl": "https://maxmoffa.github.io/mydiary/public/manifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"offline",
 		"desktop"
@@ -16,5 +16,5 @@
 	],
 	"author": "Massimo Moffa",
 	"accentColor": "#d0c589",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

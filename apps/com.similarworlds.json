@@ -13,7 +13,9 @@
 		"lifestyle",
 		"news"
 	],
+	"privacyPolicyUrl": "https://similarworlds.com/legal/privacy",
+	"termsAndConditionsUrl": "https://similarworlds.com/legal/terms",
 	"author": "Similar Worlds",
 	"accentColor": "#ec7c22",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

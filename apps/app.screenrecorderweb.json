@@ -6,7 +6,7 @@
 	"features": [
 		"desktop",
 		"offline",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/carsonsaldanha/screen-recorder",
 	"categories": [
@@ -14,5 +14,5 @@
 	],
 	"author": "Carson Saldanha",
 	"accentColor": "#c4241c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

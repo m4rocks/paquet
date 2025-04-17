@@ -11,13 +11,15 @@ export const appSchema = z.object({
 	url: z.string().url(),
 
 	categories: z.array(z.enum(zodEnum(categories.map(category => [category.id, ...(category.aliases)]).flat()))),
-	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
+	features: z.array(z.enum(["open-source", "mobile", "desktop", "auth", "offline", "data-collection"])),
 
 	author: z.string().min(1).max(30),
 	authorUrl: z.string().url().optional(),
 
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
+	privacyPolicyUrl: z.string().url().optional(),
+	termsAndConditionsUrl: z.string().url().optional(),
 
 	manifestUrl: z.string().url(),
 	icon: z.string().url(),
@@ -33,12 +35,17 @@ export const appSpecSchema = z.object({
 	id: z.string().min(1).max(50).regex(/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/),
 	url: z.string().url(),
 	manifestUrl: z.string().url().optional(),
-	features: z.array(z.enum(["openSource", "mobile", "desktop", "auth", "offline"])),
+	features: z.array(z.enum(["open-source", "mobile", "desktop", "auth", "offline", "data-collection"])),
+	
 	githubUrl: z.string().url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.string().url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
+	privacyPolicyUrl: z.string().url().optional(),
+	termsAndConditionsUrl: z.string().url().optional(),
+	
 	categories: z.array(z.enum(zodEnum(categories.map(category => [category.id, ...(category.aliases)]).flat()))).optional(),
 	author: z.string().min(1).max(30),
 	authorUrl: z.string().url().optional(),
+
 	accentColor: z.string().optional(),
 	updatedDate: z.string().date()
 })

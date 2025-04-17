@@ -6,12 +6,12 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource"
+		"open-source"
 	],
 	"categories": [
 		"games"
 	],
 	"author": "Jorge Rubiano",
 	"accentColor": "#c0416a",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

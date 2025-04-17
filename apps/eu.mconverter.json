@@ -9,10 +9,11 @@
 	],
 	"categories": [
 		"utilities",
-		"lifestyle",
-		"entertainment"
+		"lifestyle"
 	],
+	"termsAndConditionsUrl": "https://mconverter.eu/#terms",
+	"privacyPolicyUrl": "https://mconverter.eu/#privacy",
 	"author": "MConverter",
 	"accentColor": "#5494fc",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

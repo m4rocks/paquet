@@ -4,10 +4,10 @@ import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
 import { ArrowBigDownDashIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
 import { AppIcon } from "@/components/app-icon";
-import { FeaturesList } from "@/components/features";
+import { FeaturesList } from "@/components/app-sections/features";
 import BrandIcon from "@/components/ui/brand-icon";
 import { Button } from "@/components/ui/button";
-import { AppPageCard } from "@/components/app-page-card";
+import { AppPageCard } from "@/components/app-sections/app-page-card";
 
 // Get 5 random items from the apps collection
 const apps = await getCollection("apps");
@@ -108,7 +108,7 @@ const randomApps = apps
 			See if it's <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">for you</span> before you even open it.
 		</h2>
 		<FeaturesList
-			features={["openSource", "desktop", "mobile"]}
+			features={["open-source", "desktop", "mobile"]}
 		/>
 	</div>
 
@@ -166,7 +166,7 @@ const randomApps = apps
 					author: "m4rocks",
 					authorUrl: "https://m4.rocks",
 					categories: ["productivity"],
-					features: ["desktop", "mobile", "openSource"],
+					features: ["desktop", "mobile", "open-source"],
 					icon: "https://paquet.m4.rocks/android-chrome-192x192.png",
 					manifestUrl: "https://paquet.m4.rocks/manifest.json",
 					id: "rocks.m4.paquet",

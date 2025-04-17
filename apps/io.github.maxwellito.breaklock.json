@@ -7,7 +7,7 @@
 		"mobile",
 		"desktop",
 		"offline",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/maxwellito/breaklock",
 	"categories": [
@@ -15,5 +15,5 @@
 	],
 	"author": "maxwellito",
 	"accentColor": "#7f7f7f",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

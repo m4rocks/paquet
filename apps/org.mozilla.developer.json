@@ -1,0 +1,13 @@
+{
+	"$schema": "../app-spec-schema.json",
+	"id": "org.mozilla.developer",
+	"author": "Mozilla",
+	"authorUrl": "https://mozilla.org",
+	"categories": ["developer"],
+	"features": ["data-collection", "mobile", "desktop", "open-source"],
+	"githubUrl": "https://github.com/mdn/content",
+	"termsAndConditionsUrl": "https://www.mozilla.org/en-US/about/legal/terms/mozilla/",
+	"privacyPolicyUrl": "https://www.mozilla.org/en-US/privacy/websites/",
+	"url": "https://developer.mozilla.org",
+	"updatedDate": "2025-04-16"
+}

@@ -5,11 +5,11 @@
 	"author": "Miloslav Nenadál",
 	"manifestUrl": "https://nenadalm.github.io/life-counter/manifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"offline"
 	],
 	"categories": ["games"],
 	"githubUrl": "https://github.com/nenadalm/life-counter",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

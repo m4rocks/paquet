@@ -5,13 +5,16 @@
 	"manifestUrl": "https://canvas.apps.chrome/manifest.json",
 	"features": [
 		"desktop",
-		"offline"
+		"offline",
+		"data-collection"
 	],
+	"termsAndConditionsUrl": "https://policies.google.com/terms",
+	"privacyPolicyUrl": "https://policies.google.com/privacy",
 	"categories": [
 		"entertainment"
 	],
 	"author": "Google",
 	"authorUrl": "https://about.google",
 	"accentColor": "#ec4434",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

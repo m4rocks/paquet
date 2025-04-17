@@ -10,7 +10,9 @@
 	"categories": [
 		"lifestyle"
 	],
+	"termsAndConditionsUrl": "https://bolt.eu/en/legal/",
+	"privacyPolicyUrl": "https://bolt.eu/en/privacy/",
 	"author": "Bolt",
 	"accentColor": "#34d484",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

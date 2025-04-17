@@ -6,12 +6,15 @@
 	"features": [
 		"desktop",
 		"mobile",
-		"auth"
+		"auth",
+		"data-collection"
 	],
 	"categories": [
 		"lifestyle"
 	],
+	"termsAndConditionsUrl": "https://journalisticapp.com/terms",
+	"privacyPolicyUrl": "https://journalisticapp.com/privacy",
 	"author": "Journalistic",
 	"accentColor": "#7f7f7f",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

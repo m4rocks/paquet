@@ -5,12 +5,12 @@
 	"author": "Matthijs Groen",
 	"manifestUrl": "https://matthijsgroen.github.io/block-sort/manifest.webmanifest",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"desktop",
 		"offline"
 	],
 	"categories": ["games"],
 	"githubUrl": "https://github.com/matthijsgroen/block-sort",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

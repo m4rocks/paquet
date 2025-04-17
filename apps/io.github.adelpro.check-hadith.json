@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource",
+		"open-source",
 		"offline"
 	],
 	"githubUrl": "https://github.com/adelpro/check-hadith",
@@ -15,5 +15,5 @@
 	],
 	"author": "BENYAHIA-DEV",
 	"accentColor": "#0594e4",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

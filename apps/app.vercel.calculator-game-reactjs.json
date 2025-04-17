@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/Jorger/Calculator_The_Game_ReactJS",
 	"categories": [
@@ -14,5 +14,5 @@
 	],
 	"author": "Jorge Rubiano",
 	"accentColor": "#fc841c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

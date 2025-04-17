@@ -5,12 +5,15 @@
 	"manifestUrl": "https://santatracker.google.com/manifest.json",
 	"features": [
 		"desktop",
-		"mobile"
+		"mobile",
+		"data-collection"
 	],
+	"termsAndConditionsUrl": "https://policies.google.com/terms",
+	"privacyPolicyUrl": "https://policies.google.com/privacy",
 	"categories": [
 		"games"
 	],
 	"author": "Google",
 	"accentColor": "#e13d34",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

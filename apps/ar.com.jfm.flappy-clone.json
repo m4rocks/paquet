@@ -4,7 +4,7 @@
 	"url": "https://jfmdev.github.io/flappy-clone/",
 	"manifestUrl": "https://jfmdev.github.io/flappy-clone/manifest.webmanifest",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"desktop",
 		"offline"
@@ -14,5 +14,5 @@
 	],
 	"githubUrl": "https://github.com/jfmdev/flappy-clone",
 	"author": "José",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

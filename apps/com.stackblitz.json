@@ -10,7 +10,9 @@
 	"categories": [
 		"development"
 	],
+	"privacyPolicyUrl": "https://stackblitz.com/privacy-policy",
+	"termsAndConditionsUrl": "https://stackblitz.com/terms-of-service",
 	"author": "StackBlitz, Inc.",
 	"accentColor": "#0494fb",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

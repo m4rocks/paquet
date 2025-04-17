@@ -6,11 +6,11 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource",
+		"open-source",
 		"offline"
 	],
 	"categories": ["games"],
 	"githubUrl": "https://github.com/hexacolonist/hexacolonist.github.io",
 	"author": "ShuP1",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

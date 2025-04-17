@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource",
+		"open-source",
 		"offline"
 	],
 	"categories": [
@@ -14,5 +14,5 @@
 	],
 	"author": "Boris Sehovac",
 	"accentColor": "#d1331c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

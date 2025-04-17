@@ -7,7 +7,7 @@
 		"mobile",
 		"desktop",
 		"offline",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/googlearchive/guitar-tuner",
 	"categories": [
@@ -15,5 +15,5 @@
 	],
 	"author": "Paul Lewis",
 	"accentColor": "#efb90f",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

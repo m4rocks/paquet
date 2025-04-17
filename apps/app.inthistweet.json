@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/okikio/inthistweet",
 	"categories": [
@@ -18,5 +18,5 @@
 	],
 	"author": "@okikio",
 	"accentColor": "#324cf4",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

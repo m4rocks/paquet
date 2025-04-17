@@ -1,8 +1,8 @@
 ---
-import { AppPageCard } from '@/components/app-page-card';
+import { AppPageCard } from '@/components/app-sections/app-page-card';
 import { AppScreenshotsCarousel } from '@/components/app-sections/app-screenshots-carousel';
 import Random5Apps from '@/components/server-islands/random-5-apps.astro';
-import { FeaturesList } from '@/components/features';
+import { FeaturesList } from '@/components/app-sections/features';
 import { AppListItemSkeleton } from '@/components/skeletons/app-list-item-skeleton';
 import { badgeVariants } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { categories } from '@/lib/categories';
 import type { GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import { Links } from '@/components/app-sections/links';
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -78,6 +79,10 @@ const { app } = Astro.props;
 		<FeaturesList
 			features={app.data.features}
 			accentColor={app.data.accentColor}
+		/>
+
+		<Links
+			app={app}
 		/>
 
 		<Separator/>

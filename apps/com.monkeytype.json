@@ -4,7 +4,7 @@
 	"url": "https://monkeytype.com",
 	"manifestUrl": "https://monkeytype.com/manifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"desktop",
 		"mobile",
 		"offline"
@@ -14,7 +14,9 @@
 		"utilities",
 		"games"
 	],
+	"termsAndConditionsUrl": "https://monkeytype.com/terms-of-service",
+	"privacyPolicyUrl": "https://monkeytype.com/privacy-policy",
 	"author": "Miodec",
 	"accentColor": "#dcb015",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

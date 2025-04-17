@@ -1,7 +1,7 @@
 import { cn, getContrastColor } from "@/lib/utils"
 import type { CollectionEntry } from "astro:content"
-import { LaptopIcon, SmartphoneIcon, CloudOffIcon, LockIcon, SquareCodeIcon } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { LaptopIcon, SmartphoneIcon, CloudOffIcon, LockIcon, SquareCodeIcon, CookieIcon } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 
 export interface FeaturesListProps {
 	features: CollectionEntry<"apps">["data"]["features"],
@@ -30,9 +30,14 @@ const FEATURES = [
 		icon: LockIcon
 	},
 	{
-		id: "openSource",
+		id: "open-source",
 		name: "Open source",
 		icon: SquareCodeIcon
+	},
+	{
+		id: "data-collection",
+		name: "Collects data",
+		icon: CookieIcon
 	}
 ] as const;
 

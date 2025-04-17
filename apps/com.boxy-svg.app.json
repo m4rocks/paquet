@@ -10,7 +10,9 @@
 	"categories": [
 		"lifestyle"
 	],
+	"privacyPolicyUrl": "https://boxy-svg.com/legal/web-privacy",
+	"termsAndConditionsUrl": "https://boxy-svg.com/legal/web-terms",
 	"author": "Jarosław Foksa",
 	"accentColor": "#fbbb4c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

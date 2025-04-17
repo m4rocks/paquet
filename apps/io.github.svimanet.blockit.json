@@ -4,7 +4,7 @@
 	"url": "https://svimanet.github.io/blockit/",
 	"author": "Eirik",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"desktop",
 		"offline"
@@ -13,5 +13,5 @@
 	"categories": [
 		"games"
 	],
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

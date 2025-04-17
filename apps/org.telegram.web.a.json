@@ -6,15 +6,17 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource",
+		"open-source",
 		"offline",
 		"auth"
 	],
 	"githubUrl": "https://github.com/Ajaxy/telegram-tt",
+	"termsAndConditionsUrl": "https://telegram.org/tos",
+	"privacyPolicyUrl": "https://telegram.org/privacy",
 	"categories": [
 		"social"
 	],
 	"author": "Telegram",
 	"accentColor": "#2ca4dc",
-	"updatedDate": "2025-04-09"
+	"updatedDate": "2025-04-16"
 }

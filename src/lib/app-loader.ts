@@ -253,19 +253,26 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 	const appData: z.infer<typeof appSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
+		description: metaTags.description,
+		
 		author: spec.author,
+		authorUrl: spec.authorUrl,
 		categories: sortedCategories,
 		features: spec.features,
+		
 		icon: icon,
-		manifestUrl: manifestUrl,
 		url: spec.url,
-		accentColor: getAccentColor(spec.accentColor || "") || getAccentColor(manifest.theme_color || "") || "#212121",
+		cover: metaTags.cover,
 		screenshots: screenshots,
+		manifestUrl: manifestUrl,
+		
+		accentColor: getAccentColor(spec.accentColor || "") || getAccentColor(manifest.theme_color || "") || "#212121",
+
 		gitlabUrl: spec.gitlabUrl,
 		githubUrl: spec.githubUrl,
-		description: metaTags.description,
-		cover: metaTags.cover,
-		authorUrl: spec.authorUrl
+		privacyPolicyUrl: spec.privacyPolicyUrl,
+		termsAndConditionsUrl: spec.termsAndConditionsUrl,
+		
 	}
 
 	return appSchema.parse(appData);

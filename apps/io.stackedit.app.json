@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource",
+		"open-source",
 		"offline"
 	],
 	"githubUrl": "https://github.com/benweet/stackedit/",
@@ -17,5 +17,5 @@
 	],
 	"author": "Benoit Schweblin",
 	"accentColor": "#fb8c04",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

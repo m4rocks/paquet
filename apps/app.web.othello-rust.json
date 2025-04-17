@@ -4,7 +4,7 @@
 	"url": "https://othello-rust.web.app/",
 	"manifestUrl": "https://othello-rust.web.app/manifest.webmanifest",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"desktop",
 		"offline"
@@ -12,5 +12,5 @@
 	"categories": ["games"],
 	"githubUrl": "https://github.com/nstringham/othello-web-app",
 	"author": "Nate Stringham",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

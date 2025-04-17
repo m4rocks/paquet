@@ -5,12 +5,15 @@
 	"manifestUrl": "https://www.google.com/_/TravelFrontendUi/manifest.json",
 	"features": [
 		"mobile",
-		"desktop"
+		"desktop",
+		"data-collection"
 	],
+	"termsAndConditionsUrl": "https://policies.google.com/terms",
+	"privacyPolicyUrl": "https://policies.google.com/privacy",
 	"categories": [
 		"lifestyle"
 	],
 	"author": "Google",
 	"accentColor": "#fabc05",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

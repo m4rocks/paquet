@@ -6,7 +6,7 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource"
+		"open-source"
 	],
 	"categories": [
 		"lifestyle",
@@ -14,5 +14,5 @@
 	],
 	"author": "undefyned",
 	"accentColor": "#fc9504",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

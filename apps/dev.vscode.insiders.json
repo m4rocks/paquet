@@ -6,14 +6,16 @@
 	"features": [
 		"desktop",
 		"offline",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/microsoft/vscode",
 	"categories": [
 		"development"
 	],
+	"termsAndConditionsUrl": "https://www.microsoft.com/en-us/legal/terms-of-use",
+	"privacyPolicyUrl": "https://www.microsoft.com/en-gb/privacy/privacystatement",
 	"author": "Microsoft",
 	"authorUrl": "https://microsoft.com/",
 	"accentColor": "#0eb49c",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

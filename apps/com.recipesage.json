@@ -5,13 +5,15 @@
 	"author": "Julian Poyourow",
 	"manifestUrl": "https://recipesage.com/manifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
         "desktop",
 		"offline",
         "auth"
 	],
+	"termsAndConditionsUrl": "https://recipesage.com/#/legal",
+	"privacyPolicyUrl": "https://recipesage.com/#/legal",
 	"categories": ["productivity"],
 	"githubUrl": "https://github.com/julianpoy/RecipeSage",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

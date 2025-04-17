@@ -4,12 +4,12 @@
 	"url": "https://nenadalm.github.io/virus-wars/",
 	"manifestUrl": "https://nenadalm.github.io/virus-wars/manifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"offline"
 	],
 	"categories": ["games"],
 	"author": "Miloslav Nenadál",
 	"githubUrl": "https://github.com/nenadalm/virus-wars",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

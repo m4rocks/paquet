@@ -6,14 +6,16 @@
 	"features": [
 		"mobile",
 		"desktop",
-		"openSource"
+		"open-source"
 	],
 	"githubUrl": "https://github.com/dailydotdev/daily",
 	"categories": [
 		"news",
 		"development"
 	],
+	"termsAndConditionsUrl": "https://daily.dev/tos",
+	"privacyPolicyUrl": "https://daily.dev/privacy/applications-policy",
 	"author": "daily.dev",
 	"accentColor": "#448cfc",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

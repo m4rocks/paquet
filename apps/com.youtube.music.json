@@ -11,7 +11,9 @@
 		"entertainment",
 		"music"
 	],
+	"termsAndConditionsUrl": "https://policies.google.com/terms",
+	"privacyPolicyUrl": "https://policies.google.com/privacy",
 	"author": "YouTube",
 	"accentColor": "#fc0404",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

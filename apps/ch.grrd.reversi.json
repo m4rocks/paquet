@@ -4,7 +4,7 @@
 	"url": "https://reversi.grrd.ch/",
 	"manifestUrl": "https://reversi.grrd.ch/manifest/appmanifest.json",
 	"features": [
-		"openSource",
+		"open-source",
 		"mobile",
 		"desktop",
 		"offline"
@@ -12,5 +12,5 @@
 	"categories": ["games"],
 	"githubUrl": "https://github.com/grrd01/Reversi",
 	"author": "Gerard Tyedmers",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }

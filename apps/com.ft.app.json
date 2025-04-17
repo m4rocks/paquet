@@ -5,12 +5,15 @@
 	"manifestUrl": "https://app.ft.com/metatags.json?v=3",
 	"features": [
 		"mobile",
-		"desktop"
+		"desktop",
+		"data-collection"
 	],
 	"categories": [
 		"news"
 	],
+	"privacyPolicyUrl": "https://help.ft.com/legal-privacy/privacy-policy",
+	"termsAndConditionsUrl": "https://help.ft.com/legal-privacy/terms-and-conditions",
 	"author": "Financial Times",
 	"accentColor": "#e1851d",
-	"updatedDate": "2025-04-15"
+	"updatedDate": "2025-04-16"
 }
