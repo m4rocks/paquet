@@ -54,7 +54,7 @@ if (!res) {
 };
 
 // Cached for 3 days
-Astro.response.headers.set("Cache-Control", `max-age=${60*60*24*3}, public`);
+Astro.response.headers.set("Cache-Control", `public, max-age=${60*60*24*3}`);
 ---
 
 <Card>

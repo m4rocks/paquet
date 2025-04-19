@@ -7,11 +7,11 @@ const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 10);
 
-Astro.response.headers.set("Cache-Control", "max-age=60, private")
+Astro.response.headers.set("Cache-Control", "private, max-age=60")
 ---
 
 <div class="w-full">
-	<AppCardCarousel 
+	<AppCardCarousel
 		apps={randomApps}
 		client:load
 	/>
