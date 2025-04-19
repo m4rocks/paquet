@@ -6,9 +6,8 @@ import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
 import type { Loader } from "astro/loaders";
+import { loadEnvFile } from "node:process";
 import { buildSearchIndex } from "./pagefind";
-import { GITHUB_API_KEY } from "astro:env/server";
-
 
 const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
 
@@ -140,11 +139,14 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 const checkGitHubReleases = async (githubUrl: string) => {
 	const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
 		headers: {
-			"Authorization": `Bearer ${GITHUB_API_KEY}`
+			"Authorization": `Bearer ${process.env.GITHUB_API_KEY}`
 		}
 	})
 		.then((res) => res.ok)
-		.catch(() => false);
+		.catch((err) => {
+			console.log(err);
+			return null;
+		});
 
 	return res;
 }
@@ -153,6 +155,8 @@ export const appLoader: Loader = {
 	name: "PaquetAppLoader",
 	schema: appSchema,
 	load: async ({ store, parseData, generateDigest }) => {
+		loadEnvFile("./.dev.vars");
+
 		const entries = await fg("./apps/*.json", { dot: false, absolute: true });
 		const appSpecFiles = entries.map((p) => {
 			return fs.readFile(p);
@@ -263,27 +267,28 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		return null;
 	}
 
-	let enableGithubReleases = false;	
+	let enableGithubReleases = false;
 	if (spec.syncGitHubReleases !== false && spec.githubUrl) {
 		enableGithubReleases = await checkGitHubReleases(spec.githubUrl);
 	}
+
 
 	const appData: z.infer<typeof appSchema> = {
 		id: spec.id,
 		name: manifest.name || manifest.short_name || "",
 		description: metaTags.description,
-		
+
 		author: spec.author,
 		authorUrl: spec.authorUrl,
 		categories: sortedCategories,
 		features: spec.features,
-		
+
 		icon: icon,
 		url: spec.url,
 		cover: metaTags.cover,
 		screenshots: screenshots,
 		manifestUrl: manifestUrl,
-		
+
 		accentColor: getAccentColor(spec.accentColor || "") || getAccentColor(manifest.theme_color || "") || "#212121",
 
 		gitlabUrl: spec.gitlabUrl,
@@ -294,6 +299,8 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		privacyPolicyUrl: spec.privacyPolicyUrl,
 		termsAndConditionsUrl: spec.termsAndConditionsUrl,
 	}
+
+	console.log(spec.id === "rocks.m4.paquet" ? appData : undefined);
 
 	return appSchema.parse(appData);
 }

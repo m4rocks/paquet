@@ -1,5 +1,4 @@
 ---
-import { GITHUB_API_KEY } from 'astro:env/server';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ExternalLinkIcon } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -31,25 +30,23 @@ const { githubUrl } = Astro.props;
 if (!githubUrl) {
 	Astro.response.status = 400;
 	Astro.response.statusText = "No GitHub URL provided";
-	return;
 };
 
 const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
 	headers: {
-		"Authorization": `Bearer ${GITHUB_API_KEY}`
+		"Authorization": `Bearer ${Astro.locals.runtime.env.GITHUB_API_KEY}`
 	}
 })
 	.then((res) => res.json() as unknown as GitHubResponse)
-	.catch(() => null);
+	.catch((err) => null);
 
 if (!res) {
 	Astro.response.status = 400;
 	Astro.response.statusText = "No response from GitHub";
-	return;
 };
 
 // Cached for 3 days
-Astro.response.headers.set("Cache-Control", `max-age=${60*60*24*3}, public`);
+// Astro.response.headers.set("Cache-Control", `max-age=${60*60*24*3}, public`);
 ---
 
 <Card>
@@ -64,8 +61,8 @@ Astro.response.headers.set("Cache-Control", `max-age=${60*60*24*3}, public`);
 		</CardDescription>
 	</CardHeader>
 	<CardContent>
-		<a 
-			href={res.html_url} 
+		<a
+			href={res.html_url}
 			target="_blank"
 		>
 			<Button

@@ -46,11 +46,6 @@ export default defineConfig({
 	image: {
 		remotePatterns: [{ protocol: "https" }]
 	},
-	env: {
-		schema: {
-			GITHUB_API_KEY: envField.string({ access: "secret", context: "server", optional: false })
-		}
-	},
 	build: {
 		format: "file"
 	},
