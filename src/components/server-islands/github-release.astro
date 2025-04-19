@@ -2,10 +2,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ExternalLinkIcon } from 'lucide-react';
 import { Button } from '../ui/button';
-
-interface Props {
-	githubUrl: string;
-}
+import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 
 interface GitHubResponse {
 	html_url: string;
@@ -25,14 +23,19 @@ interface GitHubResponse {
 	}
 }
 
-const { githubUrl } = Astro.props;
+const referer = Astro.request.headers.get('Referer')!;
+const url = new URL(referer)!;
+const id = url.pathname.split("/")[2];
 
-if (!githubUrl) {
+const app = await getEntry("apps", id);
+
+if (!app || !app.data.githubUrl) {
 	Astro.response.status = 400;
 	Astro.response.statusText = "No GitHub URL provided";
+	return;
 };
 
-const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
+const res = await fetch("https://api.github.com/repos" + new URL(app.data.githubUrl).pathname + "/releases/latest", {
 	headers: {
 		"Authorization": `Bearer ${Astro.locals.runtime.env.GITHUB_API_KEY}`,
 		"User-Agent": "paquet"
@@ -47,6 +50,7 @@ const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).path
 if (!res) {
 	Astro.response.status = 400;
 	Astro.response.statusText = "No response from GitHub";
+	return;
 };
 
 // Cached for 3 days

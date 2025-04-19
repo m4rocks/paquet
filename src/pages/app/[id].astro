@@ -84,7 +84,6 @@ const { app } = Astro.props;
 
 		{app.data.githubUrl && app.data.syncGitHubReleases ?
 			<GithubRelease
-				githubUrl={app.data.githubUrl}
 				server:defer
 			/>
 		: null}
