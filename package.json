@@ -32,6 +32,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "dom-parser": "^1.1.5",
+    "dotenv": "^16.5.0",
     "embla-carousel-react": "^8.6.0",
     "embla-carousel-wheel-gestures": "^8.0.2",
     "fast-glob": "^3.3.3",

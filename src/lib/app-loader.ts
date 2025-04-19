@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import fg from "fast-glob";
-import { loadEnvFile } from "node:process";
 import { z } from "astro:content"
 import { categories } from "./categories";
 import { parseFromString } from "dom-parser";
@@ -8,6 +7,7 @@ import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
 import type { Loader } from "astro/loaders";
 import { buildSearchIndex } from "./pagefind";
+import { config } from "dotenv";
 
 const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
 
@@ -152,7 +152,9 @@ export const appLoader: Loader = {
 	name: "PaquetAppLoader",
 	schema: appSchema,
 	load: async ({ store, parseData, generateDigest }) => {
-		loadEnvFile("./.dev.vars");
+		config({
+			path: "./dev.vars"
+		})
 
 		const entries = await fg("./apps/*.json", { dot: false, absolute: true });
 		const appSpecFiles = entries.map((p) => {
