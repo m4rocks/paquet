@@ -153,8 +153,8 @@ export const appLoader: Loader = {
 	schema: appSchema,
 	load: async ({ store, parseData, generateDigest }) => {
 		config({
-			path: "./dev.vars"
-		})
+			path: "./.dev.vars"
+		});
 
 		const entries = await fg("./apps/*.json", { dot: false, absolute: true });
 		const appSpecFiles = entries.map((p) => {
