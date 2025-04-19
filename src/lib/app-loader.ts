@@ -139,7 +139,8 @@ const getMetaTags = async (url: string): Promise<Pick<z.infer<typeof appSchema>,
 const checkGitHubReleases = async (githubUrl: string) => {
 	const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
 		headers: {
-			"Authorization": `Bearer ${process.env.GITHUB_API_KEY}`
+			"Authorization": `Bearer ${process.env.GITHUB_API_KEY}`,
+			"User-Agent": "paquet"
 		}
 	})
 		.then((res) => res.ok)
@@ -206,7 +207,7 @@ export const appLoader: Loader = {
 
 
 export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promise<z.infer<typeof appSchema> | null> => {
-	let manifest: WebAppManifest;
+	let manifest: WebAppManifest | null;
 	const metaTags = await getMetaTags(spec.url);
 	if (!metaTags) {
 		console.error("App", spec.id, "meta tags could not be fetched.");
@@ -220,7 +221,7 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		headers: {
 			accept: "application/json"
 		}
-	}).then(res => res.json()).catch(() => null);
+	}).then(res => res.json() as WebAppManifest).catch(() => null);
 
 	if (!manifest) {
 		console.error("App", spec.id, "manifest could not be fetched.");

@@ -34,11 +34,15 @@ if (!githubUrl) {
 
 const res = await fetch("https://api.github.com/repos" + new URL(githubUrl).pathname + "/releases/latest", {
 	headers: {
-		"Authorization": `Bearer ${Astro.locals.runtime.env.GITHUB_API_KEY}`
+		"Authorization": `Bearer ${Astro.locals.runtime.env.GITHUB_API_KEY}`,
+		"User-Agent": "paquet"
 	}
 })
 	.then((res) => res.json() as unknown as GitHubResponse)
-	.catch((err) => null);
+	.catch((err) => {
+		console.log(err);
+		return null
+	});
 
 if (!res) {
 	Astro.response.status = 400;
