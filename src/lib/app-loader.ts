@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
 import fg from "fast-glob";
+import { loadEnvFile } from "node:process";
 import { z } from "astro:content"
 import { categories } from "./categories";
 import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
 import { appSchema, appSpecSchema } from "./app-schema";
 import type { Loader } from "astro/loaders";
-import { loadEnvFile } from "node:process";
 import { buildSearchIndex } from "./pagefind";
 
 const addTrailingSlash = (url: string) => new URL(url).href.replace(/\/?$/, '/');
@@ -143,10 +143,7 @@ const checkGitHubReleases = async (githubUrl: string) => {
 		}
 	})
 		.then((res) => res.ok)
-		.catch((err) => {
-			console.log(err);
-			return null;
-		});
+		.catch(() => false);
 
 	return res;
 }
@@ -299,8 +296,6 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		privacyPolicyUrl: spec.privacyPolicyUrl,
 		termsAndConditionsUrl: spec.termsAndConditionsUrl,
 	}
-
-	console.log(spec.id === "rocks.m4.paquet" ? appData : undefined);
 
 	return appSchema.parse(appData);
 }
