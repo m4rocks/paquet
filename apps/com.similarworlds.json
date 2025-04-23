@@ -5,7 +5,8 @@
 	"manifestUrl": "https://similarworlds.com/manifest.json",
 	"features": [
 		"mobile",
-		"desktop"
+		"desktop",
+		"data-collection"
 	],
 	"categories": [
 		"social",

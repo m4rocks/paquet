@@ -41,7 +41,7 @@ export function Links({ app }: LinksProps) {
 				: null}
 				{app.data.privacyPolicyUrl ?
 					<ListItem
-						title="Terms and conditions"
+						title="Privacy policy"
 						subtitle={app.data.privacyPolicyUrl.split("://")[1]}
 						external
 						href={app.data.privacyPolicyUrl}
@@ -56,7 +56,7 @@ export function Links({ app }: LinksProps) {
 				: null}
 				{app.data.githubUrl ?
 					<ListItem
-						title="GitHub Repo"
+						title="GitHub Repository"
 						subtitle={new URL(app.data.githubUrl).pathname.slice(1)}
 						external
 						href={app.data.githubUrl}
@@ -72,7 +72,7 @@ export function Links({ app }: LinksProps) {
 				: null}
 				{app.data.gitlabUrl ?
 					<ListItem
-						title="GitLab Repo"
+						title="GitLab Repository"
 						subtitle={new URL(app.data.gitlabUrl).pathname.slice(1)}
 						external
 						href={app.data.gitlabUrl}
