@@ -1,5 +1,7 @@
 ---
 import Redirect from "@/components/redirect.astro";
+
+export const prerender = false
 ---
 
 <Redirect url={import.meta.env.DEV ? Astro.url.origin : Astro.site?.href!}/>
