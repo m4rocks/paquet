@@ -18,17 +18,19 @@ export default defineConfig({
 			scope: "/",
 			registerType: "prompt",
 			strategies: "generateSW",
+			injectRegister: null,
 			workbox: {
 				navigationPreload: false,
 				globPatterns: [
 					"_astro/*.{js,woff,woff2}",
 					"**/*.{png,css}",
-					"home.html",
+					"home/index.html",
 					"manifest.json",
-					"offline.html",
-					"app/*.html",
+					"offline/index.html",
+					"app/**/index.html",
 				],
-				disableDevLogs: true
+				disableDevLogs: true,
+				globDirectory: "./dist/client"
 			},
 			devOptions: {
 				enabled: false

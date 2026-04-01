@@ -1,4 +1,3 @@
-import { toast } from "sonner";
 import { registerServiceWorker } from "../pwa";
 
 const checkNetwork = async () => {

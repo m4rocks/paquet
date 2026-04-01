@@ -1,0 +1,16 @@
+{
+	"$schema": "../app-spec-schema.json",
+	"id": "es.kindnot",
+	"manifestUrl": "https://kindnot.es/manifest.json",
+	"author": "m4rocks",
+	"categories": ["entertainment", "social", "lifestyle"],
+	"privacyPolicyUrl": "https://kindnot.es/privacy",
+	"termsAndConditionsUrl": "https://kindnot.es/terms",
+	"url": "https://kindnot.es",
+	"updatedDate": "2026-04-01",
+	"features": [
+		"auth",
+		"desktop",
+		"mobile"
+	]
+}
