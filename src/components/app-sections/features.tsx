@@ -70,7 +70,7 @@ export function FeaturesList({ features, accentColor }: FeaturesListProps) {
 							>
 								<div
 									className={cn(
-										"flex size-10 shrink-0 items-center justify-center rounded-[30%] [&_svg]:size-5",
+										"flex size-10 shrink-0 items-center justify-center rounded-full [&_svg]:size-5",
 										included ? (!accentColor ? "bg-primary text-primary-foreground" : "") : "bg-muted text-muted-foreground"
 									)}
 									style={{

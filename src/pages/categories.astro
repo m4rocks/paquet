@@ -23,10 +23,7 @@ const counts = categoryCounts(await getCollection("apps"));
 		{categories.map((category) => (
 			<a
 				href={`/category/${category.id}`}
-				class="group flex flex-row items-center gap-4 rounded-2xl border p-4 shadow-xs transition-[background-color,scale,box-shadow] duration-200 ease-out hover:shadow-md active:scale-[0.98]"
-				style={{
-					backgroundColor: `color-mix(in oklab, ${category.color} 10%, var(--card))`
-				}}
+				class="group flex flex-row items-center gap-4 rounded-2xl border bg-card p-4 shadow-xs transition-[background-color,scale,box-shadow] duration-200 ease-out hover:shadow-md active:scale-[0.98]"
 			>
 				<CategoryIcon category={category} className="size-12 transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110"/>
 				<div class="flex-1">

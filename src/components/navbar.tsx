@@ -10,6 +10,8 @@ export interface NavbarProps {
 	title?: string;
 	back?: boolean;
 	pathname: string;
+	tint?: string;
+	hideTabBar?: boolean;
 }
 
 interface Tab {
@@ -27,7 +29,7 @@ const TABS: Tab[] = [
 const isTypingTarget = (target: EventTarget | null) =>
 	target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
 
-export function Navbar({ title, back, pathname }: NavbarProps) {
+export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps) {
 	const scrollDownTrigger = useScroll({ threshold: 64 });
 	const [searchOpen, setSearchOpen] = useState(false);
 	const currentTab = activeTab(pathname);
@@ -59,6 +61,7 @@ export function Navbar({ title, back, pathname }: NavbarProps) {
 					"transition-[background-color,box-shadow] duration-200 ease-out fixed top-0 left-0 right-0 h-[calc(4rem_+_env(safe-area-inset-top))] p-4 pt-[calc(1rem_+_env(safe-area-inset-top))] flex flex-row items-center gap-2 z-50",
 					scrollDownTrigger ? "bg-background shadow-sm border-b" : "bg-transparent"
 				)}
+				style={!scrollDownTrigger && tint ? { backgroundColor: tint } : undefined}
 			>
 				{back ?
 					<Button
@@ -115,31 +118,34 @@ export function Navbar({ title, back, pathname }: NavbarProps) {
 				</div>
 			</nav>
 
-			<nav
-				aria-label="Main"
-				className="sm:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-background pb-[env(safe-area-inset-bottom)]"
-			>
-				<div className="grid grid-cols-3 h-16">
-					{TABS.map((tab) => (
+			{!hideTabBar ?
+				<nav
+					aria-label="Main"
+					// Sticky rather than fixed: with fixed, iOS Safari shows the page below the bar once its toolbar shrinks. order-last puts it at the end of the body.
+					className="sm:hidden sticky bottom-0 order-last z-50 border-t bg-background pb-[env(safe-area-inset-bottom)]"
+				>
+					<div className="grid grid-cols-3 h-16">
+						{TABS.map((tab) => (
+							<TabBarItem
+								key={tab.href}
+								href={tab.href}
+								icon={tab.icon}
+								// While search is open it is the only highlighted tab.
+								active={!searchOpen && tab.id === currentTab}
+							>
+								{tab.name}
+							</TabBarItem>
+						))}
 						<TabBarItem
-							key={tab.href}
-							href={tab.href}
-							icon={tab.icon}
-							// While search is open it is the only highlighted tab.
-							active={!searchOpen && tab.id === currentTab}
+							icon={SearchIcon}
+							active={searchOpen}
+							onClick={() => setSearchOpen(true)}
 						>
-							{tab.name}
+							Search
 						</TabBarItem>
-					))}
-					<TabBarItem
-						icon={SearchIcon}
-						active={searchOpen}
-						onClick={() => setSearchOpen(true)}
-					>
-						Search
-					</TabBarItem>
-				</div>
-			</nav>
+					</div>
+				</nav>
+			: null}
 
 			<SearchSheet
 				open={searchOpen}
