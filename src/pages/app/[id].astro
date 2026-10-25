@@ -12,7 +12,8 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { Links } from '@/components/app-sections/links';
 import { AppList } from '@/components/app-list';
-import { relatedApps } from '@/lib/app-queries';
+import { RELATED_APPS_LIMIT, relatedApps } from '@/lib/app-queries';
+import { appPageCacheKey } from '@/lib/cache-key';
 import RandomFromCategory from '@/components/server-islands/random-from-category.astro';
 import GithubRelease from '@/components/server-islands/github-release.astro';
 
@@ -22,7 +23,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	return apps.map((app) => ({
 		params: { id: app.id },
-		props: { app }
+		props: { app },
+		cacheKey: appPageCacheKey(app, apps)
 	}))
 }
 
@@ -31,7 +33,7 @@ interface Props {
 }
 
 const { app } = Astro.props;
-const related = relatedApps(app, await getCollection("apps"), 5);
+const related = relatedApps(app, await getCollection("apps"), RELATED_APPS_LIMIT);
 const appCategories = app.data.categories.map(getCategory).filter((category) => !!category);
 // Opaque, so the navbar can wear it at the top and the hero gradient continues from it without a seam.
 const heroTint = `color-mix(in oklab, ${app.data.accentColor} 60%, var(--background))`;

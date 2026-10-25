@@ -1,6 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import sharp from "sharp";
 import { getCollection, getEntry } from "astro:content";
+import { dataCacheKey } from "@/lib/cache-key";
 import { decodeResourceUrl, coverSizes as sizes } from "@/lib/images";
 
 export const prerender = true;
@@ -10,11 +11,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	const apps = await getCollection("apps", (e) => !!e.data.cover);
 
-	let paths: { params: { id: string, size: keyof typeof sizes }}[] = []
+	let paths: { params: { id: string, size: keyof typeof sizes }, cacheKey: string }[] = []
 
 	for (const a of apps) {
 		for (const s of Object.keys(sizes)) {
-			paths.push({ params: { id: a.id, size: s as keyof typeof sizes } })
+			paths.push({ params: { id: a.id, size: s as keyof typeof sizes }, cacheKey: dataCacheKey(a) })
 		}
 	}
 

@@ -3,6 +3,7 @@ import { AppList } from "@/components/app-list";
 import { CategoryIcon } from "@/components/category-icon";
 import { Header } from "@/components/header";
 import { appsInCategory } from "@/lib/app-queries";
+import { dataCacheKey } from "@/lib/cache-key";
 import { categories, type Category } from "@/lib/categories";
 import Layout from "@/layouts/layout.astro";
 import type { GetStaticPaths } from "astro";
@@ -11,13 +12,15 @@ import { getCollection, type CollectionEntry } from "astro:content";
 export const getStaticPaths: GetStaticPaths = async () => {
 	const apps = await getCollection("apps");
 
-	return categories.map((category) => ({
-		params: { id: category.id },
-		props: {
-			category,
-			apps: appsInCategory(apps, category.id).sort((a, b) => a.data.name.localeCompare(b.data.name))
-		}
-	}));
+	return categories.map((category) => {
+		const categoryApps = appsInCategory(apps, category.id).sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+		return {
+			params: { id: category.id },
+			props: { category, apps: categoryApps },
+			cacheKey: dataCacheKey(...categoryApps)
+		};
+	});
 }
 
 interface Props {

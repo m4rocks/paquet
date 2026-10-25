@@ -21,6 +21,8 @@ export const categoryCounts = (apps: AppLike[]): Map<string, number> => {
 
 const sharedCount = (a: string[], b: string[]) => a.filter((item) => b.includes(item)).length;
 
+export const RELATED_APPS_LIMIT = 5;
+
 export const relatedApps = <T extends AppLike>(app: AppLike, apps: T[], limit: number): T[] =>
 	apps
 		.filter((other) => other.id !== app.id)
