@@ -17,6 +17,7 @@ export default defineConfig({
 			manifest: false,
 			base: "/",
 			scope: "/",
+			outDir: "./dist/client",
 			registerType: "prompt",
 			strategies: "generateSW",
 			injectRegister: null,
