@@ -12,6 +12,8 @@ import type { GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { Links } from '@/components/app-sections/links';
+import { AppList } from '@/components/app-list';
+import { relatedApps } from '@/lib/app-queries';
 import RandomFromCategory from '@/components/server-islands/random-from-category.astro';
 import GithubRelease from '@/components/server-islands/github-release.astro';
 
@@ -30,6 +32,7 @@ interface Props {
 }
 
 const { app } = Astro.props;
+const related = relatedApps(app, await getCollection("apps"), 5);
 ---
 
 <Layout
@@ -94,6 +97,19 @@ const { app } = Astro.props;
 		/>
 
 		<Separator/>
+
+		{related.length > 0 ?
+			<Card>
+				<CardHeader>
+					<CardTitle>
+						Related apps
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<AppList apps={related}/>
+				</CardContent>
+			</Card>
+		: null}
 
 		<Card>
 			<CardHeader>

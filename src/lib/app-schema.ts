@@ -20,6 +20,9 @@ export const appSchema = z.object({
 	gitlabUrl: z.url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
 	syncGitHubReleases: z.boolean(),
 
+	playStoreUrl: z.url().startsWith("https://play.google.com/store/apps/", "playStoreUrl should start with https://play.google.com/store/apps/").optional(),
+	appStoreUrl: z.url().startsWith("https://apps.apple.com/", "appStoreUrl should start with https://apps.apple.com/").optional(),
+
 	privacyPolicyUrl: z.url().optional(),
 	termsAndConditionsUrl: z.url().optional(),
 
@@ -42,6 +45,9 @@ export const appSpecSchema = z.object({
 	githubUrl: z.url().startsWith("https://github.com/", "githubUrl should start with https://github.com/").optional(),
 	gitlabUrl: z.url().startsWith("https://gitlab.com/", "gitlabUrl should start with https://gitlab.com/").optional(),
 	syncGitHubReleases: z.boolean().optional(),
+
+	playStoreUrl: z.url().startsWith("https://play.google.com/store/apps/", "playStoreUrl should start with https://play.google.com/store/apps/").optional(),
+	appStoreUrl: z.url().startsWith("https://apps.apple.com/", "appStoreUrl should start with https://apps.apple.com/").optional(),
 
 	privacyPolicyUrl: z.url().optional(),
 	termsAndConditionsUrl: z.url().optional(),
