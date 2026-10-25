@@ -44,6 +44,10 @@ export default defineConfig({
 
 	site: "https://paquet.m4.rocks",
 
+	experimental: {
+		incrementalBuild: true
+	},
+
 	server: {
 		port: 3000
 	},
