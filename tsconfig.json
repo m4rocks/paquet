@@ -12,7 +12,8 @@
 		"jsx": "react-jsx",
 		"jsxImportSource": "react",
 		"types": [
-			"vite-plugin-pwa/client"
+			"vite-plugin-pwa/client",
+			"bun"
 		],
 		"esModuleInterop": true,
 		"baseUrl": ".",

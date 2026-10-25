@@ -1,0 +1,46 @@
+---
+import { AppList } from "@/components/app-list";
+import { Header } from "@/components/header";
+import { appsInCategory } from "@/lib/app-queries";
+import { categories, type Category } from "@/lib/categories";
+import Layout from "@/layouts/layout.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const apps = await getCollection("apps");
+
+	return categories.map((category) => ({
+		params: { id: category.id },
+		props: {
+			category,
+			apps: appsInCategory(apps, category.id).sort((a, b) => a.data.name.localeCompare(b.data.name))
+		}
+	}));
+}
+
+interface Props {
+	category: Category;
+	apps: CollectionEntry<"apps">[];
+}
+
+const { category, apps } = Astro.props;
+---
+
+<Layout
+	title={category.name}
+	class="container"
+	back
+>
+	<Header>
+		{category.name}
+	</Header>
+
+	<div class="mt-8">
+		{apps.length > 0 ?
+			<AppList apps={apps}/>
+		:
+			<p class="text-muted-foreground">There are no apps in this category yet.</p>
+		}
+	</div>
+</Layout>

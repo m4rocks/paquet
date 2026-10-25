@@ -23,6 +23,7 @@ Before opening a pull request, make sure these pass:
 
 ```sh
 bunx astro check
+bun test
 bun run build
 ```
 

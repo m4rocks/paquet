@@ -57,6 +57,7 @@ const { app } = Astro.props;
 			</p>
 			{app.data.categories.map((category) => (
 				<a
+					href={`/category/${category}`}
 					class={badgeVariants({ variant: "outline" })}
 				>
 					{categories.find((c) => c.id === category)?.name}

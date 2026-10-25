@@ -8,6 +8,8 @@ import { AppCardCarouselSkeleton } from "@/components/skeletons/app-card-carouse
 import { AppListItemSkeleton } from "@/components/skeletons/app-list-item-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Layout from "@/layouts/layout.astro";
+import { badgeVariants } from "@/components/ui/badge";
+import { categories } from "@/lib/categories";
 import { InfoIcon } from "lucide-react";
 ---
 
@@ -23,6 +25,23 @@ import { InfoIcon } from "lucide-react";
 		buttonClassName="my-4"
 		client:load
 	/>
+
+	<div class="flex flex-wrap gap-2 mb-4">
+		{categories.map((category) => (
+			<a
+				href={`/category/${category.id}`}
+				class={badgeVariants({ variant: "outline" })}
+			>
+				{category.name}
+			</a>
+		))}
+		<a
+			href="/categories"
+			class={badgeVariants({ variant: "secondary" })}
+		>
+			All categories
+		</a>
+	</div>
 
 	<Alert className="mb-4">
 		<InfoIcon/>

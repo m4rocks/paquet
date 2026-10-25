@@ -1,0 +1,38 @@
+---
+import { Header } from "@/components/header";
+import { Card, CardContent } from "@/components/ui/card";
+import { categoryCounts } from "@/lib/app-queries";
+import { categories } from "@/lib/categories";
+import Layout from "@/layouts/layout.astro";
+import { getCollection } from "astro:content";
+
+const counts = categoryCounts(await getCollection("apps"));
+---
+
+<Layout
+	title="Categories"
+	class="container"
+	back
+>
+	<Header>
+		Categories
+	</Header>
+
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+		{categories.map((category) => (
+			<a href={`/category/${category.id}`}>
+				<Card className="hover:bg-accent transition-colors">
+					<CardContent className="flex flex-row items-center gap-4">
+						<category.icon width={32} height={32}/>
+						<div>
+							<p class="font-bold">{category.name}</p>
+							<p class="text-muted-foreground text-sm">
+								{counts.get(category.id) ?? 0} apps
+							</p>
+						</div>
+					</CardContent>
+				</Card>
+			</a>
+		))}
+	</div>
+</Layout>
