@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import fg from "fast-glob";
-import { z } from "astro:content"
+import { z } from "astro/zod";
 import { categories } from "./categories";
 import { parseFromString } from "dom-parser";
 import type { WebAppManifest } from "web-app-manifest";
@@ -149,7 +149,7 @@ const checkGitHubReleases = async (githubUrl: string) => {
 	return res;
 }
 
-export const appLoader: Loader = {
+export const appLoader = {
 	name: "PaquetAppLoader",
 	schema: appSchema,
 	load: async ({ store, parseData, generateDigest }) => {
@@ -203,7 +203,7 @@ export const appLoader: Loader = {
 
 		buildSearchIndex(store.entries())
 	}
-}
+} satisfies Loader;
 
 
 export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promise<z.infer<typeof appSchema> | null> => {
@@ -214,7 +214,12 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		return null;
 	}
 
-	let manifestUrl: string | undefined = spec.manifestUrl || metaTags.manifestUrl;
+	const manifestUrl = spec.manifestUrl || metaTags.manifestUrl;
+
+	if (!manifestUrl) {
+		console.error("App", spec.id, "does not have a manifest URL.");
+		return null;
+	}
 
 	manifest = await fetch(manifestUrl, {
 		method: "GET",
