@@ -10,6 +10,33 @@ and contribute to Paquet without reading a word of this
 document, but it's good to at least have a clue of how
 things are working here.
 
+## Setup
+
+Paquet uses [bun](https://bun.sh). After cloning:
+
+```sh
+bun install
+bun dev
+```
+
+Before opening a pull request, make sure these pass:
+
+```sh
+bunx astro check
+bun run build
+```
+
+To get GitHub release info working locally, put a `GITHUB_API_KEY` in a
+`.dev.vars` file at the root of the repository.
+
+## Adding an app
+
+Apps are JSON files in the `apps/` folder, checked against
+`app-spec-schema.json`. The
+[getting started guide](https://paquet.m4.rocks/docs/getting-started) explains
+how to write one. If you change `src/lib/app-schema.ts`, regenerate the schema
+with `bun run generate:schema`.
+
 ## Branches
 
 The `main` branch is reserved for production only. This
