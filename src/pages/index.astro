@@ -29,9 +29,10 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 <Layout
 	class="container"
 	disableTopPadding
+	hideTabBar
 >
-	<section class="relative min-h-svh flex flex-col justify-center pt-24 pb-28">
-		<div class="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] items-center gap-10 md:gap-12">
+	<section class="min-h-svh flex flex-col pt-24 pb-6">
+		<div class="flex-1 grid grid-cols-1 md:grid-cols-[1.15fr_1fr] content-center items-center gap-10 md:gap-12">
 			<div class="order-2 md:order-1">
 				<h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-balance">
 					Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
@@ -75,7 +76,7 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 			</div>
 		</div>
 
-		<p class="text-center text-muted-foreground absolute animate-bounce bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 text-sm whitespace-nowrap">
+		<p class="mt-10 self-center text-center text-muted-foreground animate-bounce text-sm whitespace-nowrap">
 			Scroll down to find out more
 			<ArrowBigDownDashIcon className="mx-auto"/>
 		</p>
@@ -87,11 +88,11 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 				No downloads.<br />
 				No installs.<br />
 				Just <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">open it</span>.
-				<div class="flex flex-wrap justify-between gap-3 mt-8">
+				<div class="grid grid-cols-4 justify-items-center gap-3 mt-8 md:flex md:justify-between">
 					{randomApps.map((app) => (
 						<a
 							href={`/app/${app.id}`}
-							class="rounded-[23%] transition-[rotate,scale] duration-300 ease-out hover:scale-110 hover:-rotate-6 max-sm:[&:nth-child(n+7)]:hidden"
+							class="rounded-[23%] transition-[rotate,scale] duration-300 ease-out hover:scale-110 hover:-rotate-6"
 							title={app.data.name}
 						>
 							<AppIcon
@@ -122,7 +123,7 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			<Card>
 				<CardHeader>
-					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "var(--primary)" }}>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-full bg-primary/15 text-link dark:bg-primary/25">
 						<CloudIcon className="size-5" aria-hidden/>
 					</span>
 					<CardTitle className="text-lg">
@@ -135,7 +136,7 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 			</Card>
 			<Card>
 				<CardHeader>
-					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "oklch(0.66 0.17 150)" }}>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-full bg-primary/15 text-link dark:bg-primary/25">
 						<CheckIcon className="size-5" aria-hidden/>
 					</span>
 					<CardTitle className="text-lg">
@@ -148,7 +149,7 @@ const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx)
 			</Card>
 			<Card>
 				<CardHeader>
-					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "var(--secondary)" }}>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-full bg-primary/15 text-link dark:bg-primary/25">
 						<HeartIcon className="size-5" aria-hidden/>
 					</span>
 					<CardTitle className="text-lg">

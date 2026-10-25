@@ -26,17 +26,19 @@ interface Props {
 }
 
 const { category, apps } = Astro.props;
+const heroTint = "color-mix(in oklab, var(--primary) 30%, var(--background))";
 ---
 
 <Layout
 	title={category.name}
 	back
 	disableTopPadding
+	navbarTint={heroTint}
 >
 	<div
 		class="pt-[calc(4rem_+_env(safe-area-inset-top))] pb-6"
 		style={{
-			background: `linear-gradient(to bottom, color-mix(in oklab, ${category.color} 30%, transparent), transparent)`
+			background: `linear-gradient(to bottom, ${heroTint} calc(4rem + env(safe-area-inset-top)), var(--background))`
 		}}
 	>
 		<div class="container flex flex-row items-center gap-4 mt-8">

@@ -33,6 +33,8 @@ interface Props {
 const { app } = Astro.props;
 const related = relatedApps(app, await getCollection("apps"), 5);
 const appCategories = app.data.categories.map(getCategory).filter((category) => !!category);
+// Opaque, so the navbar can wear it at the top and the hero gradient continues from it without a seam.
+const heroTint = `color-mix(in oklab, ${app.data.accentColor} 60%, var(--background))`;
 ---
 
 <Layout
@@ -40,10 +42,11 @@ const appCategories = app.data.categories.map(getCategory).filter((category) => 
 	back
 	disableTopPadding
 	themeColor={app.data.accentColor + "99"}
+	navbarTint={heroTint}
 >
 	<div
 		style={{
-			background: `linear-gradient(to bottom, color-mix(in oklab, ${app.data.accentColor} 60%, transparent), var(--color-background) 75%)`
+			background: `linear-gradient(to bottom, ${heroTint} calc(4rem + env(safe-area-inset-top)), var(--background) 75%)`
 		}}
 		class="pt-[calc(4rem_+_env(safe-area-inset-top))]"
 	>

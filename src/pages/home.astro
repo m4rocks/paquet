@@ -46,7 +46,7 @@ const chipClass = "flex shrink-0 flex-row items-center gap-2 rounded-full border
 			href="/categories"
 			class={chipClass}
 		>
-			<span class="inline-flex size-7 items-center justify-center rounded-[30%] bg-accent">
+			<span class="inline-flex size-7 items-center justify-center rounded-full bg-accent">
 				<LayoutGridIcon className="size-3.5"/>
 			</span>
 			All categories
@@ -79,7 +79,7 @@ const chipClass = "flex shrink-0 flex-row items-center gap-2 rounded-full border
 			<RandomCategoryApps server:defer>
 				<div slot="fallback" class="flex flex-col gap-4">
 					<div class="flex flex-row items-center gap-3 h-8">
-						<Skeleton className="size-8 rounded-[30%]"/>
+						<Skeleton className="size-8 rounded-full"/>
 						<Skeleton className="w-36 h-6"/>
 					</div>
 					<div class="flex flex-col gap-2">

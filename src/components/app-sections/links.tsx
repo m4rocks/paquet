@@ -72,7 +72,7 @@ export function Links({ app }: LinksProps) {
 						external
 						href={link.href}
 						separator={idx !== links.length - 1}
-						left={<span className="flex size-10 shrink-0 items-center justify-center rounded-[30%] bg-accent">{link.left}</span>}
+						left={<span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">{link.left}</span>}
 						right={<ArrowUpRightIcon className="size-5 text-muted-foreground transition-transform group-hover/list-item:-translate-y-0.5 group-hover/list-item:translate-x-0.5"/>}
 					/>
 				))}

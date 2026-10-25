@@ -78,10 +78,11 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				</div>
 			</div>
 
-			<dl className="no-scrollbar flex flex-row overflow-x-auto border-t px-1 py-3 [&>div:not(:first-child)]:border-l">
+			{/* Two columns on phones (a lone last cell spans both), one row with dividers from md up. */}
+			<dl className="grid grid-cols-2 gap-y-4 border-t px-1 py-4 md:flex md:flex-row md:py-3 [&>div:last-child:nth-child(odd)]:col-span-2 max-md:[&>div:nth-child(even)]:border-l md:[&>div:not(:first-child)]:border-l">
 				{appCategories.length ?
 					<InfoCell label={appCategories.length > 1 ? "Categories" : "Category"}>
-						<span className="flex flex-row items-center gap-2">
+						<span className="flex flex-row items-center justify-center gap-2">
 							<CategoryIcon category={appCategories[0]} className="size-6"/>
 							<a href={`/category/${appCategories[0].id}`} className="hover:underline">
 								{appCategories[0].name}
@@ -94,7 +95,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				: null}
 				{platforms ?
 					<InfoCell label="Made for">
-						<span className="flex flex-row items-center gap-2">
+						<span className="flex flex-row items-center justify-center gap-2">
 							{app.data.features.includes("desktop") ? <LaptopIcon className="size-5" aria-hidden/> : null}
 							{app.data.features.includes("mobile") ? <SmartphoneIcon className="size-5" aria-hidden/> : null}
 							{platforms}
@@ -103,7 +104,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				: null}
 				{app.data.features.includes("offline") ?
 					<InfoCell label="Offline">
-						<span className="flex flex-row items-center gap-2">
+						<span className="flex flex-row items-center justify-center gap-2">
 							<CloudOffIcon className="size-5" aria-hidden/>
 							Works offline
 						</span>
@@ -111,7 +112,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				: null}
 				{app.data.features.includes("open-source") ?
 					<InfoCell label="Source">
-						<span className="flex flex-row items-center gap-2">
+						<span className="flex flex-row items-center justify-center gap-2">
 							<SquareCodeIcon className="size-5" aria-hidden/>
 							Open source
 						</span>
@@ -129,9 +130,9 @@ interface InfoCellProps {
 
 function InfoCell({ label, children }: InfoCellProps) {
 	return (
-		<div className="flex shrink-0 flex-col items-center justify-center gap-1 px-5 min-w-32 flex-auto">
+		<div className="flex flex-col items-center justify-center gap-1 px-3 md:px-5 md:flex-auto">
 			<dt className="text-xs text-muted-foreground uppercase tracking-wide">{label}</dt>
-			<dd className="font-semibold text-sm whitespace-nowrap">{children}</dd>
+			<dd className="font-semibold text-sm text-center">{children}</dd>
 		</div>
 	)
 }
