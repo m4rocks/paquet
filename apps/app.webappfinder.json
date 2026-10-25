@@ -1,0 +1,20 @@
+{
+	"$schema": "../app-spec-schema.json",
+	"id": "app.webappfinder",
+	"url": "https://webappfinder.app",
+	"manifestUrl": "https://webappfinder.app/manifest.webmanifest",
+	"features": [
+		"mobile",
+		"desktop",
+		"offline",
+		"open-source"
+	],
+	"githubUrl": "https://github.com/kromans11-gmail/kromans11-gmail.github.io",
+	"categories": [
+		"utilities"
+	],
+	"author": "Kent",
+	"authorUrl": "https://webappfinder.app",
+	"accentColor": "#4f46e5",
+	"updatedDate": "2026-07-07"
+}
