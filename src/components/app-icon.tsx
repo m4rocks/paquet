@@ -13,9 +13,10 @@ export function AppIcon({ appId, className, width = 48, height = 48 }: AppIconPr
 
 	return (
 		<div
-			className={cn("rounded-full overflow-hidden bg-card", className)}
-			style={{ 
-				width, 
+			// The inset outline paints over the image, so white icons keep an edge on light backgrounds.
+			className={cn("rounded-[23%] overflow-hidden bg-card shadow-sm outline-solid outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10", className)}
+			style={{
+				width,
 				height,
 				minWidth: width,
 				minHeight: height
@@ -26,6 +27,7 @@ export function AppIcon({ appId, className, width = 48, height = 48 }: AppIconPr
 				alt=""
 				width={width}
 				height={height}
+				loading="lazy"
 				className="w-full h-full"
 			/>
 		</div>

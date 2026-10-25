@@ -2,13 +2,13 @@ import type { CollectionEntry } from "astro:content";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ListItem } from "../ui/list-item";
 import BrandIcon from "../ui/brand-icon";
-import { HandshakeIcon, ShieldUser } from "lucide-react";
+import { ArrowUpRightIcon, HandshakeIcon, ShieldUser } from "lucide-react";
 
 export interface LinksProps {
 	app: CollectionEntry<"apps">
 }
 
-const iconProps = { width: 24, height: 24 };
+const iconProps = { width: 20, height: 20 };
 
 const repositoryPath = (url: string) => new URL(url).pathname.slice(1);
 
@@ -72,7 +72,8 @@ export function Links({ app }: LinksProps) {
 						external
 						href={link.href}
 						separator={idx !== links.length - 1}
-						left={link.left}
+						left={<span className="flex size-10 shrink-0 items-center justify-center rounded-[30%] bg-accent">{link.left}</span>}
+						right={<ArrowUpRightIcon className="size-5 text-muted-foreground transition-transform group-hover/list-item:-translate-y-0.5 group-hover/list-item:translate-x-0.5"/>}
 					/>
 				))}
 			</CardContent>

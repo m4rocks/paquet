@@ -3,11 +3,10 @@ import { AppPageCard } from '@/components/app-sections/app-page-card';
 import { AppScreenshotsCarousel } from '@/components/app-sections/app-screenshots-carousel';
 import { FeaturesList } from '@/components/app-sections/features';
 import { AppListItemSkeleton } from '@/components/skeletons/app-list-item-skeleton';
-import { badgeVariants } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { SectionHeading } from '@/components/section-heading';
+import { CategoryIcon } from '@/components/category-icon';
 import Layout from '@/layouts/layout.astro';
-import { categories } from '@/lib/categories';
+import { getCategory } from '@/lib/categories';
 import type { GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
@@ -33,6 +32,7 @@ interface Props {
 
 const { app } = Astro.props;
 const related = relatedApps(app, await getCollection("apps"), 5);
+const appCategories = app.data.categories.map(getCategory).filter((category) => !!category);
 ---
 
 <Layout
@@ -43,44 +43,51 @@ const related = relatedApps(app, await getCollection("apps"), 5);
 >
 	<div
 		style={{
-			background: `linear-gradient(to bottom, ${app.data.accentColor + "99"}, var(--color-background))`
+			background: `linear-gradient(to bottom, color-mix(in oklab, ${app.data.accentColor} 60%, transparent), var(--color-background) 75%)`
 		}}
-		class="pt-16"
+		class="pt-[calc(4rem_+_env(safe-area-inset-top))]"
 	>
-		<div class="container space-y-2 mb-4">
+		<div class="container pt-2">
 			<AppPageCard
 				app={app}
 				client:load
 			/>
-			<h2 class="text-2xl font-bold mt-8">
-				About
-			</h2>
-			<p>
-				{app.data.description}
-			</p>
-			{app.data.categories.map((category) => (
-				<a
-					href={`/category/${category}`}
-					class={badgeVariants({ variant: "outline" })}
-				>
-					{categories.find((c) => c.id === category)?.name}
-				</a>
-			))}
 		</div>
 	</div>
 
-	<div class="container my-8">
+	<div class="container space-y-10 mt-10">
 		{app.data.screenshots?.length ?
 			<AppScreenshotsCarousel
 				appId={app.id}
+				appName={app.data.name}
 				screenshotsLength={app.data.screenshots.length}
 				accentColor={app.data.accentColor}
 				client:load
 			/>
 		: null}
-	</div>
 
-	<div class="container space-y-8">
+		{app.data.description || appCategories.length ?
+			<section class="space-y-3">
+				<SectionHeading>About</SectionHeading>
+				{app.data.description ?
+					<p class="max-w-[70ch] text-pretty leading-relaxed">
+						{app.data.description}
+					</p>
+				: null}
+				<div class="flex flex-row flex-wrap gap-2 pt-1">
+					{appCategories.map((category) => (
+						<a
+							href={`/category/${category.id}`}
+							class="flex flex-row items-center gap-2 rounded-full border bg-card py-1 pl-1 pr-3 text-sm font-semibold transition-colors hover:bg-accent"
+						>
+							<CategoryIcon category={category} className="size-6"/>
+							{category.name}
+						</a>
+					))}
+				</div>
+			</section>
+		: null}
+
 		<FeaturesList
 			features={app.data.features}
 			accentColor={app.data.accentColor}
@@ -96,28 +103,16 @@ const related = relatedApps(app, await getCollection("apps"), 5);
 			app={app}
 		/>
 
-		<Separator/>
-
-		{related.length > 0 ?
-			<Card>
-				<CardHeader>
-					<CardTitle>
-						Related apps
-					</CardTitle>
-				</CardHeader>
-				<CardContent>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 pt-4">
+			{related.length > 0 ?
+				<section class="flex flex-col gap-4">
+					<SectionHeading>Related apps</SectionHeading>
 					<AppList apps={related}/>
-				</CardContent>
-			</Card>
-		: null}
+				</section>
+			: null}
 
-		<Card>
-			<CardHeader>
-				<CardTitle>
-					Other apps
-				</CardTitle>
-			</CardHeader>
-			<CardContent className="flex flex-col gap-2">
+			<section class="flex flex-col gap-4">
+				<SectionHeading>Other apps</SectionHeading>
 				<RandomFromCategory server:defer categories={app.data.categories}>
 					<div slot="fallback" class="flex flex-col gap-2">
 						{Array(5).fill(null).map((_, idx) => (
@@ -127,7 +122,7 @@ const related = relatedApps(app, await getCollection("apps"), 5);
 						))}
 					</div>
 				</RandomFromCategory>
-			</CardContent>
-		</Card>
+			</section>
+		</div>
 	</div>
 </Layout>

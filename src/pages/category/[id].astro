@@ -1,5 +1,6 @@
 ---
 import { AppList } from "@/components/app-list";
+import { CategoryIcon } from "@/components/category-icon";
 import { Header } from "@/components/header";
 import { appsInCategory } from "@/lib/app-queries";
 import { categories, type Category } from "@/lib/categories";
@@ -29,14 +30,29 @@ const { category, apps } = Astro.props;
 
 <Layout
 	title={category.name}
-	class="container"
 	back
+	disableTopPadding
 >
-	<Header>
-		{category.name}
-	</Header>
+	<div
+		class="pt-[calc(4rem_+_env(safe-area-inset-top))] pb-6"
+		style={{
+			background: `linear-gradient(to bottom, color-mix(in oklab, ${category.color} 30%, transparent), transparent)`
+		}}
+	>
+		<div class="container flex flex-row items-center gap-4 mt-8">
+			<CategoryIcon category={category} className="size-16 md:size-20"/>
+			<div>
+				<Header className="mt-0 text-4xl md:text-6xl">
+					{category.name}
+				</Header>
+				<p class="text-muted-foreground mt-1">
+					{apps.length} apps
+				</p>
+			</div>
+		</div>
+	</div>
 
-	<div class="mt-8">
+	<div class="container">
 		{apps.length > 0 ?
 			<AppList apps={apps}/>
 		:

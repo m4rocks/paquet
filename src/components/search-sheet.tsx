@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { cn } from "@/lib/utils";
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "./ui/command";
 import { useEffect, useState } from "react";
@@ -7,12 +7,46 @@ import type { PagefindClient, PagefindSearchResultData } from "@/lib/pagefind";
 import { AppIcon } from "./app-icon";
 import { navigate } from "astro:transitions/client";
 
-export interface SearchSheetProps {
-	buttonClassName?: string
+// The sheet lives once in the navbar; triggers in other islands reach it through this event.
+const OPEN_SEARCH_EVENT = "paquet:open-search";
+
+export const openSearch = () => window.dispatchEvent(new Event(OPEN_SEARCH_EVENT));
+
+export const onOpenSearch = (callback: () => void) => {
+	window.addEventListener(OPEN_SEARCH_EVENT, callback);
+	return () => window.removeEventListener(OPEN_SEARCH_EVENT, callback);
 }
 
-export function SearchSheet({ buttonClassName }: SearchSheetProps) {
-	const [open, setOpen] = useState(false);
+export interface SearchButtonProps {
+	className?: string
+}
+
+export function SearchButton({ className }: SearchButtonProps) {
+	return (
+		<button
+			onClick={openSearch}
+			className={cn(
+				"flex flex-row items-center gap-3 w-full h-12 px-4 rounded-full cursor-text",
+				"bg-accent text-muted-foreground border border-transparent shadow-xs",
+				"transition-colors duration-200 hover:border-border hover:bg-background",
+				className
+			)}
+		>
+			<SearchIcon className="size-5 shrink-0"/>
+			Search apps...
+			<kbd className="ml-auto hidden sm:inline-flex items-center rounded-md border bg-background px-1.5 py-0.5 font-sans text-xs">
+				/
+			</kbd>
+		</button>
+	)
+}
+
+export interface SearchSheetProps {
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
+}
+
+export function SearchSheet({ open, onOpenChange }: SearchSheetProps) {
 	const [input, setInput] = useState("");
 	const [pagefind, setPagefind] = useState<PagefindClient | null>(null);
 	const [results, setResults] = useState<PagefindSearchResultData[]>([]);
@@ -21,51 +55,41 @@ export function SearchSheet({ buttonClassName }: SearchSheetProps) {
 		if (import.meta.env.DEV) return;
 
 		(async () => {
-			const pfjs = await import(/* @vite-ignore */ window.location.origin + "/pagefind/pagefind.js");
+			const pfjs: PagefindClient = await import(/* @vite-ignore */ window.location.origin + "/pagefind/pagefind.js");
 
+			pfjs.init();
 			setPagefind(pfjs);
-			pagefind?.init();
 		})();
 	}, [])
 
 	useEffect(() => {
+		// Results for an older query can arrive after a newer one; only the latest may win.
+		let stale = false;
+
 		pagefind?.search(input).then(async (res) => {
-			setResults(
-				await Promise.all(
-					res.results.map((r) => r.data())
-				)
-			)
+			const data = await Promise.all(res.results.map((r) => r.data()));
+			if (!stale) setResults(data);
 		})
-	}, [input])
+
+		return () => {
+			stale = true;
+		}
+	}, [input, pagefind])
 
 	return (
 		<Sheet
 			open={open}
-			onOpenChange={setOpen}
+			onOpenChange={onOpenChange}
 		>
-			<SheetTrigger asChild>
-				<button
-					className={cn(
-						"bg-accent [&_svg:not([class*='text-'])]:text-muted-foreground text-muted-foreground flex flex-row items-center cursor-text",
-						"gap-2 px-2 py-1.5 w-full rounded-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-						"transition-all ease-out duration-300",
-						open ? "transform -translate-y-32 opacity-0" : "opacity-100",
-						buttonClassName
-					)}
-				>
-					<SearchIcon/>
-					Search apps...
-				</button>
-			</SheetTrigger>
-			<SheetContent side="top">
+			<SheetContent side="top" className="rounded-b-3xl pt-[env(safe-area-inset-top)]">
 				<SheetHeader>
-					<SheetTitle className="hidden">
+					<SheetTitle className="sr-only">
 						Search apps
 					</SheetTitle>
 				</SheetHeader>
 				<div className="container">
 					<Command
-						className="mb-8"
+						className="mb-6 bg-transparent"
 						shouldFilter={false}
 					>
 						<CommandInput
@@ -73,22 +97,27 @@ export function SearchSheet({ buttonClassName }: SearchSheetProps) {
 							value={input}
 							onValueChange={setInput}
 							disabled={import.meta.env.DEV}
+							className="h-12 text-base"
 						/>
-						<CommandList>
+						<CommandList className="max-h-[60svh]">
 							<CommandEmpty>
-								{input.trim().length ? "No apps found..." : "Type something to see results"}
+								{input.trim().length ? "No apps found. Try another name." : "Type an app name to search."}
 							</CommandEmpty>
 							{results.length ? results.map((app) => (
 								<CommandItem
 									key={app.meta.id}
-									onSelect={() => navigate(app.url)}
+									onSelect={() => {
+										onOpenChange(false);
+										navigate(app.url);
+									}}
+									className="gap-3 rounded-xl py-2"
 								>
 									<AppIcon
 										appId={app.meta.id}
-										width={32}
-										height={32}
+										width={40}
+										height={40}
 									/>
-									{app.meta.title}
+									<span className="font-semibold">{app.meta.title}</span>
 								</CommandItem>
 							))
 							:null}

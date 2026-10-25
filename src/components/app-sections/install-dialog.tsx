@@ -5,6 +5,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { getBrowser } from "@/lib/detect-browser";
 import { getInstallInstructions, type InstallInstructions } from "@/lib/install-steps";
 import { Button } from "../ui/button";
+import { getContrastColor } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "../ui/drawer";
 
@@ -29,7 +30,7 @@ export function InstallDialog({ app }: InstallDialogProps) {
 		<Button
 			size="lg"
 			variant="outline"
-			className="w-full sm:w-auto"
+			className="w-full md:w-auto md:px-8 rounded-full font-semibold transition-[background-color,scale] active:scale-95"
 		>
 			<DownloadIcon/>
 			Install
@@ -37,9 +38,20 @@ export function InstallDialog({ app }: InstallDialogProps) {
 	);
 
 	const steps = (
-		<ol className="list-decimal pl-6 space-y-2">
-			{instructions.steps.map((step) => (
-				<li key={step}>{step}</li>
+		<ol className="space-y-3">
+			{instructions.steps.map((step, idx) => (
+				<li key={step} className="flex flex-row items-start gap-3">
+					<span
+						className="flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+						style={{
+							backgroundColor: app.data.accentColor,
+							color: getContrastColor(app.data.accentColor)
+						}}
+					>
+						{idx + 1}
+					</span>
+					<span className="pt-0.5">{step}</span>
+				</li>
 			))}
 		</ol>
 	);

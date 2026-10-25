@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { ListItem } from "../ui/list-item";
-import { AppIcon } from "../app-icon";
+import { AppList } from "../app-list";
 
 interface Props {
 	categories: string[];
@@ -20,16 +19,4 @@ Astro.response.headers.set("Cache-Control", "private, max-age=60")
 ---
 
 
-{randomApps.map((a, idx) => (
-	<ListItem
-		title={a.data.name}
-		subtitle={a.data.author}
-		separator={idx !== randomApps.length - 1}
-		href={`/app/${a.id}`}
-	>
-		<AppIcon
-			slot="left"
-			appId={a.id}
-		/>
-	</ListItem>
-))}
+<AppList apps={randomApps}/>

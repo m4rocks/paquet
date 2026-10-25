@@ -59,25 +59,35 @@ export function FeaturesList({ features, accentColor }: FeaturesListProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					{sortedFeatures.map((f) => (
-						<div className="flex flex-row items-center gap-2" key={f.id}>
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+					{sortedFeatures.map((f) => {
+						const included = features.includes(f.id);
+
+						return (
 							<div
-								className={cn(features.includes(f.id) ? (!accentColor ? "bg-primary text-primary-foreground" : "border") : "bg-muted text-muted-foreground", "p-2 rounded-full")}
-								style={{
-									backgroundColor: features.includes(f.id) && accentColor ? accentColor : undefined,
-									color: features.includes(f.id) && accentColor ? getContrastColor(accentColor) : undefined
-								}}
+								key={f.id}
+								className={cn("flex flex-row items-center gap-3 rounded-2xl p-2 pr-4", included ? "bg-accent/60" : "")}
 							>
-								<f.icon />
+								<div
+									className={cn(
+										"flex size-10 shrink-0 items-center justify-center rounded-[30%] [&_svg]:size-5",
+										included ? (!accentColor ? "bg-primary text-primary-foreground" : "") : "bg-muted text-muted-foreground"
+									)}
+									style={{
+										backgroundColor: included && accentColor ? accentColor : undefined,
+										color: included && accentColor ? getContrastColor(accentColor) : undefined
+									}}
+								>
+									<f.icon aria-hidden/>
+								</div>
+								<p
+									className={cn(included ? "text-foreground font-semibold" : "text-muted-foreground", "text-wrap")}
+								>
+									{f.name}
+								</p>
 							</div>
-							<p
-								className={cn(features.includes(f.id) ? "text-foreground" : "text-muted-foreground", "text-wrap")}
-							>
-								{f.name}
-							</p>
-						</div>
-					))}
+						)
+					})}
 				</div>
 			</CardContent>
 		</Card>
