@@ -300,6 +300,9 @@ export const appDataFetcher = async (spec: z.infer<typeof appSpecSchema>): Promi
 		githubUrl: spec.githubUrl,
 		syncGitHubReleases: enableGithubReleases,
 
+		playStoreUrl: spec.playStoreUrl,
+		appStoreUrl: spec.appStoreUrl,
+
 
 		privacyPolicyUrl: spec.privacyPolicyUrl,
 		termsAndConditionsUrl: spec.termsAndConditionsUrl,

@@ -8,13 +8,53 @@ export interface LinksProps {
 	app: CollectionEntry<"apps">
 }
 
+const iconProps = { width: 24, height: 24 };
+
+const repositoryPath = (url: string) => new URL(url).pathname.slice(1);
+
 export function Links({ app }: LinksProps) {
-	if (
-		!app.data.githubUrl &&
-		!app.data.gitlabUrl &&
-		!app.data.termsAndConditionsUrl &&
-		!app.data.privacyPolicyUrl	
-	) return null;
+	const { termsAndConditionsUrl, privacyPolicyUrl, githubUrl, gitlabUrl, playStoreUrl, appStoreUrl } = app.data;
+
+	const links = [
+		termsAndConditionsUrl && {
+			title: "Terms and conditions",
+			subtitle: termsAndConditionsUrl.split("://")[1],
+			href: termsAndConditionsUrl,
+			left: <HandshakeIcon {...iconProps}/>
+		},
+		privacyPolicyUrl && {
+			title: "Privacy policy",
+			subtitle: privacyPolicyUrl.split("://")[1],
+			href: privacyPolicyUrl,
+			left: <ShieldUser {...iconProps}/>
+		},
+		githubUrl && {
+			title: "GitHub Repository",
+			subtitle: repositoryPath(githubUrl),
+			href: githubUrl,
+			left: <BrandIcon icon="github" {...iconProps}/>
+		},
+		gitlabUrl && {
+			title: "GitLab Repository",
+			subtitle: repositoryPath(gitlabUrl),
+			href: gitlabUrl,
+			left: <BrandIcon icon="gitlab" {...iconProps}/>
+		},
+		playStoreUrl && {
+			title: "Google Play",
+			subtitle: "Also available on Android",
+			href: playStoreUrl,
+			left: <BrandIcon icon="googleplay" {...iconProps}/>
+		},
+		appStoreUrl && {
+			title: "App Store",
+			subtitle: "Also available on iOS",
+			href: appStoreUrl,
+			left: <BrandIcon icon="appstore" {...iconProps}/>
+		}
+	].filter((link) => !!link);
+
+	if (links.length === 0) return null;
 
 	return (
 		<Card>
@@ -24,67 +64,17 @@ export function Links({ app }: LinksProps) {
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-2">
-				{app.data.termsAndConditionsUrl ?
+				{links.map((link, idx) => (
 					<ListItem
-						title="Terms and conditions"
-						subtitle={app.data.termsAndConditionsUrl.split("://")[1]}
+						key={link.href}
+						title={link.title}
+						subtitle={link.subtitle}
 						external
-						separator={!!app.data.privacyPolicyUrl}
-						href={app.data.termsAndConditionsUrl}
-						left={
-							<HandshakeIcon
-								width={24}
-								height={24}
-							/>
-						}
+						href={link.href}
+						separator={idx !== links.length - 1}
+						left={link.left}
 					/>
-				: null}
-				{app.data.privacyPolicyUrl ?
-					<ListItem
-						title="Privacy policy"
-						subtitle={app.data.privacyPolicyUrl.split("://")[1]}
-						external
-						href={app.data.privacyPolicyUrl}
-						separator={!!app.data.githubUrl}
-						left={
-							<ShieldUser
-								width={24}
-								height={24}
-							/>
-						}
-					/>
-				: null}
-				{app.data.githubUrl ?
-					<ListItem
-						title="GitHub Repository"
-						subtitle={new URL(app.data.githubUrl).pathname.slice(1)}
-						external
-						href={app.data.githubUrl}
-						separator={!!app.data.gitlabUrl}
-						left={
-							<BrandIcon
-								icon="github"
-								width={24}
-								height={24}
-							/>
-						}
-					/>
-				: null}
-				{app.data.gitlabUrl ?
-					<ListItem
-						title="GitLab Repository"
-						subtitle={new URL(app.data.gitlabUrl).pathname.slice(1)}
-						external
-						href={app.data.gitlabUrl}
-						left={
-							<BrandIcon
-								icon="gitlab"
-								width={24}
-								height={24}
-							/>
-						}
-					/>
-				: null}
+				))}
 			</CardContent>
 		</Card>
 	)
