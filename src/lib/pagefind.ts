@@ -49,10 +49,9 @@ export const buildSearchIndex = async (entries: [id: string, DataEntry][]) => {
 		})
 	}
 
-	// This is placed here so Pagefind has enough time to write the files before Astro clears the
-	// dist folder
-	await new Promise(resolve => setTimeout(resolve, 1000));
-	index.writeFiles({
-		outputPath: "dist/pagefind"
+	// Written to public/ so Astro copies the index into the client output, which is what the
+	// adapter deploys; dist/ is cleared at the start of the build and is not what gets served.
+	await index.writeFiles({
+		outputPath: "public/pagefind"
 	})
 }
