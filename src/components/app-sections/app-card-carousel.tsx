@@ -17,25 +17,28 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 	const [canScrollNext, setCanScrollNext] = useState(true);
 
 	useEffect(() => {
-		if (api) {
-			const cb = () => {
-				setCanScrollNext(api.canScrollNext());
-				setCanScrollPrev(api.canScrollPrev());
-			}
-	
-			api.on("scroll", cb);
-	
-			return () =>  {
-				api.off("scroll", cb)
-			}
-		};
-	})
+		if (!api) return;
+
+		const cb = () => {
+			setCanScrollNext(api.canScrollNext());
+			setCanScrollPrev(api.canScrollPrev());
+		}
+
+		cb();
+		api.on("scroll", cb);
+		api.on("reInit", cb);
+
+		return () => {
+			api.off("scroll", cb);
+			api.off("reInit", cb);
+		}
+	}, [api])
 
 	return (
 		<Carousel
 			opts={{
 				skipSnaps: true,
-				align: "center"
+				align: "start"
 			}}
 			plugins={[WheelGesturesPlugin()]}
 			setApi={setApi}
@@ -44,10 +47,13 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 			<CarouselContent>
 				{apps.map((app) => (
 					<CarouselItem
-						className="md:basis-1/2 lg:basis-1/3 h-48"
+						className="basis-[85%] md:basis-1/2 lg:basis-1/3"
 						key={app.id}
 					>
-						<a href={`/app/${app.id}`}>
+						<a
+							href={`/app/${app.id}`}
+							className="block aspect-[17/10] rounded-3xl transition-[scale] duration-200 ease-out active:scale-[0.98]"
+						>
 							<AppCard
 								app={app}
 							/>
@@ -66,20 +72,22 @@ export function AppCardCarousel({ apps }: AppCardCarouselProps) {
 				<Button
 					size="icon"
 					variant="outline"
-					className="rounded-full mt-2 ml-auto"
+					className="rounded-full mt-3 ml-auto"
 					disabled={!canScrollPrev}
 					onClick={() => api?.scrollPrev()}
 				>
 					<ArrowLeftIcon/>
+					<span className="sr-only">Previous apps</span>
 				</Button>
 				<Button
 					size="icon"
 					variant="outline"
-					className="rounded-full mt-2 mr-auto"
+					className="rounded-full mt-3 mr-auto"
 					disabled={!canScrollNext}
 					onClick={() => api?.scrollNext()}
 				>
 					<ArrowRightIcon/>
+					<span className="sr-only">Next apps</span>
 				</Button>
 			</div>
 		</Carousel>

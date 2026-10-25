@@ -2,75 +2,130 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
-import { ArrowBigDownDashIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
+import { ArrowBigDownDashIcon, ArrowRightIcon, BookMarkedIcon, BookOpenIcon, CheckIcon, CloudIcon, HeartIcon } from "lucide-react";
 import { AppIcon } from "@/components/app-icon";
 import { FeaturesList } from "@/components/app-sections/features";
 import BrandIcon from "@/components/ui/brand-icon";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { AppPageCard } from "@/components/app-sections/app-page-card";
 
-// Get 5 random items from the apps collection
 const apps = await getCollection("apps");
-const randomApps = apps
-	.sort(() => Math.random() - 0.5)
-	.slice(0, 8);
+const shuffledApps = apps.sort(() => Math.random() - 0.5);
+const randomApps = shuffledApps.slice(0, 8);
+
+// Hand-placed so the cluster reads as playful rather than as a grid. Values are percentages of the cluster box.
+const iconSpots = [
+	{ top: 4, left: 30, size: 96, rotate: -8 },
+	{ top: 18, left: 72, size: 72, rotate: 10 },
+	{ top: 40, left: 6, size: 64, rotate: 6 },
+	{ top: 46, left: 48, size: 112, rotate: -4 },
+	{ top: 74, left: 20, size: 80, rotate: 12 },
+	{ top: 70, left: 78, size: 64, rotate: -12 },
+	{ top: 0, left: 2, size: 56, rotate: 14 },
+];
+const floatingIcons = shuffledApps.slice(8, 8 + iconSpots.length).map((app, idx) => ({ app, ...iconSpots[idx] }));
 ---
 
 <Layout
 	class="container"
 	disableTopPadding
 >
-	<div class="h-svh flex flex-col justify-center relative">
-		<a
-			href="/home"
-		>
-			<h1 class="text-7xl font-bold">
-				Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
-			</h1>
-		</a>
+	<section class="relative min-h-svh flex flex-col justify-center pt-24 pb-28">
+		<div class="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] items-center gap-10 md:gap-12">
+			<div class="order-2 md:order-1">
+				<h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-balance">
+					Access your apps <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">instantly</span>
+				</h1>
+				<div class="mt-8 flex flex-col sm:flex-row gap-3">
+					<a
+						href="/home"
+						class={buttonVariants({ size: "lg", className: "h-12 rounded-full px-8 text-base font-semibold shadow-lg shadow-primary/30 transition-[filter,scale] hover:brightness-110 active:scale-95" })}
+					>
+						Open Paquet
+						<ArrowRightIcon/>
+					</a>
+					<a
+						href="/categories"
+						class={buttonVariants({ size: "lg", variant: "outline", className: "h-12 rounded-full px-8 text-base font-semibold active:scale-95" })}
+					>
+						Browse categories
+					</a>
+				</div>
+			</div>
 
-		<p class="text-center text-muted-foreground absolute animate-bounce bottom-0 left-1/2 -translate-x-1/2">
+			<div class="order-1 md:order-2 relative h-64 sm:h-80 md:h-[28rem]" aria-hidden="true">
+				{floatingIcons.map(({ app, top, left, size, rotate }, idx) => (
+					<div
+						class="absolute"
+						style={{
+							top: `${top}%`,
+							left: `${left}%`,
+							rotate: `${rotate}deg`,
+							animation: `float ${5 + (idx % 3)}s ease-in-out ${idx * -0.8}s infinite`
+						}}
+					>
+						<AppIcon
+							appId={app.id}
+							width={size}
+							height={size}
+							className="shadow-xl max-md:scale-75 origin-top-left"
+						/>
+					</div>
+				))}
+			</div>
+		</div>
+
+		<p class="text-center text-muted-foreground absolute animate-bounce bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 text-sm whitespace-nowrap">
 			Scroll down to find out more
 			<ArrowBigDownDashIcon className="mx-auto"/>
 		</p>
-	</div>
+	</section>
 
-	<Card>
+	<Card className="shadow-xl">
 		<CardHeader>
-			<CardTitle className="text-5xl">
+			<CardTitle className="text-4xl md:text-5xl leading-tight">
 				No downloads.<br />
 				No installs.<br />
 				Just <span class="bg-clip-text text-transparent bg-gradient-to-tr bg-primary to-secondary">open it</span>.
-				<div class="flex justify-between gap-2 mt-4">
+				<div class="flex flex-wrap justify-between gap-3 mt-8">
 					{randomApps.map((app) => (
-						<AppIcon
-							appId={app.id}
-							width={64}
-							height={64}
-						/>
+						<a
+							href={`/app/${app.id}`}
+							class="rounded-[23%] transition-[rotate,scale] duration-300 ease-out hover:scale-110 hover:-rotate-6 max-sm:[&:nth-child(n+7)]:hidden"
+							title={app.data.name}
+						>
+							<AppIcon
+								appId={app.id}
+								width={64}
+								height={64}
+							/>
+						</a>
 					))}
 				</div>
 			</CardTitle>
 		</CardHeader>
 		<CardContent>
-			<a href="/home">
-				<Button className="w-full">
-					Open Paquet
-				</Button>
+			<a
+				href="/home"
+				class={buttonVariants({ size: "lg", className: "w-full h-12 rounded-full text-base font-semibold" })}
+			>
+				Open Paquet
 			</a>
 		</CardContent>
 	</Card>
 
 	<div class="mt-32">
-		<p class="text-center font-bold text-2xl mb-4">
+		<h2 class="text-center font-bold text-3xl mb-6">
 			What's in store?
-		</p>
+		</h2>
 
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			<Card>
 				<CardHeader>
-					<CardTitle>
-						<CloudIcon className="inline w-4 h-4"/>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "var(--primary)" }}>
+						<CloudIcon className="size-5" aria-hidden/>
+					</span>
+					<CardTitle className="text-lg">
 						No downloads
 					</CardTitle>
 					<CardDescription>
@@ -80,8 +135,10 @@ const randomApps = apps
 			</Card>
 			<Card>
 				<CardHeader>
-					<CardTitle>
-						<CheckIcon className="inline w-4 h-4"/>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "oklch(0.66 0.17 150)" }}>
+						<CheckIcon className="size-5" aria-hidden/>
+					</span>
+					<CardTitle className="text-lg">
 						Verified
 					</CardTitle>
 					<CardDescription>
@@ -91,8 +148,10 @@ const randomApps = apps
 			</Card>
 			<Card>
 				<CardHeader>
-					<CardTitle>
-						<HeartIcon className="inline w-4 h-4"/>
+					<span class="mb-2 inline-flex size-11 items-center justify-center rounded-[30%] text-white shadow-sm" style={{ backgroundColor: "var(--secondary)" }}>
+						<HeartIcon className="size-5" aria-hidden/>
+					</span>
+					<CardTitle className="text-lg">
 						Loved by the community
 					</CardTitle>
 					<CardDescription>
@@ -117,10 +176,10 @@ const randomApps = apps
 			Close to the community
 		</h2>
 		<div
-			class="flex flex-row flex-wrap justify-center items-start gap-4"
+			class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
 		>
 			<a
-				class="flex flex-col text-center justify-center items-center max-w-56"
+				class="flex flex-col text-center items-center rounded-3xl border bg-card p-6 shadow-xs transition-[background-color,scale] duration-200 ease-out hover:bg-accent active:scale-[0.98]"
 				href="https://github.com/m4rocks/paquet"
 				target="_blank"
 			>
@@ -129,11 +188,11 @@ const randomApps = apps
 					width={48}
 					height={48}
 				/>
-				<p class="mt-2">GitHub</p>
+				<p class="mt-3 font-semibold">GitHub</p>
 				<p class="text-muted-foreground">m4rocks/paquet</p>
 			</a>
 			<a
-				class="flex flex-col text-center justify-center items-center max-w-56"
+				class="flex flex-col text-center items-center rounded-3xl border bg-card p-6 shadow-xs transition-[background-color,scale] duration-200 ease-out hover:bg-accent active:scale-[0.98]"
 				href="https://github.com/m4rocks/paquet/blob/main/CONTRIBUTING.md"
 				target="_blank"
 			>
@@ -141,18 +200,18 @@ const randomApps = apps
 					width={48}
 					height={48}
 				/>
-				<p class="mt-2">Contribution Guide</p>
+				<p class="mt-3 font-semibold">Contribution Guide</p>
 				<p class="text-muted-foreground">Learn how to contribute to Paquet</p>
 			</a>
 			<a
-				class="flex flex-col text-center justify-center items-center max-w-56"
+				class="flex flex-col text-center items-center rounded-3xl border bg-card p-6 shadow-xs transition-[background-color,scale] duration-200 ease-out hover:bg-accent active:scale-[0.98]"
 				href="/docs"
 			>
 				<BookOpenIcon
 					width={48}
 					height={48}
 				/>
-				<p class="mt-2">Documentation</p>
+				<p class="mt-3 font-semibold">Documentation</p>
 				<p class="text-muted-foreground">Learn how to use Paquet</p>
 			</a>
 		</div>

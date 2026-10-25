@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import { AppIcon } from "../app-icon";
-import { ListItem } from "../ui/list-item";
-import { categoryIds } from "@/lib/categories";
+import { AppList } from "../app-list";
+import { CategoryHeading } from "../category-heading";
+import { categories } from "@/lib/categories";
 
-const randomCategory = categoryIds.sort(() => Math.random() - 0.5)[0];
-const apps = await getCollection("apps", (entry) => entry.data.categories.includes(randomCategory));
+const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+const apps = await getCollection("apps", (entry) => entry.data.categories.includes(randomCategory.id));
 const randomApps = apps
 	.sort(() => Math.random() - 0.5)
 	.slice(0, 5);
@@ -14,16 +14,5 @@ Astro.response.headers.set("Cache-Control", "private, max-age=60")
 ---
 
 
-{randomApps.map((a, idx) => (
-	<ListItem
-		title={a.data.name}
-		subtitle={a.data.author}
-		separator={idx !== randomApps.length - 1}
-		href={`/app/${a.id}`}
-	>
-		<AppIcon
-			slot="left"
-			appId={a.id}
-		/>
-	</ListItem>
-))}
+<CategoryHeading category={randomCategory}/>
+<AppList apps={randomApps}/>

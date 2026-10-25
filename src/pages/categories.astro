@@ -1,10 +1,11 @@
 ---
 import { Header } from "@/components/header";
-import { Card, CardContent } from "@/components/ui/card";
+import { CategoryIcon } from "@/components/category-icon";
 import { categoryCounts } from "@/lib/app-queries";
 import { categories } from "@/lib/categories";
 import Layout from "@/layouts/layout.astro";
 import { getCollection } from "astro:content";
+import { ChevronRightIcon } from "lucide-react";
 
 const counts = categoryCounts(await getCollection("apps"));
 ---
@@ -18,20 +19,23 @@ const counts = categoryCounts(await getCollection("apps"));
 		Categories
 	</Header>
 
-	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8">
 		{categories.map((category) => (
-			<a href={`/category/${category.id}`}>
-				<Card className="hover:bg-accent transition-colors">
-					<CardContent className="flex flex-row items-center gap-4">
-						<category.icon width={32} height={32}/>
-						<div>
-							<p class="font-bold">{category.name}</p>
-							<p class="text-muted-foreground text-sm">
-								{counts.get(category.id) ?? 0} apps
-							</p>
-						</div>
-					</CardContent>
-				</Card>
+			<a
+				href={`/category/${category.id}`}
+				class="group flex flex-row items-center gap-4 rounded-2xl border p-4 shadow-xs transition-[background-color,scale,box-shadow] duration-200 ease-out hover:shadow-md active:scale-[0.98]"
+				style={{
+					backgroundColor: `color-mix(in oklab, ${category.color} 10%, var(--card))`
+				}}
+			>
+				<CategoryIcon category={category} className="size-12 transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110"/>
+				<div class="flex-1">
+					<p class="font-bold">{category.name}</p>
+					<p class="text-muted-foreground text-sm">
+						{counts.get(category.id) ?? 0} apps
+					</p>
+				</div>
+				<ChevronRightIcon className="size-5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5"/>
 			</a>
 		))}
 	</div>

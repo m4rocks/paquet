@@ -3,13 +3,17 @@ import Random5Apps from "@/components/server-islands/random-5-apps.astro";
 import RandomCategoryApps from "@/components/server-islands/random-category-apps.astro";
 import RandomCoverApps from "@/components/server-islands/random-cover-apps.astro";
 import { Header } from "@/components/header";
-import { SearchSheet } from "@/components/search-sheet";
+import { SearchButton } from "@/components/search-sheet";
+import { SectionHeading } from "@/components/section-heading";
 import { AppCardCarouselSkeleton } from "@/components/skeletons/app-card-carousel-skeleton";
 import { AppListItemSkeleton } from "@/components/skeletons/app-list-item-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CategoryIcon } from "@/components/category-icon";
 import Layout from "@/layouts/layout.astro";
-import { badgeVariants } from "@/components/ui/badge";
 import { categories } from "@/lib/categories";
-import { ArrowRightIcon } from "lucide-react";
+import { LayoutGridIcon } from "lucide-react";
+
+const chipClass = "flex shrink-0 flex-row items-center gap-2 rounded-full border bg-card py-1 pl-1 pr-4 text-sm font-semibold shadow-xs transition-[background-color,scale] duration-200 ease-out hover:bg-accent active:scale-95";
 ---
 
 <Layout
@@ -20,29 +24,36 @@ import { ArrowRightIcon } from "lucide-react";
 		Home
 	</Header>
 
-	<SearchSheet
-		buttonClassName="my-4"
+	<SearchButton
+		className="mt-6"
 		client:load
 	/>
 
-	<div class="flex flex-wrap gap-2 mb-4">
+	<nav
+		aria-label="Categories"
+		class="no-scrollbar -mx-4 mt-4 mb-8 flex flex-row gap-2 overflow-x-auto px-4 py-1 sm:flex-wrap sm:overflow-visible"
+	>
 		{categories.map((category) => (
 			<a
 				href={`/category/${category.id}`}
-				class={badgeVariants({ variant: "outline" })}
+				class={chipClass}
 			>
+				<CategoryIcon category={category} className="size-7"/>
 				{category.name}
 			</a>
 		))}
 		<a
 			href="/categories"
-			class={badgeVariants({ variant: "outline" })}
+			class={chipClass}
 		>
+			<span class="inline-flex size-7 items-center justify-center rounded-[30%] bg-accent">
+				<LayoutGridIcon className="size-3.5"/>
+			</span>
 			All categories
-			<ArrowRightIcon/>
 		</a>
-	</div>
+	</nav>
 
+	<SectionHeading className="mb-4">Featured</SectionHeading>
 	<RandomCoverApps server:defer>
 		<div slot="fallback">
 			<AppCardCarouselSkeleton/>
@@ -50,9 +61,9 @@ import { ArrowRightIcon } from "lucide-react";
 	</RandomCoverApps>
 
 
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-		<div class="flex flex-col gap-2">
-			<h2 class="text-2xl font-bold">Random pick</h2>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mt-12">
+		<section class="flex flex-col gap-4">
+			<SectionHeading>Random pick</SectionHeading>
 			<Random5Apps server:defer>
 				<div slot="fallback" class="flex flex-col gap-2">
 					{Array(5).fill(null).map((_, idx) => (
@@ -62,19 +73,24 @@ import { ArrowRightIcon } from "lucide-react";
 					))}
 				</div>
 			</Random5Apps>
-		</div>
+		</section>
 
-		<div class="flex flex-col gap-2">
-			<h2 class="text-2xl font-bold">Random category</h2>
+		<section class="flex flex-col gap-4">
 			<RandomCategoryApps server:defer>
-				<div slot="fallback" class="flex flex-col gap-2">
-					{Array(5).fill(null).map((_, idx) => (
-						<AppListItemSkeleton
-							separator={idx !== 4}
-						/>
-					))}
+				<div slot="fallback" class="flex flex-col gap-4">
+					<div class="flex flex-row items-center gap-3 h-8">
+						<Skeleton className="size-8 rounded-[30%]"/>
+						<Skeleton className="w-36 h-6"/>
+					</div>
+					<div class="flex flex-col gap-2">
+						{Array(5).fill(null).map((_, idx) => (
+							<AppListItemSkeleton
+								separator={idx !== 4}
+							/>
+						))}
+					</div>
 				</div>
 			</RandomCategoryApps>
-		</div>
+		</section>
 	</div>
 </Layout>
