@@ -1,15 +1,15 @@
 # AGENTS.md
 
-Paquet is an open-source, edge-hosted web app shop (Astro, React, Tailwind, Cloudflare/Vercel) where people discover and install PWAs listed in `apps/`.
+Paquet is an open-source, edge-hosted web app shop (Astro, React, Tailwind, Vercel) where people discover and install PWAs listed in `apps/`.
 
-Use bun: `bun dev` starts the dev server, `bun run build` builds, `bun run generate:schema` regenerates `app-spec-schema.json`.
+Use bun: `bun dev` starts the dev server, `bunx astro check` type-checks, `bun test` runs the tests, `bun run build` builds, `bun run generate:schema` regenerates `app-spec-schema.json`.
 
 ## Settings
 
 - Tracker: GitHub issues in m4rocks/paquet
 - Tests: always
-- Commits: one per feature
-- Pull requests: one per batch, from a branch
+- Commits: one per feature, ask before each
+- Pull requests: one per batch from a branch, ask before pushing
 - Closing issues: ask first
 - Subagents: only when the maintainer asks
 
@@ -18,7 +18,11 @@ Use bun: `bun dev` starts the dev server, `bun run build` builds, `bun run gener
 GitHub issues hold intent, one issue per feature with a checklist in its body; the code and the maintainer decide what is true.
 Check off items the code already does. Add entries for requests that aren't listed, and for problems you notice outside the task, rather than fixing those in passing, so every diff stays reviewable. Order is a suggestion: if a request seems to depend on unfinished work, say so in one line and continue.
 
-Ask the maintainer about product direction, scope, and anything irreversible or outward-facing, such as pushing, deleting data, adding a dependency or closing issues, unless the settings above allow it. Ask through the harness's structured question tool when it has one, recommended option first; otherwise ask one question per message with numbered options. Decide everything reversible yourself and report it. End each piece of work by saying what changed, what you skipped or couldn't check, and any risk.
+Ask the maintainer about product direction, scope, and anything irreversible or outward-facing, such as pushing, deleting data, adding a dependency or closing issues, unless the settings above allow it. Ask through the harness's structured question tool when it has one, recommended option first; otherwise ask one question per message with numbered options. Decide everything reversible yourself and report it. Ask a question only when you need a decision to continue; otherwise end your turn with the answer.
+
+The maintainer can override any setting for a single request, for example "go autonomous, commit and push everything" or "ask before each commit"; the override lasts until that request is done.
+
+When a task finishes, say once what changed, what you skipped or couldn't check, and any risk. After that, follow the maintainer's current topic: raise finished work again only when the current topic affects it or they ask, and keep options about it out of questions on other subjects.
 
 Work inline; spawn subagents only as the settings allow, because they spend tokens the maintainer wants to spend deliberately.
 
