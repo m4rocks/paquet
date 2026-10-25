@@ -6,6 +6,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import { cn, getContrastColor } from "@/lib/utils";
 import { LazyLoadImage } from "../lazy-load-image";
 import { getAppResource } from "@/lib/images";
+import { InstallDialog } from "./install-dialog";
 
 export interface AppPageCardProps {
 	app: CollectionEntry<"apps">
@@ -41,7 +42,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 						</a>
 					</div>
 				</div>
-				<div className="w-full md:w-auto md:ml-auto">
+				<div className="w-full md:w-auto md:ml-auto flex flex-col sm:flex-row gap-2">
 					<a
 						href={app.data.url}
 						target="_blank"
@@ -59,6 +60,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 							Open
 						</Button>
 					</a>
+					<InstallDialog app={app}/>
 				</div>
 			</CardContent>
 		</Card>
