@@ -25,7 +25,7 @@ export function InstallDialog({ app }: InstallDialogProps) {
 				<Button
 					size="lg"
 					variant="outline"
-					className="w-full"
+					className="w-full sm:w-auto"
 				>
 					<DownloadIcon/>
 					Install
