@@ -21,7 +21,7 @@ interface Props {
 	hideTabBar?: boolean;
 }
 
-const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.CF_PAGES_COMMIT_SHA ? import.meta.env.CF_PAGES_COMMIT_SHA.slice(0, 7) : "unknown"
+const commitHash = import.meta.env.DEV ? "dev" : import.meta.env.VERCEL_GIT_COMMIT_SHA ? import.meta.env.VERCEL_GIT_COMMIT_SHA.slice(0, 7) : "unknown"
 ---
 
 

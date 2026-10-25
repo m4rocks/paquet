@@ -67,7 +67,7 @@ export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps)
 					<Button
 						size="icon"
 						variant="ghost"
-						className="rounded-full"
+						className="rounded-full cursor-pointer"
 						onClick={handleBack}
 						aria-label="Go back"
 					>
@@ -75,16 +75,16 @@ export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps)
 							className="w-8! h-8!"
 						/>
 					</Button>
-				:
+					:
 					<a
 						href="/home"
-						className="hidden sm:flex flex-row items-center gap-2 rounded-full pr-2 font-bold text-lg"
+						aria-label="Paquet"
+						className="hidden sm:flex flex-row items-center rounded-full"
 					>
 						<span className="size-9 overflow-hidden rounded-[23%] shadow-sm">
 							{/* The logo file has a wide white margin, so it is scaled up and clipped into an app icon shape. */}
-							<img src="/logo.png" alt="" width={36} height={36} className="size-full scale-[1.9]"/>
+							<img src="/logo.png" alt="" width={36} height={36} className="size-full scale-[1.9]" />
 						</span>
-						Paquet
 					</a>
 				}
 				<p
@@ -93,7 +93,8 @@ export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps)
 					{title}
 				</p>
 
-				<div className="ml-auto hidden sm:flex flex-row items-center gap-1">
+				{/* Over a tint the controls sit on an opaque pill, so their contrast does not depend on the app's colour. */}
+				<div className={cn("ml-auto hidden sm:flex flex-row items-center gap-1 rounded-full border border-transparent p-1", !scrollDownTrigger && tint && "border-border bg-background shadow-sm")}>
 					{TABS.map((tab) => (
 						<a
 							key={tab.href}
@@ -111,7 +112,7 @@ export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps)
 						onClick={() => setSearchOpen(true)}
 						className="ml-2 flex flex-row items-center gap-2 rounded-full border bg-background/60 py-1.5 pl-3 pr-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground hover:bg-accent"
 					>
-						<SearchIcon className="size-4"/>
+						<SearchIcon className="size-4" />
 						Search
 						<kbd className="rounded-full bg-accent px-2 py-0.5 font-sans text-xs">/</kbd>
 					</button>
@@ -145,7 +146,7 @@ export function Navbar({ title, back, pathname, tint, hideTabBar }: NavbarProps)
 						</TabBarItem>
 					</div>
 				</nav>
-			: null}
+				: null}
 
 			<SearchSheet
 				open={searchOpen}
@@ -182,7 +183,7 @@ function TabBarItem({ children, icon: Icon, active, href, onClick }: TabBarItemP
 					active ? "bg-primary/15 dark:bg-primary/25" : ""
 				)}
 			>
-				<Icon className="size-5" strokeWidth={active ? 2.5 : 2}/>
+				<Icon className="size-5" strokeWidth={active ? 2.5 : 2} />
 			</span>
 			{children}
 		</Root>

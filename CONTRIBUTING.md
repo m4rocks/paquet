@@ -28,7 +28,7 @@ bun run build
 ```
 
 To get GitHub release info working locally, put a `GITHUB_API_KEY` in a
-`.dev.vars` file at the root of the repository.
+`.env` file at the root of the repository.
 
 ## Adding an app
 

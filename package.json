@@ -7,7 +7,6 @@
     "dev:nocache": "NOCACHE=1 astro dev",
     "build": "BUILD=1 astro build",
     "build:noresources": "BUILD=1 NORESOURCES=1 astro build",
-    "preview": "wrangler pages dev ./dist",
     "astro": "astro",
     "generate:schema": "bun scripts/generateAppSpecSchema.ts"
   },
@@ -49,8 +48,7 @@
     "typescript": "^6.0.3",
     "ua-parser-js": "^2.0.10",
     "vaul": "^1.1.2",
-    "vite-plugin-pwa": "^1.3.0",
-    "wrangler": "^4.152.0"
+    "vite-plugin-pwa": "^1.3.0"
   },
   "devDependencies": {
     "@types/bun": "^1.4.4",
