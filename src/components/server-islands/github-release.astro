@@ -37,7 +37,7 @@ if (!app || !app.data.githubUrl) {
 
 const res = await fetch("https://api.github.com/repos" + new URL(app.data.githubUrl).pathname + "/releases/latest", {
 	headers: {
-		"Authorization": `Bearer ${Astro.locals.runtime.env.GITHUB_API_KEY}`,
+		"Authorization": `Bearer ${process.env.GITHUB_API_KEY}`,
 		"User-Agent": "paquet"
 	}
 })

@@ -6,6 +6,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import astropwa from "@vite-pwa/astro";
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import remarkGemoji from "remark-gemoji";
 
 
@@ -57,7 +58,9 @@ export default defineConfig({
 	trailingSlash: "never",
 
 	markdown: {
-		remarkPlugins: [remarkGemoji]
+		processor: unified({
+			remarkPlugins: [remarkGemoji]
+		})
 	},
 
 	prefetch: {
