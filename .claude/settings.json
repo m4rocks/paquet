@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "m4skills": {
+      "source": {
+        "source": "github",
+        "repo": "m4rocks/m4skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "m4@m4skills": true
+  }
+}
