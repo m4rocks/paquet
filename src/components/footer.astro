@@ -1,25 +1,27 @@
 ---
 interface Props {
-	commitHash: string
+	commitHash: string;
 }
 ---
 
 <footer class="container mt-16 mb-8 w-full">
-	<div class="flex flex-col items-center gap-4 border-t pt-8 text-center text-sm text-muted-foreground">
+	<div
+		class="flex flex-col items-center gap-4 border-t pt-8 text-center text-sm text-muted-foreground"
+	>
 		<a
 			href="https://m4.rocks"
 			target="_blank"
-			class="flex flex-row items-center gap-2 rounded-full px-3 py-1 text-base transition-colors hover:text-foreground"
+			class="gap-2 rounded-full px-3 py-1 text-base transition-colors hover:text-foreground"
 		>
-			<span class="size-6 overflow-hidden rounded-[23%] shadow-sm">
-				<img src="/logo.png" alt="" width={24} height={24} class="size-full scale-[1.9]"/>
-			</span>
-			<span>Made with <span role="img" aria-label="love">❤</span> by @m4rocks</span>
+			<span
+				>Made with <span role="img" aria-label="love">❤</span> by @m4rocks</span
+			>
 		</a>
-		<p>
-			Apps presented on Paquet are not owned by the maker of Paquet
-		</p>
-		<nav aria-label="Legal and docs" class="flex flex-row flex-wrap justify-center gap-x-1 gap-y-2">
+		<p>Apps presented on Paquet are not owned by the maker of Paquet</p>
+		<nav
+			aria-label="Legal and docs"
+			class="flex flex-row flex-wrap justify-center gap-x-1 gap-y-2"
+		>
 			<a
 				href="/privacy"
 				class="rounded-full px-3 py-1 transition-colors hover:bg-accent hover:text-foreground"

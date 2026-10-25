@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import { Card } from "../ui/card";
 import { AppIcon } from "../app-icon";
 import { Button } from "../ui/button";
-import { CloudOffIcon, ExternalLinkIcon, LaptopIcon, SmartphoneIcon, SquareCodeIcon } from "lucide-react";
+import { CloudOffIcon, ExternalLinkIcon, LaptopIcon, MonitorSmartphoneIcon, SmartphoneIcon, SquareCodeIcon } from "lucide-react";
 import { cn, getContrastColor } from "@/lib/utils";
 import { LazyLoadImage } from "../lazy-load-image";
 import { getAppResource } from "@/lib/images";
@@ -28,14 +28,14 @@ export function AppPageCard({ app }: AppPageCardProps) {
 					alt=""
 					className="w-full h-36 md:h-56 object-cover"
 				/>
-			: null}
+				: null}
 			<div className="flex flex-col md:flex-row md:items-end gap-4 p-5 md:p-6">
 				<div className="flex flex-row items-end gap-4 min-w-0">
 					<AppIcon
 						appId={app.id}
 						width={96}
 						height={96}
-						className={cn("ring-4 ring-card shadow-lg", app.data.cover ? "-mt-14 md:-mt-16" : "")}
+						className={cn("relative z-10 ring-4 ring-card shadow-lg", app.data.cover ? "-mt-14 md:-mt-16" : "")}
 					/>
 					<div className="min-w-0 pb-1">
 						<h1 className="text-2xl md:text-3xl font-bold leading-tight text-balance">
@@ -50,7 +50,7 @@ export function AppPageCard({ app }: AppPageCardProps) {
 							>
 								{app.data.author}
 							</a>
-						:
+							:
 							<p className="text-muted-foreground text-sm">{app.data.author}</p>
 						}
 					</div>
@@ -62,19 +62,20 @@ export function AppPageCard({ app }: AppPageCardProps) {
 						className="w-full md:w-auto md:px-8 rounded-full font-semibold shadow-md transition-[filter,scale] hover:brightness-110 active:scale-95"
 						style={{
 							backgroundColor: app.data.accentColor,
-							color: getContrastColor(app.data.accentColor)
-						}}
+							color: getContrastColor(app.data.accentColor),
+							"--tw-shadow-color": `color-mix(in srgb, ${app.data.accentColor} 50%, transparent)`,
+						} as React.CSSProperties}
 					>
 						<a
 							href={app.data.url}
 							target="_blank"
 							rel="noreferrer noopener"
 						>
-							<ExternalLinkIcon/>
+							<ExternalLinkIcon />
 							Open
 						</a>
 					</Button>
-					<InstallDialog app={app}/>
+					<InstallDialog app={app} />
 				</div>
 			</div>
 
@@ -83,44 +84,51 @@ export function AppPageCard({ app }: AppPageCardProps) {
 				{appCategories.length ?
 					<InfoCell label={appCategories.length > 1 ? "Categories" : "Category"}>
 						<span className="flex flex-row items-center justify-center gap-2">
-							<CategoryIcon category={appCategories[0]} className="size-6"/>
+							<CategoryIcon category={appCategories[0]} className="size-6" />
 							<a href={`/category/${appCategories[0].id}`} className="hover:underline">
 								{appCategories[0].name}
 							</a>
 							{appCategories.length > 1 ?
 								<span className="text-muted-foreground font-normal">+{appCategories.length - 1}</span>
-							: null}
+								: null}
 						</span>
 					</InfoCell>
-				: null}
+					: null}
 				{platforms ?
 					<InfoCell label="Made for">
 						<span className="flex flex-row items-center justify-center gap-2">
-							{app.data.features.includes("desktop") ? <LaptopIcon className="size-5" aria-hidden/> : null}
-							{app.data.features.includes("mobile") ? <SmartphoneIcon className="size-5" aria-hidden/> : null}
+							<PlatformIcon features={app.data.features} />
 							{platforms}
 						</span>
 					</InfoCell>
-				: null}
+					: null}
 				{app.data.features.includes("offline") ?
 					<InfoCell label="Offline">
 						<span className="flex flex-row items-center justify-center gap-2">
-							<CloudOffIcon className="size-5" aria-hidden/>
+							<CloudOffIcon className="size-5" aria-hidden />
 							Works offline
 						</span>
 					</InfoCell>
-				: null}
+					: null}
 				{app.data.features.includes("open-source") ?
 					<InfoCell label="Source">
 						<span className="flex flex-row items-center justify-center gap-2">
-							<SquareCodeIcon className="size-5" aria-hidden/>
+							<SquareCodeIcon className="size-5" aria-hidden />
 							Open source
 						</span>
 					</InfoCell>
-				: null}
+					: null}
 			</dl>
 		</Card>
 	)
+}
+
+// One icon per cell like the others; the label already names the platforms.
+function PlatformIcon({ features }: { features: string[] }) {
+	const desktop = features.includes("desktop");
+	const mobile = features.includes("mobile");
+	const Icon = desktop && mobile ? MonitorSmartphoneIcon : desktop ? LaptopIcon : SmartphoneIcon;
+	return <Icon className="size-5" aria-hidden />;
 }
 
 interface InfoCellProps {
